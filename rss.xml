@@ -1,0 +1,474 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+    <title>Feed Name</title>
+    <link>http://domain/</link>
+    <atom:link href="http://domain/rss.xml" rel="self" type="application/rss+xml" />
+    <description></description>
+    <language>en-au</language>
+    <pubDate>ma, 21 okt 2013 15:52:37 %z</pubDate>
+    <lastBuildDate>ma, 21 okt 2013 15:52:37 %z</lastBuildDate>
+
+    
+    <item>
+      <title>Bluetooth Keyboard on the Raspberry Pi</title>
+      <link>http://domain/blog/bluetooth-keyboard-on-the-raspberry-pi/</link>
+      <pubDate>ma, 18 feb 2013 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/bluetooth-keyboard-on-the-raspberry-pi/</guid>
+      <description>&lt;p&gt;&lt;a href=&quot;/img/blog/raspberry.jpg&quot;&gt;&lt;img style=&quot;background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;&quot; title=&quot;Raspberry Pi&quot; src=&quot;/img/blog/raspberry_thumb.jpg&quot; alt=&quot;Raspberry Pi&quot; align=&quot;right&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;So I joined the hype and got myself a &lt;a href=&quot;http://www.raspberrypi.org/&quot; target=&quot;_blank&quot;&gt;Raspberry Pi&lt;/a&gt;. I loaded it with &lt;a href=&quot;http://www.raspbmc.com/&quot; target=&quot;_blank&quot;&gt;RaspBMC&lt;/a&gt; and now I’ve got a nice little media centre connected to my TV. All my music and pictures already reside on a NAS in the utility closet upstairs. I experimented with using my PS3 as a media center (too noisy and bad codec support) and with a &lt;a href=&quot;http://en.wikipedia.org/wiki/Digital_Living_Network_Alliance&quot; target=&quot;_blank&quot;&gt;DLNA&lt;/a&gt; capable blu-ray player (silent, but clumsy UI and also bad codec support), but nothing really worked that great. With the Raspberry, I now have a great front-end for my media collection. It’s silent (passively cooled) and runs every file I throw at it.&lt;/p&gt;
+&lt;p&gt;I planned to do some other stuff with this Raspberry, so I picked up this Bluetooth PS3 keyboard from a bargain bin and a &lt;a href=&quot;http://www.trust.com/products/productsupport.aspx?artnr=17124&quot; target=&quot;_blank&quot;&gt;Bluetooth dongle&lt;/a&gt;. Thinking that Bluetooth is a pretty well known these days, I thought pairing it with the Raspberry would be a piece of pie.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/img/blog/ps3keyboard.jpg&quot;&gt;&lt;img style=&quot;background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;&quot; title=&quot;Playstation 3 Keyboard&quot; src=&quot;/img/blog/ps3keyboard_thumb.jpg&quot; alt=&quot;Playstation 3 Keyboard&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Boy, was I wrong. I don’t speak Linux and apparently Linux doesn’t really speak Bluetooth that well. Luckily, I speak Google pretty well and after an evening tinkering with obscure command line tools and strange text editors, I managed to get it to work.&lt;/p&gt;
+&lt;p&gt;So if anyone out there is struggling to get a Bluetooth Keyboard to work on the Raspberry Pi, here are the instructions to get it to work.&lt;/p&gt;
+&lt;h3&gt;Step One: SSH&lt;/h3&gt;
+&lt;p&gt;The first step is to connect to the Raspberry. Since I didn’t have a keyboard (duh!), I needed another way. This is where &lt;a href=&quot;http://en.wikipedia.org/wiki/Secure_Shell&quot; target=&quot;_blank&quot;&gt;SSH&lt;/a&gt; comes in. SSH is basically Remote Desktop to the Linux console. Remote Console, actually. All you need is an SSH client like &lt;a href=&quot;http://www.chiark.greenend.org.uk/~sgtatham/putty/&quot; target=&quot;_blank&quot;&gt;Putty&lt;/a&gt;, the IP address of your Raspberry and your login credentials.&lt;/p&gt;
+&lt;p&gt;At this point I realised that I didn’t really need a keyboard connected to the Raspberry to tinker with it. With SSH I could do anything I wanted to do that I thought I would need a keyboard for. But such details are not going to stop me from connecting this keyboard!&lt;/p&gt;
+&lt;h3&gt;Step Two: Apt&lt;/h3&gt;
+&lt;p&gt;Since the Raspberry Pi has no Bluetooth built-in, the Linux version that runs on it has no Bluetooth support baked in. This means you will need to install it yourself. Now Linux has this wonderful tool called &lt;a href=&quot;http://en.wikipedia.org/wiki/Advanced_Packaging_Tool&quot; target=&quot;_blank&quot;&gt;Apt&lt;/a&gt;. Basically, Apt is the ‘Add and Remove Programs’ of the Linux world.  In the console, just type:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:ce8bf000-382e-4328-b983-e08f40704f62&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;sudo apt-get update&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;This will update a cache of all available programs and their dependencies. To download and install all the components needed to connect a Bluetooth keyboard to the Raspberry Pi, I had to enter:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:e94f8cef-907b-4921-9a50-b572d1d8e451&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;sudo apt-get install bluez python-gobject&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;This will download and install both &lt;a href=&quot;http://www.bluez.org/&quot; target=&quot;_blank&quot;&gt;Bluez&lt;/a&gt; (a Linux Bluetooth stack and tools)  and the python bindings for &lt;a href=&quot;http://en.wikipedia.org/wiki/GObject&quot; target=&quot;_blank&quot;&gt;GObject&lt;/a&gt; (this is needed for the python scripts that power Bluez). For me, the installation failed with the following error message:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:5e3c1309-2211-46c2-a16c-3282bcd5413c&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;Service dbus has to be enabled to start service bluetooth&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Now that is a great error message! &lt;a href=&quot;http://en.wikipedia.org/wiki/D-Bus&quot; target=&quot;_blank&quot;&gt;Dbus&lt;/a&gt; is a way for applications to talk to another on Linux. Apparently this is needed, so I enabled this magic dbus this with&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:252f3ca5-d93d-444b-a4c2-734d5b6f8f7f&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;sudo update-rc.d -f dbus defaults&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;I re-ran the ‘apt-get install bluez python-gobject’ command and now Bluetooth was activated on my Raspberry Pi. You can check this by running the following command:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:c9c054ca-1eac-43f4-b231-97f1dd71ca7f&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;hcitool dev&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;This should return the location and the address of your Bluetooth Dongle.&lt;/p&gt;
+&lt;h3&gt;Step 3: Pairing&lt;/h3&gt;
+&lt;p&gt;Now we have to get this keyboard and this Bluetooth dongle to speak to each other. Set your keyboard in connection mode and type:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:2978023d-c133-4658-8d7b-93b3ce15cb32&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;html&quot;&gt;hcitool scan&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Scanning will give you the address of the keyboard like this:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:8470802a-969a-4f53-ab6e-25017b801f68&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;Scanning ...
+        23:E4:87:4C:B3:A1       Wireless Keyboard&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Copy this address because we will need it in the following steps of the process. We initialize the pairing between the Raspberry and the keyboard with this command:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:6b891cb6-ae83-4f1f-b36d-99fb8aa75e26&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;bluez-simple-agent hci0 23:E4:87:4C:B3:A1&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;If everything goes well, you will be prompted to type a passkey with your keyboard:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:1bd3a6c2-e3b3-4572-a436-db09a0eb0a9d&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;DisplayPasskey (/org/bluez/14656/hci0/dev_23_E4_87_4C_B3_A1, 936319)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Your passkey is the number at the end of the line. &lt;strong&gt;Don’t forget to press ‘Enter’ after typing the passcode!&lt;/strong&gt; Now your device is paired with the Raspberry Pi.&lt;/p&gt;
+&lt;p&gt;However, this command failed for me with a cryptic error message (‘Creating device failed: org.bluez.Error.AuthenticationRejected: Authentication Rejected’). Furiously googling brought me to &lt;a href=&quot;http://forums.gentoo.org/viewtopic-p-7207162.html&quot; target=&quot;_blank&quot;&gt;a forum&lt;/a&gt; where they suggested to crack open a python script and change the word ‘KeyboardDisplay’ with ‘DisplayYesNo’. At this point I was ready to try anything, so I opened the script with this:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:a4ac99c3-7890-4f5c-afa9-44bed198a7fe&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;sudo nano /usr/bin/bluez-simple-agent&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;This will open &lt;a href=&quot;http://en.wikipedia.org/wiki/Nano_(text_editor)&quot; target=&quot;_blank&quot;&gt;nano&lt;/a&gt;, a command line text editor. I changed the one occurrence of ‘KeyboardDisplay’ with ‘DisplayYesNo’, closed the editor with ctrl-x (saving the file, of course) and tried the ‘bluez-simple-agent hci0 23:E4:87:4C:B3:A1’ command again. My keyboard was now paired to the Raspberry. I’m starting to like this Linux stuff…&lt;/p&gt;
+&lt;h3&gt;Step 4: Trusting &amp; Connecting&lt;/h3&gt;
+&lt;p&gt;The final stage is making sure that the raspberry will automatically connect to the keyboard when it is turned on. This is called ‘trusting’ and is invoked by this command:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:d951d554-974f-4bd5-89d2-b351cb884dd8&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;bluez-test-device trusted 23:E4:87:4C:B3:A1 yes&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;After trusing it, all you need to do is connect to it:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:d951d554-974f-4bd5-89d2-b351cb884dd9&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; margin: 0px; display: inline; padding: 0px;&quot;&gt;
+&lt;pre lang=&quot;dos&quot;&gt;bluez-test-input connect 23:E4:87:4C:B3:A1 yes&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Right now I can turn on my keyboard and it will ‘just work’ on my raspberry. It was a bit more work than I anticipated, but I learned a lot while figuring it out.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Layerless: Webforms 4.5 Databinding</title>
+      <link>http://domain/blog/layerless-webforms-4-5-databinding/</link>
+      <pubDate>do, 13 dec 2012 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/layerless-webforms-4-5-databinding/</guid>
+      <description>&lt;p&gt;Data binding in Webforms has never been easy. Either you used the &lt;a title=&quot;Msdn article&quot; href=&quot;http://msdn.microsoft.com/en-us/library/system.web.ui.datasourcecontrol.aspx&quot; target=&quot;_blank&quot;&gt;Datasource Controls&lt;/a&gt; and end up with an overcrowded markup; or you bind your data manually in the codebehind and end up with an overcrowded codebehind page. No matter what you chose, ‘magic strings’ will be used and you can forget about testability. Those hipster MVC folks have so much easier. One method on the controller just supplies the view with data. No lifecycle, no magic strings, just clean code.&lt;/p&gt; &lt;p&gt;Luckily for us, Webforms is getting a small piece of the MVC world in the 4.5 release: the old &lt;a title=&quot;Msdn Article&quot; href=&quot;http://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.databoundcontrol.aspx&quot; target=&quot;_blank&quot;&gt;Databound Controls&lt;/a&gt; (repeater, gridview, listview,…) are augmented with a series of properties that greatly simplify data binding&lt;/p&gt; &lt;p&gt;The first one is the &lt;a title=&quot;Msdn Article&quot; href=&quot;http://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.databoundcontrol.selectmethod.aspx&quot; target=&quot;_blank&quot;&gt;SelectMethod&lt;/a&gt; property. You can give this property the name of a method in the codebehind. This method should return the data that the control needs to be bound to.&lt;/p&gt; &lt;p&gt;The second property is &lt;a title=&quot;Msdn Article&quot; href=&quot;http://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.databoundcontrol.itemtype.aspx&quot; target=&quot;_blank&quot;&gt;ItemType&lt;/a&gt;. Here you can enter the TypeName of the class that you are binding to. This will give you Intellisense support while creating your ItemTemplate.&lt;/p&gt; &lt;p&gt;Let’s see how this all works together:&lt;/p&gt;  &lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:853dc945-0e8d-4661-9f16-5e4f95899055&quot; class=&quot;wlWriterEditableSmartContent&quot; style=&quot;float: none; padding-bottom: 0px; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px&quot;&gt;&lt;pre lang=&quot;html&quot;&gt;&lt;code&gt;&lt;asp:ListView id=&quot;ListOfUsers&quot; runat=&quot;server&quot; ItemType=&quot;Sioen.Layerless.Web.Pages.Account.UserModel&quot; SelectMethod=&quot;ListUsers&quot;&gt;
+    &lt;ItemTemplate&gt;&lt;li&gt;&lt;a href=&quot;&lt;%#GetRouteUrl(&quot; UserAction&quot;, new{action=&quot;view&quot;, id=Item.Id}) %&gt;&quot;&gt;&lt;%# Item.UserName %&gt;&lt;/a&gt;&lt;/li&gt;&lt;/ItemTemplate&gt;
+&lt;/asp:ListView&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And on the server-side:&lt;/p&gt;
+&lt;div id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:95111ad4-70ed-47ba-afe1-47fad53c50ba&quot; class=&quot;wlWriterSmartContent&quot; style=&quot;float: none; padding-bottom: 0px; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px&quot;&gt;&lt;pre lang=&quot;csharp&quot;&gt;public IQueryable&lt;UserModel&gt; ListUsers()
+{
+    return Db.Query().Select(u =&gt; new UserModel{Id=u.Id, UserName=u.UserName});
+}&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Visual Studio will now light up like this, where Item will be of the type you defined in ItemType:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/img/blog/Knipsel.png&quot;&gt;&lt;img title=&quot;Knipsel&quot; style=&quot;border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px&quot; border=&quot;0&quot; alt=&quot;Knipsel&quot; src=&quot;img/blog/Knipsel.png&quot; width=&quot;244&quot; height=&quot;119&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The nice thing about this is of course that you will get compilation errors when a property changes. But the best thing about this is the two-way databinding support. But that is something for a next post.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linq All The Exceptions</title>
+      <link>http://domain/blog/linq-all-the-exceptions/</link>
+      <pubDate>di, 04 sep 2012 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/linq-all-the-exceptions/</guid>
+      <description>&lt;p&gt;At work we have this ‘Layered’ application where every layer catches Exceptions and re-throws them in an custom Exception type. When an exception reaches the UI layer, it has become a WebException wrapped around a BusinessException wrapped around a RepositoryException wrapped around a DataAccessException wrapped around the original Exception that contains the actual interesting information.&lt;/p&gt; &lt;p&gt;This not only renders the log file unreadable, it also makes it hard to throw meaningful exceptions. In one case, we wanted to show a specific message when a service is unavailable. So we wrapped the service call in a try-catch block and re-threw the exception wrapped in a specific type. Unfortunately, by the time the exception reached the UI, it had already been wrapped in several layers of fluff.&lt;/p&gt; &lt;p&gt;I cracked my knuckles and prepared myself to write another do-while loop to find the meaningful exception. But then I thought: “Wouldn’t linq be nice to have in this case? Then I could write code like this:” &lt;div style=&quot;padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; float: none; padding-top: 0px&quot; id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:00943ccb-6405-4442-adb6-fda27caacfd2&quot; class=&quot;wlWriterEditableSmartContent&quot;&gt;&lt;pre lang=&quot;csharp&quot;&gt;if(exception.ToEnumerable().Any(e =&gt; e is MyMeaningFullException))
+{
+    //Handle meaningfull exception
+}&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/img/blog/LinqAllTheExceptions.jpg&quot;&gt;&lt;img style=&quot;display: block; float: none; margin-left: auto; margin-right: auto&quot; title=&quot;LinqAllTheExceptions&quot; alt=&quot;LinqAllTheExceptions&quot; src=&quot;img/blog/LinqAllTheExceptions.jpg&quot; width=&quot;500&quot; height=&quot;375&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This was surprisingly easy to do:&lt;/p&gt;
+&lt;div style=&quot;padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; float: none; padding-top: 0px&quot; id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:a4389010-eae0-4cff-b68b-a3eabc4c048b&quot; class=&quot;wlWriterEditableSmartContent&quot;&gt;&lt;pre lang=&quot;csharp&quot;&gt; public static IEnumerable&lt;Exception&gt; ToEnumerable(this Exception exception)
+{
+    if(exception == null)
+    {
+        yield break;
+    }
+
+    do
+    {
+        yield return exception;
+        exception = exception.InnerException;
+    } while (exception != null);
+}&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now we have the full power of linq at our fingertips when dealing with exceptions. FTW!&lt;/p&gt;
+&lt;p&gt;To make &lt;a href=&quot;http://petermorlion.blogspot.be/2012/08/when-do-you-write-your-tests.html&quot; target=&quot;_blank&quot;&gt;Peter&lt;/a&gt; happy, here are some Unit Tests :)&lt;/p&gt;
+&lt;div style=&quot;padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; float: none; padding-top: 0px&quot; id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:15c531c7-4277-4614-9abb-5421173bf419&quot; class=&quot;wlWriterEditableSmartContent&quot;&gt;&lt;pre lang=&quot;csharp&quot;&gt;[Test]
+public void TestArgumentNull()
+{
+    Exception exception = null;
+    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(0));
+}
+
+[Test]
+public void TestOneException()
+{
+    var exception = new Exception(&quot;lalal&quot;);
+    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(1));
+}
+
+[Test]
+public void TestTwoExceptions()
+{
+    var exception = new Exception(&quot;one&quot;, new Exception(&quot;two&quot;));
+    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(2));
+    Assert.That((from e in exception.ToEnumerable() select e.Message).ToArray(), Is.EqualTo(new[]{&quot;one&quot;, &quot;two&quot;}));
+}
+
+[Test]
+public void TestALotOfExceptions()
+{
+    var exception = new Exception(&quot;one&quot;, new Exception(&quot;two&quot;, new Exception(&quot;three&quot;, new Exception(&quot;four&quot;, new Exception(&quot;five&quot;, null)))));
+    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(5));
+    Assert.That((from e in exception.ToEnumerable() select e.Message).ToArray(), Is.EqualTo(new[] { &quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot; }));
+}&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Layerless: How I Learned to Stop Worrying and Love the IQueryable</title>
+      <link>http://domain/blog/layerless-how-i-learned-to-stop-worrying-and-love-the-iqueryable/</link>
+      <pubDate>do, 14 jun 2012 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/layerless-how-i-learned-to-stop-worrying-and-love-the-iqueryable/</guid>
+      <description>&lt;p&gt;In my &lt;a href=&quot;http://www.correlatedcontent.com/blog/layerless-repositories/&quot;&gt;last post&lt;/a&gt; repositories were made simpler and more descriptive. The central piece in this was the &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/system.linq.iqueryable.aspx&quot; target=&quot;_blank&quot;&gt;IQueryable&lt;/a&gt;. This interface is at the core of every &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/bb546158.aspx&quot; target=&quot;_blank&quot;&gt;Linq Provider&lt;/a&gt;. A Linq Provider is the machinery that will convert our linq statements in a format that is readable for the underlying datastore (e.g. sql, xpath,...). Using the IQueryable as the core of your data access strategy enables us to do some nifty things. In this post I will examine two of them: Composite Queries and Projections. In a next post I will show how these can be used to improve databinding in Webforms 4.5&lt;/p&gt; &lt;p&gt;&lt;strong&gt;Composite Queries&lt;/strong&gt;&lt;/p&gt; &lt;p&gt;One of the more tricky elements of linq is the idea of deferred execution: a linq statement will only be executed when it is enumerated. This is the source of some &lt;a title=&quot;Different outcome after applying ToList()&quot; href=&quot;http://stackoverflow.com/questions/10701255/different-outcome-after-applying-tolist&quot; target=&quot;_blank&quot;&gt;subtle bugs&lt;/a&gt;, but also very powerful. This means we can chain several of the extension methods I &lt;a title=&quot;Layerless: Repositories&quot; href=&quot;http://www.correlatedcontent.com/blog/layerless-repositories/&quot;&gt;talked about earlier&lt;/a&gt; together to create a composite query:&lt;/p&gt; &lt;div style=&quot;padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; float: none; padding-top: 0px&quot; id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:bbbf3fd2-e076-43ed-856b-67d6c8327253&quot; class=&quot;wlWriterEditableSmartContent&quot;&gt;&lt;pre lang=&quot;csharp&quot;&gt;var result = Db.Query&lt;User&gt;()
+                .OlderThan(9)
+                .UserNameStartingWith(&quot;E&quot;);&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Since the query will only be generated once the IQueryable is enumerated, the resulting query will be (SqlCE syntax):&lt;/p&gt;
+&lt;div style=&quot;padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; float: none; padding-top: 0px&quot; id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:6b7de72c-e976-49e0-9aaf-3c423422ea0c&quot; class=&quot;wlWriterEditableSmartContent&quot;&gt;&lt;pre lang=&quot;sql&quot;&gt;select user0_.UserId as UserId0_, user0_.UserName as UserName0_, user0_.BirthDate as BirthDate0_
+    from [User] user0_ 
+    where (user0_.BirthDate is not null) and 
+    dateadd(dd, 0, datediff(dd, 0, user0_.BirthDate))&lt;? and 
+    (user0_.UserName like (?+&apos;&apos;%&apos;&apos;))&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This allows us to define fragmented queries that can be used to compose larger queries. This also allows for something pretty nice in Webforms 4.5.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Projections&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Another lovely feature you get for free by using a modern ORM with a decent Linq Provider are projections. This basically means you’ll only select the fields from the database what you need. NHibernate has always had &lt;a href=&quot;http://nhforge.org/doc/nh/en/index.html#querycriteria-projection&quot; target=&quot;_blank&quot;&gt;projections&lt;/a&gt;, but they were never easy to set up. The linq provider in NHibernate gives us a much nicer developer experience. For example this statement:&lt;/p&gt;
+&lt;div style=&quot;padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; float: none; padding-top: 0px&quot; id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:75debf41-b229-4d71-963a-ed78e239740e&quot; class=&quot;wlWriterEditableSmartContent&quot;&gt;&lt;pre lang=&quot;csharp&quot;&gt;var result = Data.Select(u =&gt; u.UserName).ToList();&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Will produce the following query:&lt;/p&gt;
+&lt;div style=&quot;padding-bottom: 0px; margin: 0px; padding-left: 0px; padding-right: 0px; display: inline; float: none; padding-top: 0px&quot; id=&quot;scid:4318B029-7F5A-4155-A9CF-329C469B73B3:bc2b5c26-8697-4698-a19f-072a357162fc&quot; class=&quot;wlWriterEditableSmartContent&quot;&gt;&lt;pre lang=&quot;sql&quot;&gt;select user0_.UserName as col_0_0_ from [User] user0_&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So instead of the complete User object, we only get the fields we asked for. This is handy if we want to construct a Viewmodel for databinding and not the Entity. Using Viewmodels is also something that will make our life easier in the Webforms 4.5 world. So stay tuned for the next instalment of the Correlated Content blog – now in English.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>So I’ll be doing this in English now</title>
+      <link>http://domain/blog/so-ill-be-doing-this-in-english-now/</link>
+      <pubDate>wo, 13 jun 2012 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/so-ill-be-doing-this-in-english-now/</guid>
+      <description>&lt;p&gt;Since English is the &lt;a href=&quot;http://en.wikipedia.org/wiki/Lingua_franca&quot; target=&quot;_blank&quot;&gt;Lingua Franca&lt;/a&gt; among programmers, I’ll be blogging in English now. Probably hairy English, but if something I wrote could accidently help a programmer in Botswana, but he or she cannot understand it because it is written in Dutch, then this blog overshoots it’s purpose. Also, my number one reason to start this blog was to teach myself new stuff. So why not practice my English while I’m at it. I’ll be translating the old posts soon.&lt;/p&gt; &lt;p&gt;So prepare your eyes for some horrendously constructed sentences in the future…&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Layerless: Repositories</title>
+      <link>http://domain/blog/layerless-repositories/</link>
+      <pubDate>wo, 25 apr 2012 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/layerless-repositories/</guid>
+      <description>&lt;p&gt;Na wat &lt;a href=&quot;http://www.correlatedcontent.com/blog/hoeveel-laagjes-heb-je-nodig-om-een-gloeilamp-te-vervangen/&quot;&gt;abstract gezweef&lt;/a&gt; is het nu tijd om de borst nat te maken en in het codebad te duiken. Laten we beginnen met het elimineren van een noodzakelijk kwaad: &lt;a href=&quot;http://martinfowler.com/eaaCatalog/repository.html&quot; target=&quot;_blank&quot;&gt;Repositories&lt;/a&gt;. Niet dat deze zo slecht zijn, maar als je constructors er als volgt beginnen uitzien:&lt;/p&gt;&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; UserController(IUserRepository userRepository,
+                                  IRoleRepository roleRepository, 
+                                  IAccessRepository accessRepository, 
+                                  IExternalLinkRepository externalLinkRepository)&lt;/pre&gt;
+&lt;p&gt;Dan noem ik dat een &lt;a href=&quot;http://en.wikipedia.org/wiki/Code_smell&quot; target=&quot;_blank&quot;&gt;code smell&lt;/a&gt;. Gelukkig hebben we &lt;a href=&quot;http://en.wikipedia.org/wiki/Dependency_injection&quot; target=&quot;_blank&quot;&gt;Dependency Injection&lt;/a&gt; om ons het leven gemakkelijk te maken, maar elegante code kan je dit bezwaarlijk noemen. Het unit testen ervan is al een hele ramp:&lt;/p&gt;&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;rem&quot;&gt;//Arrange&lt;/span&gt;
+var userRepository = MockRepository.GenerateMock&amp;lt;IUserRepository&amp;gt;();
+var roleRepository = MockRepository.GenerateMock&amp;lt;IRoleRepository&amp;gt;();
+var accessRepository = MockRepository.GenerateMock&amp;lt;IAccessRepository&amp;gt;();
+var externalLinkRepository = MockRepository.GenerateMock&amp;lt;IExternalLinkRepository&amp;gt;();
+            
+var userController = &lt;span class=&quot;kwrd&quot;&gt;new&lt;/span&gt; UserController(userController,
+                                                                  roleRepository, 
+                                                                  accessRepository, 
+                                                                  externalLinkRepository);&lt;/pre&gt;
+&lt;p&gt;Dat allemaal om een methode te testen die mogelijks maar de helft van die dependencies nodig heeft.&lt;/p&gt;
+&lt;p&gt;“Ok meneertje beterweet”, hoor ik je al denken, “wat stel je dan voor?” Simpel: we koppelen het opbouwen van de query los van de uitvoering ervan. Aanschouw onze &lt;a href=&quot;https://github.com/Lodewijk-S/Sioen.Layerless/blob/e3917683d35cf042f1b3ffcf87396b7cbe74da75/Sioen.Layerless.Infrastructure/Data/IQueryExecutor.cs&quot; target=&quot;_blank&quot;&gt;QueryExecutor&lt;/a&gt;:&lt;/p&gt;&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;interface&lt;/span&gt; IQueryExecutor
+{        
+    T One&amp;lt;T&amp;gt;(Guid id);
+    &lt;span class=&quot;kwrd&quot;&gt;void&lt;/span&gt; Save&amp;lt;T&amp;gt;(T entity);
+    &lt;span class=&quot;kwrd&quot;&gt;void&lt;/span&gt; Delete&amp;lt;T&amp;gt;(T entity);
+
+    IQueryable&amp;lt;T&amp;gt; Query&amp;lt;T&amp;gt;();
+    T Query&amp;lt;T&amp;gt;(Query&amp;lt;T&amp;gt; query);
+}&lt;/pre&gt;
+&lt;p&gt;’One’, ‘Save’ en ‘Delete’ spreken voor zich. Het wordt pas interessant wanneer we bij de twee Query functions komen. De eerste geeft je IQueryable waarmee een linq query kan opgebouwd worden:&lt;/p&gt;&lt;pre class=&quot;csharpcode&quot;&gt;var result = from u &lt;span class=&quot;kwrd&quot;&gt;in&lt;/span&gt; Db.Query&amp;lt;User&amp;gt;()
+             &lt;span class=&quot;kwrd&quot;&gt;where&lt;/span&gt; u.BirthDate &amp;lt; DateTime.Now.Date.AddYears(-10)
+             select u;&lt;/pre&gt;
+&lt;p&gt;Je kan dus gemakkelijk de queries gaan declareren in de applicatiecode die het resultaat nodig heeft. Dit maakt de boel leesbaarder, maar roept wel herinneringen op van de tijd toen de sql-statements kwistig in de codebehind werden rondgestrooid. Niets houdt ons echter tegen om onze queries nog steeds te gaan groeperen in Repositories. Enkel het uitvoeren van die queries koppelen we los. Dankzij Extension Methods kunnen we dit op een bijzonder elegante manier doen:&lt;/p&gt;&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;class&lt;/span&gt; UserRepositroy
+{
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;static&lt;/span&gt; IQueryable&amp;lt;User&amp;gt; GetUsersOlderThan(&lt;span class=&quot;kwrd&quot;&gt;this&lt;/span&gt; IQueryable&amp;lt;User&amp;gt; db, &lt;span class=&quot;kwrd&quot;&gt;int&lt;/span&gt; years)
+    {
+        &lt;span class=&quot;kwrd&quot;&gt;return&lt;/span&gt; from u &lt;span class=&quot;kwrd&quot;&gt;in&lt;/span&gt; db
+               &lt;span class=&quot;kwrd&quot;&gt;where&lt;/span&gt; u.BirthDate &amp;lt; DateTime.Now.Date.AddYears(-10)
+               select u;
+    }
+}&lt;/pre&gt;
+&lt;p&gt;In gebruik ziet dit er als volgt uit:&lt;/p&gt;&lt;pre class=&quot;csharpcode&quot;&gt;var users = Db.Query&amp;lt;User&amp;gt;().GetUsersOlderThan(10);&lt;/pre&gt;
+&lt;p&gt;Unit testen zijn een makkie, want we kunnen de QueryExecutor gemakkelijk wegmocken en een in-memory lijstje opbouwen met de inhoud van de database.&lt;/p&gt;
+&lt;p&gt;Er zijn natuurlijk momenten dat je linq-provider tekort schiet. Om die op te vangen hebben we de tweede query methode. Deze onvangt een Query object dat een implementatie hiervan is:&lt;/p&gt;&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;class&lt;/span&gt; Query&amp;lt;T&amp;gt;
+{
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;abstract&lt;/span&gt; IList&amp;lt;T&amp;gt; Execute(ISession session);
+}&lt;/pre&gt;
+&lt;p&gt;De query van daarnet zou er bijvoorbeeld als volgt kunnen uitzien:&lt;/p&gt;&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;class&lt;/span&gt; UsersOlderThan : Query&amp;lt;User&amp;gt;
+{
+    &lt;span class=&quot;kwrd&quot;&gt;private&lt;/span&gt; DateTime _birthDate;
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; UsersOlderThan(&lt;span class=&quot;kwrd&quot;&gt;int&lt;/span&gt; age)
+    {
+        _birthDate = DateTime.Now.Date.AddYears(-age);
+    }
+
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;override&lt;/span&gt; IList&amp;lt;User&amp;gt; Execute(ISession session)
+    {
+        &lt;span class=&quot;kwrd&quot;&gt;return&lt;/span&gt; session.CreateCriteria&amp;lt;User&amp;gt;().Add(Expression.Lt(&lt;span class=&quot;str&quot;&gt;&quot;BirthDate&quot;&lt;/span&gt;, _birthDate)).List&amp;lt;User&amp;gt;();
+    }
+}&lt;/pre&gt;
+&lt;p&gt;Dit valt opnieuw perfect te unit testen alhoewel je nu wel naar de database zal moeten gaan.&lt;/p&gt;
+&lt;p&gt;Door het uitvoeren van queries los te trekken, is de Repository teruggebracht tot zijn oorspronkelijke functie: het verzamelen van queries. Dit is eigenlijk niets meer dan het toepassen van het &lt;a href=&quot;http://en.wikipedia.org/wiki/Single_responsibility_principle&quot; target=&quot;_blank&quot;&gt;Single responsibility principle&lt;/a&gt;. Zo vermijden we dat ons systeem overbelast wordt met eenmalig geïmplementeerde interfaces en nodeloos lange constructors. De boel wordt er simpeler door zonder compromissen te sluiten.&lt;/p&gt;
+&lt;p&gt;De proof-of-concept code van dit stuk kan je vinden in een &lt;a href=&quot;https://github.com/Lodewijk-S/Sioen.Layerless&quot; target=&quot;_blank&quot;&gt;Github repository&lt;/a&gt;. Commentaar is altijd welkom.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hoeveel laagjes heb je nodig om een gloeilamp te vervangen</title>
+      <link>http://domain/blog/hoeveel-laagjes-heb-je-nodig-om-een-gloeilamp-te-vervangen/</link>
+      <pubDate>zo, 11 mrt 2012 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/hoeveel-laagjes-heb-je-nodig-om-een-gloeilamp-te-vervangen/</guid>
+      <description>&lt;p&gt;Toen de Goden de &lt;a href=&quot;http://en.wikipedia.org/wiki/Multitier_architecture&quot; target=&quot;_blank&quot;&gt;multi-tier architectuur&lt;/a&gt; bedachten, hebben ze de wereld een prachtig model geschapen om software te ontwikkelen.  Programmeurs overal ter lande begonnen hun applicatie in meerdere lagen op te delen. Het opdelen in drie lagen werd algauw het meest populair. Eén laag voor de gegevens, genesteld in een databank. Eén laag voor het bewerken van die data, zoals beschreven in het domein. En één laag voor het tonen van die data, over het web of lokaal.&lt;/p&gt;
+&lt;p&gt;Deze scheiding werd expliciet gemaakt: elke laag kreeg zijn eigen project in Visual Studio, zijn eigen unittesten en zijn eigen interfaces. Want de heilige Scheiding der Lagen mocht enkel doorbroken worden door de Interface. De priesters van &lt;a href=&quot;http://en.wikipedia.org/wiki/Inversion_of_Control&quot; target=&quot;_blank&quot;&gt;IoC&lt;/a&gt;, &lt;a href=&quot;http://en.wikipedia.org/wiki/Dependency_injection&quot; target=&quot;_blank&quot;&gt;DI&lt;/a&gt; en &lt;a href=&quot;http://en.wikipedia.org/wiki/Service_locator_pattern&quot; target=&quot;_blank&quot;&gt;Service Location&lt;/a&gt; zorgden ervoor dat we gemakkelijk de weg vonden naar deze bruggen over de Scheiding der Lagen.&lt;/p&gt;
+&lt;p&gt;Alles was goed in software land. Projecten werden op tijd opgeleverd, programmeurs waren gelukkig en vonden tijd om aan sport te doen, helpdesktelefoons waren stil… Maar was alles echt wel zoals het leek? Was er niet hier en daar een gemorrel van een ontevreden programmeur? Zou het kunnen dat de Scheiding Der Lagen dan toch niet het einde betekende van de eeuwenlange zoektocht van de mensheid naar een goed model van softwareontwikkeling? Wat lezen we plots op &lt;a href=&quot;https://twitter.com/#!/polkadragon/status/184626934624423937&quot; target=&quot;_blank&quot;&gt;twitter&lt;/a&gt;?&lt;/p&gt;
+&lt;blockquote&gt;“Als je 1 veldje al op bijna 7 lagen moeten toevoegen hebt, weet je dat een applicatie &quot;slightly&quot; overengineered is...”&lt;/blockquote&gt;
+&lt;p&gt;Heiligschennis! Of niet? Wat schrijft die raaskallende Israëliet daar op zijn &lt;a href=&quot;http://ayende.com/blog/153889/limit-your-abstractions-analyzing-a-ddd-application&quot; target=&quot;_blank&quot;&gt;blog&lt;/a&gt;?&lt;/p&gt;
+&lt;blockquote&gt;…the interfaces that it has reveal a common problem, namely, interface explosion, or over abstraction. (…) The problem is that the way this application is structured, it is highly procedural and had to maintain.&lt;/blockquote&gt;
+&lt;p&gt;Zou er misschien een andere manier mogelijk zijn? Zou het werkbaar zijn om een degelijke applicatie te maken zonder onze Drie (of meer) Lagen expliciet te gaan definiëren?&lt;/p&gt;
+&lt;p&gt;Alle gekheid op een stokje: Ik was gefascineerd door het alternatief dat Ayende op zijn blog omschreef. Zijn voorbeelden bleven beperkt tot wat pseudo-code, maar ik wilde dit toch eens wat concreter bekijken. Een goed idee voor een reeks blogposts dus. Ik ga mezelf wel een aantal beperkingen opleggen:&lt;/p&gt;
+&lt;ul&gt;
+	&lt;li&gt;Het wordt een WebForms applicatie&lt;/li&gt;
+	&lt;li&gt;We gebruiken NHibernate&lt;/li&gt;
+	&lt;li&gt;Alles moet onder testen staan&lt;/li&gt;
+	&lt;li&gt;Alle code zal in een publieke github repository staan&lt;/li&gt;
+	&lt;li&gt;We nemen .net 4.5 als framework&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Op die manier kan ik een aantal extra dingen meenemen die niet direct te maken hebben met het onderwerp. Als er iemand een goed idee heeft voor een applicatie die ik zou ontwikkelen, laat me dan maar weten.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Parallel vs Asynchroon</title>
+      <link>http://domain/blog/parallel-vs-asynchroon/</link>
+      <pubDate>di, 21 feb 2012 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/parallel-vs-asynchroon/</guid>
+      <description>&lt;p&gt;&lt;em&gt;In de &lt;/em&gt;&lt;a href=&quot;http://www.correlatedcontent.com/blog/spelen-met-de-task-parallel-library/&quot;&gt;&lt;em&gt;vorige post&lt;/em&gt;&lt;/a&gt;&lt;em&gt; heb ik vlug getoond hoe je met de Task Parallel Library code gelijktijdig kan laten uitvoeren. Daar was niet zo bijzonder. In deze post gaan we het parallelisme van de TPL gaan uitbreiden met asynchroniteit.&lt;/em&gt;&lt;/p&gt;
+&lt;h3&gt;Een Verhaaltje&lt;/h3&gt;
+&lt;p&gt;Maar eerst een waar gebeurd verhaal. Ik was eens in de Ikea. Ik had nog drie extra stukken nodig om een kast in elkaar te kunnen steken. De stukken lagen niet in de open rekken. Ik ging naar de balie en wachtte mijn beurt af. Toen het eindelijk aan mij was, stuurde de Ikea-medewerker er drie magazijniers erop uit om de drie stukken van mijn kast uit het magazijn te halen. Daarna vertelde de medewerker me om eventjes te wachten totdat de magazijniers alles gevonden hadden. Terwijl ik stond te wachten, hielp de Ikea-medewerker de volgende in de wachtrij verder.&lt;/p&gt;
+&lt;p&gt;“Wat een mooie analogie met asp.net”, dacht ik bij mezelf. “Die moet ik gebruiken als ik ooit blog over asynchroniteit!&apos;&apos;&apos;&apos;”&lt;/p&gt;
+&lt;p&gt;Inderdaad, net zoals er een beperkt aantal Ikea-medewerkers aan de balie staan, beschikt asp.net over beperkte resources om http-requests af te handelen: &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/ff647787.aspx#scalenetchapt06_topic8&quot; target=&quot;_blank&quot;&gt;Worker Threads&lt;/a&gt;. Als een request de pipeline van asp.net binnenkomt dan krijgt deze een Thread toegewezen. In principe wordt deze Thread pas vrijgegeven wanneer de volledige request is afgehandeld. We kunnen onze request vlugger afhandelen door werk parallel te laten uitvoeren.&lt;/p&gt;
+&lt;p&gt;Door drie magazijniers in het werk te steken, ben ik vlugger geholpen. Maar voor de andere mensen die staan te wachten aan de balie is het frustrerend om te wachten terwijl de Ikea-medewerker toch niets aan het doen is. Hier komt het asynchrone naar boven. Omdat ik toch aan het wachten ben om de magazijniers kan de Ikea-medewerker de volgende persoon in de wachtrij verder helpen. Voor mij maakt dit niets uit, maar de wachtrij zal vlugger afgehandeld worden.&lt;/p&gt;
+&lt;h3&gt;To The Codes!&lt;/h3&gt;
+&lt;p&gt;Hoe gaan we dit niet simuleren in asp.net? In MVC3 hebben we de &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/ee728598.aspx&quot; target=&quot;_blank&quot;&gt;AsyncController&lt;/a&gt; gekregen. Als we deze gebruiken, kunnen we het volgend patroon gebruiken in onze Action Methods:&lt;/p&gt;
+&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;class&lt;/span&gt; ParallelController : AsyncController
+{
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;void&lt;/span&gt; IndexAsync()
+    {
+    }
+
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; ActionResult IndexCompleted(&lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; one, &lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; two, &lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; three)
+    {
+    }
+}&lt;/pre&gt;
+&lt;p&gt;De IndexAsync methode is waar de request binnenkomt. Hier starten we onze asynchrone operaties. IndexCompleted wordt opgeroepen wanneer alle operaties zijn afgewerkt. Om dit alles te coördineren, moeten we de &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/system.web.mvc.async.asyncmanager.aspx&quot; target=&quot;_blank&quot;&gt;AsyncManager&lt;/a&gt; gebruiken. Eerst moeten we aangeven hoeveel taken er uitgevoerd zullen worden vooraleer de IndexCompleted method mag worden opgeroepen:&lt;/p&gt;
+&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;void&lt;/span&gt; IndexAsync()
+{
+    AsyncManager.OutstandingOperations.Increment(3);
+}&lt;/pre&gt;
+&lt;p&gt;Daarna starten we onze operaties op met de TPL. Telkens er een operatie is afgerond, moeten we dit laten weten aan de AsyncManager. We kunnen ook het resultaat van onze operaties doorgeven via de Parameters property. De naam die we meegeven aan de indexer moet gelijk zijn aan de naam van de property op de IndexCompleted methode.&lt;/p&gt;
+&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;void&lt;/span&gt; IndexAsync()
+{
+    AsyncManager.OutstandingOperations.Increment(3);
+
+    Task.Factory.StartNew(() =&amp;gt; TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;1&quot;&lt;/span&gt;))
+        .ContinueWith(t =&amp;gt;
+        {
+            AsyncManager.OutstandingOperations.Decrement();
+            AsyncManager.Parameters[&lt;span class=&quot;str&quot;&gt;&quot;one&quot;&lt;/span&gt;] = t.Result;
+        });
+    Task.Factory.StartNew(() =&amp;gt; TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;2&quot;&lt;/span&gt;))
+        .ContinueWith(t =&amp;gt;
+        {
+            AsyncManager.OutstandingOperations.Decrement();
+            AsyncManager.Parameters[&lt;span class=&quot;str&quot;&gt;&quot;two&quot;&lt;/span&gt;] = t.Result;
+        });
+    Task.Factory.StartNew(() =&amp;gt; TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;3&quot;&lt;/span&gt;))
+        .ContinueWith(t =&amp;gt;
+        {
+            AsyncManager.OutstandingOperations.Decrement();
+            AsyncManager.Parameters[&lt;span class=&quot;str&quot;&gt;&quot;three&quot;&lt;/span&gt;] = t.Result;
+        });
+}&lt;/pre&gt;
+&lt;p&gt;Als alle taken zijn opgestart, wordt de huidige Thread vrijgegeven voor een andere request. Als de AsyncManager te horen krijgt dat de OutstandingOperations zijn teruggebracht tot nul dan wordt IndexCompleted opgeroepen in een nieuwe Thread die wel dezelfde context heeft als de originele. Deze wordt dan gebruikt om de rest van de request af te handelen:&lt;/p&gt;
+&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; ActionResult IndexCompleted(&lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; one, &lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; two, &lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; three)
+{
+    &lt;span class=&quot;kwrd&quot;&gt;return&lt;/span&gt; View(&lt;span class=&quot;kwrd&quot;&gt;new&lt;/span&gt; TestOutput{ One = one, Two = two, Three = three);
+}&lt;/pre&gt;
+&lt;p&gt;Net zoals onze &lt;a href=&quot;http://www.correlatedcontent.com/blog/spelen-met-de-task-parallel-library/&quot;&gt;vorige versie&lt;/a&gt; duurt het een tweetal seconden tot de browser een antwoord krijgt. Het grote verschil is dat tijdens deze twee seconden de server niet geblokkeerd is. Net zoals de Ikea-medewerker kon de server ondertussen anderen helpen.&lt;/p&gt;
+&lt;p&gt;Alleen jammer dat het zo’n lelijke code oplevert. Al die loodgieterij met de AsyncManager, de action gaan opsplitsen, &lt;em&gt;magic strings&lt;/em&gt;,…&lt;/p&gt;
+&lt;h3&gt;C#5 To The Resque!&lt;/h3&gt;
+&lt;p&gt;Dat dit nogal omslachtig en vuil is, moeten ze in Redmond ook gedacht hebben. Daarom dat één van de belangrijkste features in  C#5 twee nieuwe keywords zijn: await en async.&lt;/p&gt;
+&lt;p&gt;Met het keyword ‘async’ geef je aan dat er in een methode asynchroon werk gedaan wordt. Het echte werk wordt gedaan door ‘await’. ‘Await’ ga je gebruiken om aan de compiler te laten weten dat hetgene wat verder op de regel staat asynchroon zal worden uitgevoerd. Ondertussen wordt de huidige thread vrijgegeven en de regels code die onder een lijn met ‘await’ staan, worden hervat eenmaal de asychrone zaken zijn afgerond. Het lijkt ingewikkeld, maar het wordt duidelijker met code. Onze action van daarnet kan als volgt herschreven worden:&lt;/p&gt;
+&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; async Task&amp;lt;ActionResult&amp;gt; Index()
+{
+    var results = await Task.WhenAll(
+            Task.Run(() =&amp;gt;TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;one&quot;&lt;/span&gt;)),
+            Task.Run(() =&amp;gt;TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;two&quot;&lt;/span&gt;)),
+            Task.Run(() =&amp;gt;TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;three&quot;&lt;/span&gt;))
+        );
+
+    &lt;span class=&quot;kwrd&quot;&gt;return&lt;/span&gt; View(&lt;span class=&quot;kwrd&quot;&gt;new&lt;/span&gt; TestOutput
+    {
+        One = results[0],
+        Two = results[1],
+        Three = results[2]
+    });
+}&lt;/pre&gt;
+&lt;p&gt;Dat ziet er al heel wat properder uit! We hebben de zelfde functionaliteit als daarnet: De taken worden nog steeds parallel uitgevoerd en de Worker Thread wordt nog steeds vrijgegeven totdat alle taken afgewerkt zijn. Maar de code ziet is weer leesbaar en bevrijd van alle bijkomstigheden.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Spelen met de Task Parallel Library</title>
+      <link>http://domain/blog/spelen-met-de-task-parallel-library/</link>
+      <pubDate>zo, 18 sep 2011 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/spelen-met-de-task-parallel-library/</guid>
+      <description>&lt;p&gt;&lt;em&gt;Ze zeggen soms dat je iets pas begrijpt als je het kan uitleggen. Ze liegen niet: ik wou bloggen over asynchrone controllers, maak kwam uiteindelijk veel meer te weten over de Task Parallel Library en C#5 dan ik dacht. Ik leerde ook dat ik twee concepten helemaal door elkaar haalde: asynchroon en parallel.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Of, hoe één blogpost er plots twee werden…&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Stel je eens voor dat je een controller hebt in asp.net MVC die gegevens uit drie verschillende bronnen moet gaan combineren. De drie bronnen zijn nogal traag en het duurt een tweetal seconden voordat er een antwoord komt:&lt;/p&gt;
+&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;class&lt;/span&gt; TestOutput
+{
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; One { get; set; }
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; Two { get; set; }
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; Three { get; set; }
+
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; DoWork(&lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; input)
+    {
+        Thread.Sleep(2000);
+        &lt;span class=&quot;kwrd&quot;&gt;return&lt;/span&gt; input;
+    }
+}&lt;/pre&gt;
+&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kwrd&quot;&gt;class&lt;/span&gt; SerialController : Controller
+{
+    &lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; ActionResult Index()
+    {
+        var output = &lt;span class=&quot;kwrd&quot;&gt;new&lt;/span&gt; TestOutput();
+        output.One = TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;1&quot;&lt;/span&gt;);
+        output.Two = TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;2&quot;&lt;/span&gt;);
+        output.Three = TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;3&quot;&lt;/span&gt;);
+
+        &lt;span class=&quot;kwrd&quot;&gt;return&lt;/span&gt; View(output);
+    }
+}&lt;/pre&gt;
+&lt;p&gt;Het is een beetje jammer om zes seconden te wachten op drie dingen die compleet onafhankelijk zijn van elkaar. Het is interessanter om de drie bronnen tegelijk aan te spreken. Vroeger zou dit betekenen dat we het &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/ms228963.aspx&quot; target=&quot;_blank&quot;&gt;BeginMethod/EndMethod pattern&lt;/a&gt; zouden implementeren op onze DoWork methode. Die zou er dan plots heel ingewikkeld beginnen uitzien omdat we allerlei vieze dingen moeten doen met Threads.&lt;/p&gt;
+&lt;p&gt;Gelukkig hebben ze bij Microsoft genoeg mensen die graag vieze dingen doem met Threads. Die mensen hebben ons de &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/dd460717.aspx&quot; target=&quot;_blank&quot;&gt;Task Parallel Library&lt;/a&gt; (TPL) geschonken. Deze library bevat een aantal klassen en methodes die threads mooi wegstoppen voor ons.
+De basis van TPL is de &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/system.threading.tasks.task.aspx&quot; target=&quot;_blank&quot;&gt;Task&lt;/a&gt; klasse. Een Task omvat een delegate naar de functie die het eigenlijke werk doet. Eenmaal het werk is uitgevoerd, kan de Task het resultaat ervan doorgeven aan een volgende delegate om er iets nuttigs mee te doen. Dankzij lambda functies en een aantal helpers kunnen we zo’n Task gemakkelijk als volgt aanmaken:&lt;/p&gt;
+&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;string&lt;/span&gt; result;
+
+Task.Factory.StartNew(
+    () =&amp;gt; TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;One&quot;&lt;/span&gt;)
+).ContinueWith(
+    s =&amp;gt; result = s.Result
+);&lt;/pre&gt;
+&lt;p&gt;Daarnaast bevat de TPL ook alle hulpmiddelen om te wachten op het resultaat van de verschillende taken. Dit zorgt er voor dat onze action er nu als volgt zal uitzien:&lt;/p&gt;
+&lt;pre class=&quot;csharpcode&quot;&gt;&lt;span class=&quot;kwrd&quot;&gt;public&lt;/span&gt; ActionResult Parallel()
+{
+    var output = &lt;span class=&quot;kwrd&quot;&gt;new&lt;/span&gt; TestOutput();
+
+    Task.WaitAll(
+        Task.Factory.StartNew(() =&amp;gt; TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;One&quot;&lt;/span&gt;)).ContinueWith(s =&amp;gt; output.One = s.Result),
+        Task.Factory.StartNew(() =&amp;gt; TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;Two&quot;&lt;/span&gt;)).ContinueWith(s =&amp;gt; output.Two = s.Result),
+        Task.Factory.StartNew(() =&amp;gt; TestOutput.DoWork(&lt;span class=&quot;str&quot;&gt;&quot;Three&quot;&lt;/span&gt;)).ContinueWith(s =&amp;gt; output.Three = s.Result)
+    );
+
+    &lt;span class=&quot;kwrd&quot;&gt;return&lt;/span&gt; View(&lt;span class=&quot;str&quot;&gt;&quot;index&quot;&lt;/span&gt;, output);
+}&lt;/pre&gt;
+&lt;p&gt;Als we nu deze action oproepen dan krijgen we na 2 seconden al een resultaat! Uiteraard moet je PC natuurlijk in staat zijn om voldoende threads simultaan af te handelen, maar het opzetten en afhandelen ervan wordt allemaal mooi weggestoken en afgehandeld door de TPL. Toch zitten we nog steeds met een server die twee seconden lang ‘druk’ bezig is met wachten op een resultaat. Dat zou toch ook beter moeten kunnen. Maar dat is dan weer voer voor de volgende post.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Mijn gereedschapsdoos</title>
+      <link>http://domain/blog/mijn-gereedschapsdoos/</link>
+      <pubDate>do, 12 jun 2008 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/mijn-gereedschapsdoos/</guid>
+      <description>&lt;p&gt;Deze eerste serieuse blogpost zal ik wijden aan mijn gereedschap. Ze zeggen dat je een goede vakman kan herkennen aan zijn gereedschap. Oordeel zelf:&lt;/p&gt;
+&lt;h3&gt;&lt;strong&gt;Software&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;&lt;a href=&quot;http://msdn.microsoft.com/nl-nl/vstudio/products/default(en-us).aspx&quot; target=&quot;_blank&quot;&gt;Visual Studio&lt;/a&gt; (&lt;a href=&quot;http://www.microsoft.com/express/&quot; target=&quot;_blank&quot;&gt;Express&lt;/a&gt;): waarschijnlijk de definitieve ontwikkelomgeving voor het .net gebeuren. Behoorlijk prijzig, maar met de gratis Express versies geraak je al een heel eind.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.mozilla.com/firefox/&quot; target=&quot;_blank&quot;&gt;Firefox&lt;/a&gt;: mijn favoriete browser. Vooral het hele extentiegebeuren verhoogt mijn productiviteit.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://getsongbird.com&quot; target=&quot;_blank&quot;&gt;SongBird&lt;/a&gt;: een op Firefox geïnspireerde media player (letterlijk, want ze gebruiken de zelfde motor). Dit programma is nog in een vroege beta en mist dus nogal wat functionaliteit, maar het wordt beter per release.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.getpaint.net/&quot; target=&quot;_blank&quot;&gt;Paint.net&lt;/a&gt;: ik ben geen graficus en heb dan ook geen zin om een zak geld op tafel te leggen voor Photoshop. Paint.net laat me simpele fotobewerking doen en is bovendien gratis.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.aisto.com/roeder/dotnet/&quot; target=&quot;_blank&quot;&gt;Reflector&lt;/a&gt;: een onmisbare tool voor elke .net programmeur. Het geeft je immers een duidelijk overzicht van alle dlls in het framework. Dankzij de disassembler kan je zelf een kijkje nemen onder de&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://tortoisesvn.tigris.org/&quot; target=&quot;_blank&quot;&gt;TortoiseSVN&lt;/a&gt;: als je geen &lt;a href=&quot;http://en.wikipedia.org/wiki/Revision_control&quot; target=&quot;_blank&quot;&gt;source control&lt;/a&gt; gebruikt, dan ben je niet serieus bezig met programmeren. Als je &lt;a href=&quot;http://subversion.tigris.org/&quot; target=&quot;_blank&quot;&gt;Subversion&lt;/a&gt; kiest als source control, dan kan je niet zonder deze goede windows client.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://ultrapico.com/Expresso.htm&quot; target=&quot;_blank&quot;&gt;Expresso&lt;/a&gt;: &quot;You have a problem so you decide to solve it using regular expressions. Now you have two problems.&quot; zei sprak een wijze programmeur. Expresso helpt je met één van die twee problemen.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;strong&gt;Webapplicaties&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;&lt;a href=&quot;http://reader.google.com&quot; target=&quot;_blank&quot;&gt;Google Reader&lt;/a&gt;: dit gebruik ik om overal mijn favoriete nieuwsfeeds te kunnen raadplegen. RSS is onmisbaar geworden om op de hoogte te blijven van wat er allemaal gebeurd in de (.net) wereld.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.google.com/calendar/&quot; target=&quot;_blank&quot;&gt;Google Calendar&lt;/a&gt;: warhoofdig zijnde, bied Google Caledar me de mogelijkheid om georganiseerd te blijven.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://pcasaweb.google.com&quot; target=&quot;_blank&quot;&gt;Google Picasa&lt;/a&gt; (zowel de desktop client als de online variant): hiermee organiseer ik mijn foto&apos;s. Dankzij het online gedeelte kan ik die foto&apos;s ook nog eens delen met familie.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.gmail.com&quot; target=&quot;_blank&quot;&gt;GMail&lt;/a&gt;: het schoolvoorbeeld van een AJAX webapplicatie. Gewoon een zeer handige webmail.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&lt;strong&gt;.net bibliotheken&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.hibernate.org/343.html&quot; target=&quot;_blank&quot;&gt;NHibernate&lt;/a&gt;: de &lt;a href=&quot;http://en.wikipedia.org/wiki/Object-relational_mapping&quot; target=&quot;_blank&quot;&gt;ORM&lt;/a&gt; laag. Prachtig staaltje software.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.castleproject.org&quot; target=&quot;_blank&quot;&gt;Castle Project&lt;/a&gt;: een bibliotheek van uiterst handige tools. Van een &lt;a href=&quot;http://en.wikipedia.org/wiki/Model-view-controller&quot; target=&quot;_blank&quot;&gt;MVC&lt;/a&gt; framework (Monorail) tot een &lt;a href=&quot;http://en.wikipedia.org/wiki/Inversion_of_control&quot; target=&quot;_blank&quot;&gt;IOC container&lt;/a&gt; (Windsor).&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.sqlite.org/&quot; target=&quot;_blank&quot;&gt;SQLite&lt;/a&gt; (&lt;a href=&quot;http://sqlite.phxsoftware.com/&quot; target=&quot;_blank&quot;&gt;.net variant&lt;/a&gt;): een klein database-systeempje. Ideaal als je zaken wil opslaan, maar geen volwaardige DB-server wil opzetten. Extreem krachtig in samenwerking met NHibernate voor unit testen.&lt;/li&gt;
+	&lt;li&gt;&lt;a href=&quot;http://www.nunit.org/index.php&quot; target=&quot;_blank&quot;&gt;NUnit&lt;/a&gt;: het populairste .net unit testing framework. Ik ben een groot fan van Unit testing. Ik wou dat ik het meer deed :-)&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Welkom op Correlated Content</title>
+      <link>http://domain/blog/welcome-to-correlated-content/</link>
+      <pubDate>di, 04 mrt 2008 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/welcome-to-correlated-content/</guid>
+      <description>&lt;p&gt;Welkom dus op Correlated Content. Dit wordt mijn blog waarop ik mijn avonturen in de wondere wereld van C# zal bijhouden. Verwacht hier ook af en toe een bezinning over het computerspel dat ik aan het spelen ben.&lt;/p&gt;
+&lt;p&gt;Maar eerst moet ik de layout van deze site in orde krijgen. Naar de css-mobiel!&lt;/p&gt;
+</description>
+    </item>
+    
+
+  </channel> 
+</rss>

@@ -1,0 +1,96 @@
+<!DOCTYPE html >
+<html>
+	<head>
+		<meta content="en-gb" http-equiv="Content-Language" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<link href="/blog/rss.xml" type="application/rss+xml" rel="alternate" title="Blog Feed" />
+		<link href="/blog/atom.xml" type="application/atom+xml" rel="alternate" title="Blog Feed" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>Layerless: How I Learned to Stop Worrying and Love the IQueryable - Correlated Content</title>
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/css/social-buttons.css" />
+		<link rel="shortcut icon" href="/img/favicon.ico" />
+	</head>
+	<body>
+		<div id="header">			
+			<h1><a href="/" title="home" alt="home">Correlated Content</a></h1>			
+			<a href="/" title="home" alt="home" style="display: block; line-height: 0;">
+				<img src="/img/header.jpg" alt="Correlated Content" />
+			</a>
+		</div>
+		<div id="navigation">
+			<ul>
+				<li><a href="/" title="home" alt="home">Home</a></li>
+				<li><a href="/blog/" title="home" alt="home">Blog</a></li>
+			</ul>
+		</div>
+		<div id="content-wrap">
+			<div id="content">
+				<div class="entry-container">
+	<div class='entry'>
+		<h2> Layerless: How I Learned to Stop Worrying and Love the IQueryable </h2>
+		<span class="postdate">14 juni, 2012
+			
+		</span>
+		<p>In my <a href="http://www.correlatedcontent.com/blog/layerless-repositories/">last post</a> repositories were made simpler and more descriptive. The central piece in this was the <a href="http://msdn.microsoft.com/en-us/library/system.linq.iqueryable.aspx" target="_blank">IQueryable</a>. This interface is at the core of every <a href="http://msdn.microsoft.com/en-us/library/bb546158.aspx" target="_blank">Linq Provider</a>. A Linq Provider is the machinery that will convert our linq statements in a format that is readable for the underlying datastore (e.g. sql, xpath,...). Using the IQueryable as the core of your data access strategy enables us to do some nifty things. In this post I will examine two of them: Composite Queries and Projections. In a next post I will show how these can be used to improve databinding in Webforms 4.5</p>
+<!--excerpt-->
+<p><strong>Composite Queries</strong></p>
+<p>One of the more tricky elements of linq is the idea of deferred execution: a linq statement will only be executed when it is enumerated. This is the source of some <a title="Different outcome after applying ToList()" href="http://stackoverflow.com/questions/10701255/different-outcome-after-applying-tolist" target="_blank">subtle bugs</a>, but also very powerful. This means we can chain several of the extension methods I <a title="Layerless: Repositories" href="http://www.correlatedcontent.com/blog/layerless-repositories/">talked about earlier</a> together to create a composite query:</p>
+<pre><code>var result = Db.Query&lt;User&gt;()
+               .OlderThan(9)
+               .UserNameStartingWith(&quot;E&quot;);
+</code></pre>
+
+<p>Since the query will only be generated once the IQueryable is enumerated, the resulting query will be (SqlCE syntax):</p>
+<pre><code>select user0_.UserId as UserId0_, user0_.UserName as UserName0_, user0_.BirthDate as BirthDate0_
+    from [User] user0_ 
+    where (user0_.BirthDate is not null) and 
+    dateadd(dd, 0, datediff(dd, 0, user0_.BirthDate)) and 
+    (user0_.UserName like (?+'%E'))
+</code></pre>
+
+<p>This allows us to define fragmented queries that can be used to compose larger queries. This also allows for something pretty nice in Webforms 4.5.</p>
+<p><strong>Projections</strong></p>
+<p>Another lovely feature you get for free by using a modern ORM with a decent Linq Provider are projections. This basically means you’ll only select the fields from the database what you need. NHibernate has always had <a href="http://nhforge.org/doc/nh/en/index.html#querycriteria-projection" target="_blank">projections</a>, but they were never easy to set up. The linq provider in NHibernate gives us a much nicer developer experience. For example this statement:</p>
+<pre><code>var result = Data.Select(u =&gt; u.UserName).ToList();
+</code></pre>
+
+<p>Will produce the following query:</p>
+<pre><code>select user0_.UserName as col_0_0_ from [User] user0_
+</code></pre>
+
+<p>So instead of the complete User object, we only get the fields we asked for. This is handy if we want to construct a Viewmodel for databinding and not the Entity. Using Viewmodels is also something that will make our life easier in the Webforms 4.5 world. So stay tuned for the next instalment of the Correlated Content blog – now in English.</p>
+
+	</div>
+</div>
+<div id="page-navigation"> 
+	<div class="left">  </div> 
+	<div class="right">  </div> 
+	<div class="clear">&nbsp;</div>
+</div> 
+
+
+
+			</div>
+		</div>
+		<div id="sidebar">
+			<ul>
+				<li>
+					<img src="/img/avatar.jpg" />
+				</li>
+				<li>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="http://www.infohos.be">Infohos Services</a> in Bruges, Belgium.</p>
+				</li>
+				<li style="text-align: center">
+					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
+					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
+					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
+				</li>
+			</ul>
+		</div>
+		<div id="footer" class="clear">
+			<p>&copy; Lodewijk Sioen</p>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html >
+<html>
+	<head>
+		<meta content="en-gb" http-equiv="Content-Language" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<link href="/blog/rss.xml" type="application/rss+xml" rel="alternate" title="Blog Feed" />
+		<link href="/blog/atom.xml" type="application/atom+xml" rel="alternate" title="Blog Feed" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>Linq All The Exceptions - Correlated Content</title>
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/css/social-buttons.css" />
+		<link rel="shortcut icon" href="/img/favicon.ico" />
+	</head>
+	<body>
+		<div id="header">			
+			<h1><a href="/" title="home" alt="home">Correlated Content</a></h1>			
+			<a href="/" title="home" alt="home" style="display: block; line-height: 0;">
+				<img src="/img/header.jpg" alt="Correlated Content" />
+			</a>
+		</div>
+		<div id="navigation">
+			<ul>
+				<li><a href="/" title="home" alt="home">Home</a></li>
+				<li><a href="/blog/" title="home" alt="home">Blog</a></li>
+			</ul>
+		</div>
+		<div id="content-wrap">
+			<div id="content">
+				<div class="entry-container">
+	<div class='entry'>
+		<h2> Linq All The Exceptions </h2>
+		<span class="postdate"> 4 september, 2012
+			
+		</span>
+		<p>At work we have this ‘Layered’ application where every layer catches Exceptions and re-throws them in an custom Exception type. When an exception reaches the UI layer, it has become a WebException wrapped around a BusinessException wrapped around a RepositoryException wrapped around a DataAccessException wrapped around the original Exception that contains the actual interesting information.</p>
+<p>This not only renders the log file unreadable, it also makes it hard to throw meaningful exceptions. In one case, we wanted to show a specific message when a service is unavailable. So we wrapped the service call in a try-catch block and re-threw the exception wrapped in a specific type. Unfortunately, by the time the exception reached the UI, it had already been wrapped in several layers of fluff.</p>
+<p>I cracked my knuckles and prepared myself to write another do-while loop to find the meaningful exception. But then I thought: “Wouldn’t linq be nice to have in this case? Then I could write code like this:” </p>
+<pre><code>if(exception.ToEnumerable().Any(e =&gt; e is MyMeaningFullException))
+{
+    //Handle meaningfull exception
+}
+</code></pre>
+
+<!--excerpt-->
+<p><a href="/img/blog/LinqAllTheExceptions.jpg"><img style="display: block; float: none; margin-left: auto; margin-right: auto" title="LinqAllTheExceptions" alt="LinqAllTheExceptions" src="/img/blog/LinqAllTheExceptions.jpg" width="500" height="375"></a></p>
+<p>This was surprisingly easy to do:</p>
+<pre><code>public static IEnumerable&lt;Exception&gt; ToEnumerable(this Exception exception)
+{
+    if(exception == null)
+    {
+        yield break;
+    }
+
+    do
+    {
+        yield return exception;
+        exception = exception.InnerException;
+    } while (exception != null);
+}
+</code></pre>
+
+<p>Now we have the full power of linq at our fingertips when dealing with exceptions. FTW!</p>
+<p>To make <a href="http://petermorlion.blogspot.be/2012/08/when-do-you-write-your-tests.html" target="_blank">Peter</a> happy, here are some Unit Tests :)</p>
+<pre><code>[Test]
+public void TestArgumentNull()
+{
+    Exception exception = null;
+    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(0));
+}
+
+[Test]
+public void TestOneException()
+{
+    var exception = new Exception(&quot;lalal&quot;);
+    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(1));
+}
+
+[Test]
+public void TestTwoExceptions()
+{
+    var exception = new Exception(&quot;one&quot;, new Exception(&quot;two&quot;));
+    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(2));
+    Assert.That((from e in exception.ToEnumerable() select e.Message).ToArray(), Is.EqualTo(new[]{&quot;one&quot;, &quot;two&quot;}));
+}
+
+[Test]
+public void TestALotOfExceptions()
+{
+    var exception = new Exception(&quot;one&quot;, new Exception(&quot;two&quot;, new Exception(&quot;three&quot;, new Exception(&quot;four&quot;, new Exception(&quot;five&quot;, null)))));
+    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(5));
+    Assert.That((from e in exception.ToEnumerable() select e.Message).ToArray(), Is.EqualTo(new[] { &quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot; }));
+}
+</code></pre>
+
+
+	</div>
+</div>
+<div id="page-navigation"> 
+	<div class="left">  </div> 
+	<div class="right">  </div> 
+	<div class="clear">&nbsp;</div>
+</div> 
+
+
+
+			</div>
+		</div>
+		<div id="sidebar">
+			<ul>
+				<li>
+					<img src="/img/avatar.jpg" />
+				</li>
+				<li>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="http://www.infohos.be">Infohos Services</a> in Bruges, Belgium.</p>
+				</li>
+				<li style="text-align: center">
+					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
+					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
+					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
+				</li>
+			</ul>
+		</div>
+		<div id="footer" class="clear">
+			<p>&copy; Lodewijk Sioen</p>
+		</div>
+	</body>
+</html>
