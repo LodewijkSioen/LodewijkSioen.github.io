@@ -10,6 +10,7 @@
 		<title>Linq All The Exceptions - Correlated Content</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="/css/social-buttons.css" />
+		<link rel="stylesheet" type="text/css" href="/css/syntax.css" />
 		<link rel="shortcut icon" href="/img/favicon.ico" />
 	</head>
 	<body>
@@ -36,63 +37,60 @@
 		<p>At work we have this ‘Layered’ application where every layer catches Exceptions and re-throws them in an custom Exception type. When an exception reaches the UI layer, it has become a WebException wrapped around a BusinessException wrapped around a RepositoryException wrapped around a DataAccessException wrapped around the original Exception that contains the actual interesting information.</p>
 <p>This not only renders the log file unreadable, it also makes it hard to throw meaningful exceptions. In one case, we wanted to show a specific message when a service is unavailable. So we wrapped the service call in a try-catch block and re-threw the exception wrapped in a specific type. Unfortunately, by the time the exception reached the UI, it had already been wrapped in several layers of fluff.</p>
 <p>I cracked my knuckles and prepared myself to write another do-while loop to find the meaningful exception. But then I thought: “Wouldn’t linq be nice to have in this case? Then I could write code like this:” </p>
-<pre><code>if(exception.ToEnumerable().Any(e =&gt; e is MyMeaningFullException))
-{
-    //Handle meaningfull exception
-}
-</code></pre>
-
+<div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="n">exception</span><span class="p">.</span><span class="n">ToEnumerable</span><span class="p">().</span><span class="n">Any</span><span class="p">(</span><span class="n">e</span> <span class="p">=&gt;</span> <span class="n">e</span> <span class="k">is</span> <span class="n">MyMeaningFullException</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">//Handle meaningfull exception</span>
+<span class="p">}</span>
+</pre></div>
 <!--excerpt-->
 <p><a href="/img/blog/LinqAllTheExceptions.jpg"><img style="display: block; float: none; margin-left: auto; margin-right: auto" title="LinqAllTheExceptions" alt="LinqAllTheExceptions" src="/img/blog/LinqAllTheExceptions.jpg" width="500" height="375"></a></p>
 <p>This was surprisingly easy to do:</p>
-<pre><code>public static IEnumerable&lt;Exception&gt; ToEnumerable(this Exception exception)
-{
-    if(exception == null)
-    {
-        yield break;
-    }
+<div class="highlight"><pre><span class="k">public</span> <span class="k">static</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="n">Exception</span><span class="p">&gt;</span> <span class="n">ToEnumerable</span><span class="p">(</span><span class="k">this</span> <span class="n">Exception</span> <span class="n">exception</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">exception</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">yield</span> <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    do
-    {
-        yield return exception;
-        exception = exception.InnerException;
-    } while (exception != null);
-}
-</code></pre>
-
+    <span class="k">do</span>
+    <span class="p">{</span>
+        <span class="k">yield</span> <span class="k">return</span> <span class="n">exception</span><span class="p">;</span>
+        <span class="n">exception</span> <span class="p">=</span> <span class="n">exception</span><span class="p">.</span><span class="n">InnerException</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">exception</span> <span class="p">!=</span> <span class="k">null</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
 <p>Now we have the full power of linq at our fingertips when dealing with exceptions. FTW!</p>
 <p>To make <a href="http://petermorlion.blogspot.be/2012/08/when-do-you-write-your-tests.html" target="_blank">Peter</a> happy, here are some Unit Tests :)</p>
-<pre><code>[Test]
-public void TestArgumentNull()
-{
-    Exception exception = null;
-    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(0));
-}
+<div class="highlight"><pre><span class="na">[Test]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">TestArgumentNull</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Exception</span> <span class="n">exception</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="n">Assert</span><span class="p">.</span><span class="n">That</span><span class="p">(</span><span class="n">exception</span><span class="p">.</span><span class="n">ToEnumerable</span><span class="p">().</span><span class="n">COUNT</span><span class="p">()</span> <span class="k">as</span> <span class="n">Computed</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">EqualTo</span><span class="p">(</span><span class="m">0</span><span class="p">));</span>
+<span class="p">}</span>
 
-[Test]
-public void TestOneException()
-{
-    var exception = new Exception(&quot;lalal&quot;);
-    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(1));
-}
+<span class="na">[Test]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">TestOneException</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">exception</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&quot;lalal&quot;</span><span class="p">);</span>
+    <span class="n">Assert</span><span class="p">.</span><span class="n">That</span><span class="p">(</span><span class="n">exception</span><span class="p">.</span><span class="n">ToEnumerable</span><span class="p">().</span><span class="n">COUNT</span><span class="p">()</span> <span class="k">as</span> <span class="n">Computed</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">EqualTo</span><span class="p">(</span><span class="m">1</span><span class="p">));</span>
+<span class="p">}</span>
 
-[Test]
-public void TestTwoExceptions()
-{
-    var exception = new Exception(&quot;one&quot;, new Exception(&quot;two&quot;));
-    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(2));
-    Assert.That((from e in exception.ToEnumerable() select e.Message).ToArray(), Is.EqualTo(new[]{&quot;one&quot;, &quot;two&quot;}));
-}
+<span class="na">[Test]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">TestTwoExceptions</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">exception</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&quot;one&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&quot;two&quot;</span><span class="p">));</span>
+    <span class="n">Assert</span><span class="p">.</span><span class="n">That</span><span class="p">(</span><span class="n">exception</span><span class="p">.</span><span class="n">ToEnumerable</span><span class="p">().</span><span class="n">COUNT</span><span class="p">()</span> <span class="k">as</span> <span class="n">Computed</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">EqualTo</span><span class="p">(</span><span class="m">2</span><span class="p">));</span>
+    <span class="n">Assert</span><span class="p">.</span><span class="n">That</span><span class="p">((</span><span class="k">from</span> <span class="n">e</span> <span class="k">in</span> <span class="n">exception</span><span class="p">.</span><span class="n">ToEnumerable</span><span class="p">()</span> <span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">Message</span><span class="p">).</span><span class="n">ToArray</span><span class="p">(),</span> <span class="n">Is</span><span class="p">.</span><span class="n">EqualTo</span><span class="p">(</span><span class="k">new</span><span class="p">[]{</span><span class="s">&quot;one&quot;</span><span class="p">,</span> <span class="s">&quot;two&quot;</span><span class="p">}));</span>
+<span class="p">}</span>
 
-[Test]
-public void TestALotOfExceptions()
-{
-    var exception = new Exception(&quot;one&quot;, new Exception(&quot;two&quot;, new Exception(&quot;three&quot;, new Exception(&quot;four&quot;, new Exception(&quot;five&quot;, null)))));
-    Assert.That(exception.ToEnumerable().COUNT() as Computed, Is.EqualTo(5));
-    Assert.That((from e in exception.ToEnumerable() select e.Message).ToArray(), Is.EqualTo(new[] { &quot;one&quot;, &quot;two&quot;, &quot;three&quot;, &quot;four&quot;, &quot;five&quot; }));
-}
-</code></pre>
-
+<span class="na">[Test]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">TestALotOfExceptions</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">exception</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&quot;one&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&quot;two&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&quot;three&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&quot;four&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="n">Exception</span><span class="p">(</span><span class="s">&quot;five&quot;</span><span class="p">,</span> <span class="k">null</span><span class="p">)))));</span>
+    <span class="n">Assert</span><span class="p">.</span><span class="n">That</span><span class="p">(</span><span class="n">exception</span><span class="p">.</span><span class="n">ToEnumerable</span><span class="p">().</span><span class="n">COUNT</span><span class="p">()</span> <span class="k">as</span> <span class="n">Computed</span><span class="p">,</span> <span class="n">Is</span><span class="p">.</span><span class="n">EqualTo</span><span class="p">(</span><span class="m">5</span><span class="p">));</span>
+    <span class="n">Assert</span><span class="p">.</span><span class="n">That</span><span class="p">((</span><span class="k">from</span> <span class="n">e</span> <span class="k">in</span> <span class="n">exception</span><span class="p">.</span><span class="n">ToEnumerable</span><span class="p">()</span> <span class="k">select</span> <span class="n">e</span><span class="p">.</span><span class="n">Message</span><span class="p">).</span><span class="n">ToArray</span><span class="p">(),</span> <span class="n">Is</span><span class="p">.</span><span class="n">EqualTo</span><span class="p">(</span><span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="s">&quot;one&quot;</span><span class="p">,</span> <span class="s">&quot;two&quot;</span><span class="p">,</span> <span class="s">&quot;three&quot;</span><span class="p">,</span> <span class="s">&quot;four&quot;</span><span class="p">,</span> <span class="s">&quot;five&quot;</span> <span class="p">}));</span>
+<span class="p">}</span>
+</pre></div>
 
 	</div>
 </div>
@@ -101,8 +99,6 @@ public void TestALotOfExceptions()
 	<div class="right">  </div> 
 	<div class="clear">&nbsp;</div>
 </div> 
-
-
 
 			</div>
 		</div>
@@ -117,6 +113,7 @@ public void TestALotOfExceptions()
 				<li style="text-align: center">
 					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
 					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
+					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>

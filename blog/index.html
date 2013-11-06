@@ -10,6 +10,7 @@
 		<title>Blog - Correlated Content</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="/css/social-buttons.css" />
+		<link rel="stylesheet" type="text/css" href="/css/syntax.css" />
 		<link rel="shortcut icon" href="/img/favicon.ico" />
 	</head>
 	<body>
@@ -46,8 +47,8 @@
 <p>Boy, was I wrong. I don’t speak Linux and apparently Linux doesn’t really speak Bluetooth that well. Luckily, I speak Google pretty well and after an evening tinkering with obscure command line tools and strange text editors, I managed to get it to work.</p>
 <p>So if anyone out there is struggling to get a Bluetooth Keyboard to work on the Raspberry Pi, here are the instructions to get it to work.</p>
 
-
 					<p><a href="/blog/bluetooth-keyboard-on-the-raspberry-pi/">Read the rest of "Bluetooth Keyboard on the Raspberry Pi"</a></p>
+					
 				
 			</div>
 		</li>
@@ -64,6 +65,7 @@
 					<p>Data binding in Webforms has never been easy. Either you used the <a title="Msdn article" href="http://msdn.microsoft.com/en-us/library/system.web.ui.datasourcecontrol.aspx" target="_blank">Datasource Controls</a> and end up with an overcrowded markup; or you bind your data manually in the codebehind and end up with an overcrowded codebehind page. No matter what you chose, ‘magic strings’ will be used and you can forget about testability. Those hipster MVC folks have so much easier. One method on the controller just supplies the view with data. No lifecycle, no magic strings, just clean code.</p>
 
 					<p><a href="/blog/layerless-webforms-4-5-databinding/">Read the rest of "Layerless: Webforms 4.5 Databinding"</a></p>
+					
 				
 			</div>
 		</li>
@@ -80,14 +82,14 @@
 					<p>At work we have this ‘Layered’ application where every layer catches Exceptions and re-throws them in an custom Exception type. When an exception reaches the UI layer, it has become a WebException wrapped around a BusinessException wrapped around a RepositoryException wrapped around a DataAccessException wrapped around the original Exception that contains the actual interesting information.</p>
 <p>This not only renders the log file unreadable, it also makes it hard to throw meaningful exceptions. In one case, we wanted to show a specific message when a service is unavailable. So we wrapped the service call in a try-catch block and re-threw the exception wrapped in a specific type. Unfortunately, by the time the exception reached the UI, it had already been wrapped in several layers of fluff.</p>
 <p>I cracked my knuckles and prepared myself to write another do-while loop to find the meaningful exception. But then I thought: “Wouldn’t linq be nice to have in this case? Then I could write code like this:” </p>
-<pre><code>if(exception.ToEnumerable().Any(e =&gt; e is MyMeaningFullException))
-{
-    //Handle meaningfull exception
-}
-</code></pre>
-
+<div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="n">exception</span><span class="p">.</span><span class="n">ToEnumerable</span><span class="p">().</span><span class="n">Any</span><span class="p">(</span><span class="n">e</span> <span class="p">=&gt;</span> <span class="n">e</span> <span class="k">is</span> <span class="n">MyMeaningFullException</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">//Handle meaningfull exception</span>
+<span class="p">}</span>
+</pre></div>
 
 					<p><a href="/blog/linq-all-the-exceptions/">Read the rest of "Linq All The Exceptions"</a></p>
+					
 				
 			</div>
 		</li>
@@ -104,6 +106,7 @@
 					<p>In my <a href="http://www.correlatedcontent.com/blog/layerless-repositories/">last post</a> repositories were made simpler and more descriptive. The central piece in this was the <a href="http://msdn.microsoft.com/en-us/library/system.linq.iqueryable.aspx" target="_blank">IQueryable</a>. This interface is at the core of every <a href="http://msdn.microsoft.com/en-us/library/bb546158.aspx" target="_blank">Linq Provider</a>. A Linq Provider is the machinery that will convert our linq statements in a format that is readable for the underlying datastore (e.g. sql, xpath,...). Using the IQueryable as the core of your data access strategy enables us to do some nifty things. In this post I will examine two of them: Composite Queries and Projections. In a next post I will show how these can be used to improve databinding in Webforms 4.5</p>
 
 					<p><a href="/blog/layerless-how-i-learned-to-stop-worrying-and-love-the-iqueryable/">Read the rest of "Layerless: How I Learned to Stop Worrying and Love the IQueryable"</a></p>
+					
 				
 			</div>
 		</li>
@@ -120,6 +123,7 @@
 					<p>Since English is the <a href="http://en.wikipedia.org/wiki/Lingua_franca" target="_blank">Lingua Franca</a> among programmers, I’ll be blogging in English now. Probably hairy English, but if something I wrote could accidently help a programmer in Botswana, but he or she cannot understand it because it is written in Dutch, then this blog overshoots it’s purpose. Also, my number one reason to start this blog was to teach myself new stuff. So why not practice my English while I’m at it. I’ll be translating the old posts soon.</p>
 
 					<p><a href="/blog/so-ill-be-doing-this-in-english-now/">Read the rest of "So I’ll be doing this in English now"</a></p>
+					
 				
 			</div>
 		</li>
@@ -169,6 +173,7 @@
 				<li style="text-align: center">
 					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
 					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
+					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>

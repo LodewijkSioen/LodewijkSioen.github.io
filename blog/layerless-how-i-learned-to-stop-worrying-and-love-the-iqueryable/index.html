@@ -10,6 +10,7 @@
 		<title>Layerless: How I Learned to Stop Worrying and Love the IQueryable - Correlated Content</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="/css/social-buttons.css" />
+		<link rel="stylesheet" type="text/css" href="/css/syntax.css" />
 		<link rel="shortcut icon" href="/img/favicon.ico" />
 	</head>
 	<body>
@@ -37,29 +38,25 @@
 <!--excerpt-->
 <p><strong>Composite Queries</strong></p>
 <p>One of the more tricky elements of linq is the idea of deferred execution: a linq statement will only be executed when it is enumerated. This is the source of some <a title="Different outcome after applying ToList()" href="http://stackoverflow.com/questions/10701255/different-outcome-after-applying-tolist" target="_blank">subtle bugs</a>, but also very powerful. This means we can chain several of the extension methods I <a title="Layerless: Repositories" href="http://www.correlatedcontent.com/blog/layerless-repositories/">talked about earlier</a> together to create a composite query:</p>
-<pre><code>var result = Db.Query&lt;User&gt;()
-               .OlderThan(9)
-               .UserNameStartingWith(&quot;E&quot;);
-</code></pre>
-
+<div class="highlight"><pre><span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">Query</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;()</span>
+               <span class="p">.</span><span class="n">OlderThan</span><span class="p">(</span><span class="m">9</span><span class="p">)</span>
+               <span class="p">.</span><span class="n">UserNameStartingWith</span><span class="p">(</span><span class="s">&quot;E&quot;</span><span class="p">);</span>
+</pre></div>
 <p>Since the query will only be generated once the IQueryable is enumerated, the resulting query will be (SqlCE syntax):</p>
-<pre><code>select user0_.UserId as UserId0_, user0_.UserName as UserName0_, user0_.BirthDate as BirthDate0_
-    from [User] user0_ 
-    where (user0_.BirthDate is not null) and 
-    dateadd(dd, 0, datediff(dd, 0, user0_.BirthDate)) and 
-    (user0_.UserName like (?+'%E'))
-</code></pre>
-
+<div class="highlight"><pre><span class="k">select</span> <span class="n">user0_</span><span class="p">.</span><span class="n">UserId</span> <span class="k">as</span> <span class="n">UserId0_</span><span class="p">,</span> <span class="n">user0_</span><span class="p">.</span><span class="n">UserName</span> <span class="k">as</span> <span class="n">UserName0_</span><span class="p">,</span> <span class="n">user0_</span><span class="p">.</span><span class="n">BirthDate</span> <span class="k">as</span> <span class="n">BirthDate0_</span>
+    <span class="k">from</span> <span class="p">[</span><span class="k">User</span><span class="p">]</span> <span class="n">user0_</span> 
+    <span class="k">where</span> <span class="p">(</span><span class="n">user0_</span><span class="p">.</span><span class="n">BirthDate</span> <span class="k">is</span> <span class="k">not</span> <span class="k">null</span><span class="p">)</span> <span class="k">and</span> 
+    <span class="n">dateadd</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">datediff</span><span class="p">(</span><span class="n">dd</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">user0_</span><span class="p">.</span><span class="n">BirthDate</span><span class="p">))</span> <span class="k">and</span> 
+    <span class="p">(</span><span class="n">user0_</span><span class="p">.</span><span class="n">UserName</span> <span class="k">like</span> <span class="p">(</span><span class="o">?+</span><span class="s1">&#39;%E&#39;</span><span class="p">))</span>
+</pre></div>
 <p>This allows us to define fragmented queries that can be used to compose larger queries. This also allows for something pretty nice in Webforms 4.5.</p>
 <p><strong>Projections</strong></p>
 <p>Another lovely feature you get for free by using a modern ORM with a decent Linq Provider are projections. This basically means you’ll only select the fields from the database what you need. NHibernate has always had <a href="http://nhforge.org/doc/nh/en/index.html#querycriteria-projection" target="_blank">projections</a>, but they were never easy to set up. The linq provider in NHibernate gives us a much nicer developer experience. For example this statement:</p>
-<pre><code>var result = Data.Select(u =&gt; u.UserName).ToList();
-</code></pre>
-
+<div class="highlight"><pre><span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">Data</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">u</span> <span class="p">=&gt;</span> <span class="n">u</span><span class="p">.</span><span class="n">UserName</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
+</pre></div>
 <p>Will produce the following query:</p>
-<pre><code>select user0_.UserName as col_0_0_ from [User] user0_
-</code></pre>
-
+<div class="highlight"><pre><span class="k">select</span> <span class="n">user0_</span><span class="p">.</span><span class="n">UserName</span> <span class="k">as</span> <span class="n">col_0_0_</span> <span class="k">from</span> <span class="p">[</span><span class="n">User</span><span class="p">]</span> <span class="n">user0_</span>
+</pre></div>
 <p>So instead of the complete User object, we only get the fields we asked for. This is handy if we want to construct a Viewmodel for databinding and not the Entity. Using Viewmodels is also something that will make our life easier in the Webforms 4.5 world. So stay tuned for the next instalment of the Correlated Content blog – now in English.</p>
 
 	</div>
@@ -69,8 +66,6 @@
 	<div class="right">  </div> 
 	<div class="clear">&nbsp;</div>
 </div> 
-
-
 
 			</div>
 		</div>
@@ -85,6 +80,7 @@
 				<li style="text-align: center">
 					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
 					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
+					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>

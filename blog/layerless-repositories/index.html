@@ -10,6 +10,7 @@
 		<title>Layerless: Repositories - Correlated Content</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="/css/social-buttons.css" />
+		<link rel="stylesheet" type="text/css" href="/css/syntax.css" />
 		<link rel="shortcut icon" href="/img/favicon.ico" />
 	</head>
 	<body>
@@ -33,61 +34,77 @@
 		<span class="postdate">25 april, 2012
 			
 		</span>
-		<p>Na wat <a href="http://www.correlatedcontent.com/blog/hoeveel-laagjes-heb-je-nodig-om-een-gloeilamp-te-vervangen/">abstract gezweef</a> is het nu tijd om de borst nat te maken en in het codebad te duiken. Laten we beginnen met het elimineren van een noodzakelijk kwaad: <a href="http://martinfowler.com/eaaCatalog/repository.html" target="_blank">Repositories</a>. Niet dat deze zo slecht zijn, maar als je constructors er als volgt beginnen uitzien:</p><pre class="csharpcode"><span class="kwrd">public</span> UserController(IUserRepository userRepository,
-                                  IRoleRepository roleRepository, 
-                                  IAccessRepository accessRepository, 
-                                  IExternalLinkRepository externalLinkRepository)</pre>
-<p>Dan noem ik dat een <a href="http://en.wikipedia.org/wiki/Code_smell" target="_blank">code smell</a>. Gelukkig hebben we <a href="http://en.wikipedia.org/wiki/Dependency_injection" target="_blank">Dependency Injection</a> om ons het leven gemakkelijk te maken, maar elegante code kan je dit bezwaarlijk noemen. Het unit testen ervan is al een hele ramp:</p><pre class="csharpcode"><span class="rem">//Arrange</span>
-var userRepository = MockRepository.GenerateMock&lt;IUserRepository&gt;();
-var roleRepository = MockRepository.GenerateMock&lt;IRoleRepository&gt;();
-var accessRepository = MockRepository.GenerateMock&lt;IAccessRepository&gt;();
-var externalLinkRepository = MockRepository.GenerateMock&lt;IExternalLinkRepository&gt;();
+		<p>Na wat <a href="http://www.correlatedcontent.com/blog/hoeveel-laagjes-heb-je-nodig-om-een-gloeilamp-te-vervangen/">abstract gezweef</a> is het nu tijd om de borst nat te maken en in het codebad te duiken. Laten we beginnen met het elimineren van een noodzakelijk kwaad: <a href="http://martinfowler.com/eaaCatalog/repository.html" target="_blank">Repositories</a>. Niet dat deze zo slecht zijn, maar als je constructors er als volgt beginnen uitzien:</p>
+<div class="highlight"><pre><span class="k">public</span> <span class="nf">UserController</span><span class="p">(</span><span class="n">IUserRepository</span> <span class="n">userRepository</span><span class="p">,</span>
+                      <span class="n">IRoleRepository</span> <span class="n">roleRepository</span><span class="p">,</span> 
+                      <span class="n">IAccessRepository</span> <span class="n">accessRepository</span><span class="p">,</span> 
+                      <span class="n">IExternalLinkRepository</span> <span class="n">externalLinkRepository</span><span class="p">)</span>
+</pre></div>
+<p>Dan noem ik dat een <a href="http://en.wikipedia.org/wiki/Code_smell" target="_blank">code smell</a>. Gelukkig hebben we <a href="http://en.wikipedia.org/wiki/Dependency_injection" target="_blank">Dependency Injection</a> om ons het leven gemakkelijk te maken, maar elegante code kan je dit bezwaarlijk noemen. Het unit testen ervan is al een hele ramp:</p>
+<div class="highlight"><pre><span class="c1">//Arrange</span>
+<span class="kt">var</span> <span class="n">userRepository</span> <span class="p">=</span> <span class="n">MockRepository</span><span class="p">.</span><span class="n">GenerateMock</span><span class="p">&lt;</span><span class="n">IUserRepository</span><span class="p">&gt;();</span>
+<span class="kt">var</span> <span class="n">roleRepository</span> <span class="p">=</span> <span class="n">MockRepository</span><span class="p">.</span><span class="n">GenerateMock</span><span class="p">&lt;</span><span class="n">IRoleRepository</span><span class="p">&gt;();</span>
+<span class="kt">var</span> <span class="n">accessRepository</span> <span class="p">=</span> <span class="n">MockRepository</span><span class="p">.</span><span class="n">GenerateMock</span><span class="p">&lt;</span><span class="n">IAccessRepository</span><span class="p">&gt;();</span>
+<span class="kt">var</span> <span class="n">externalLinkRepository</span> <span class="p">=</span> <span class="n">MockRepository</span><span class="p">.</span><span class="n">GenerateMock</span><span class="p">&gt;</span><span class="n">IExternalLinkRepository</span><span class="p">&gt;();</span>
             
-var userController = <span class="kwrd">new</span> UserController(userController,
-                                                                  roleRepository, 
-                                                                  accessRepository, 
-                                                                  externalLinkRepository);</pre>
+<span class="kt">var</span> <span class="n">userController</span> <span class="p">=</span>  <span class="n">UserController</span><span class="p">(</span><span class="n">userController</span><span class="p">,</span>
+                                     <span class="n">roleRepository</span><span class="p">,</span> 
+                                     <span class="n">accessRepository</span><span class="p">,</span> 
+                                     <span class="n">externalLinkRepository</span><span class="p">);</span>
+</pre></div>
 <p>Dat allemaal om een methode te testen die mogelijks maar de helft van die dependencies nodig heeft.</p>
-<p>“Ok meneertje beterweet”, hoor ik je al denken, “wat stel je dan voor?” Simpel: we koppelen het opbouwen van de query los van de uitvoering ervan. Aanschouw onze <a href="https://github.com/Lodewijk-S/Sioen.Layerless/blob/e3917683d35cf042f1b3ffcf87396b7cbe74da75/Sioen.Layerless.Infrastructure/Data/IQueryExecutor.cs" target="_blank">QueryExecutor</a>:</p><pre class="csharpcode"><span class="kwrd">public</span> <span class="kwrd">interface</span> IQueryExecutor
-{        
-    T One&lt;T&gt;(Guid id);
-    <span class="kwrd">void</span> Save&lt;T&gt;(T entity);
-    <span class="kwrd">void</span> Delete&lt;T&gt;(T entity);
+<p>“Ok meneertje beterweet”, hoor ik je al denken, “wat stel je dan voor?” Simpel: we koppelen het opbouwen van de query los van de uitvoering ervan. Aanschouw onze <a href="https://github.com/Lodewijk-S/Sioen.Layerless/blob/e3917683d35cf042f1b3ffcf87396b7cbe74da75/Sioen.Layerless.Infrastructure/Data/IQueryExecutor.cs" target="_blank">QueryExecutor</a>:</p>
+<div class="highlight"><pre><span class="k">public</span> <span class="k">interface</span> <span class="n">IQueryExecutor</span>
+<span class="p">{</span>        
+    <span class="n">T</span> <span class="n">One</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">Guid</span> <span class="n">id</span><span class="p">);</span>
+    <span class="k">void</span> <span class="n">Save</span><span class="p">&gt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">T</span> <span class="n">entity</span><span class="p">);</span>
+    <span class="k">void</span> <span class="n">Delete</span><span class="p">&gt;</span><span class="n">T</span><span class="p">&lt;(</span><span class="n">T</span> <span class="n">entity</span><span class="p">);</span>
 
-    IQueryable&lt;T&gt; Query&lt;T&gt;();
-    T Query&lt;T&gt;(Query&lt;T&gt; query);
-}</pre>
-<p>’One’, ‘Save’ en ‘Delete’ spreken voor zich. Het wordt pas interessant wanneer we bij de twee Query functions komen. De eerste geeft je IQueryable waarmee een linq query kan opgebouwd worden:</p><pre class="csharpcode">var result = from u <span class="kwrd">in</span> Db.Query&lt;User&gt;()
-             <span class="kwrd">where</span> u.BirthDate &lt; DateTime.Now.Date.AddYears(-10)
-             select u;</pre>
-<p>Je kan dus gemakkelijk de queries gaan declareren in de applicatiecode die het resultaat nodig heeft. Dit maakt de boel leesbaarder, maar roept wel herinneringen op van de tijd toen de sql-statements kwistig in de codebehind werden rondgestrooid. Niets houdt ons echter tegen om onze queries nog steeds te gaan groeperen in Repositories. Enkel het uitvoeren van die queries koppelen we los. Dankzij Extension Methods kunnen we dit op een bijzonder elegante manier doen:</p><pre class="csharpcode"><span class="kwrd">public</span> <span class="kwrd">static</span> <span class="kwrd">class</span> UserRepositroy
-{
-    <span class="kwrd">public</span> <span class="kwrd">static</span> IQueryable&lt;User&gt; GetUsersOlderThan(<span class="kwrd">this</span> IQueryable&lt;User&gt; db, <span class="kwrd">int</span> years)
-    {
-        <span class="kwrd">return</span> from u <span class="kwrd">in</span> db
-               <span class="kwrd">where</span> u.BirthDate &lt; DateTime.Now.Date.AddYears(-10)
-               select u;
-    }
-}</pre>
-<p>In gebruik ziet dit er als volgt uit:</p><pre class="csharpcode">var users = Db.Query&lt;User&gt;().GetUsersOlderThan(10);</pre>
+    <span class="n">IQueryable</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">Query</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;();</span>
+    <span class="n">T</span> <span class="n">Query</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">Query</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">query</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>’One’, ‘Save’ en ‘Delete’ spreken voor zich. Het wordt pas interessant wanneer we bij de twee Query functions komen. De eerste geeft je IQueryable waarmee een linq query kan opgebouwd worden:</p>
+<div class="highlight"><pre><span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="k">from</span> <span class="n">u</span> <span class="k">in</span> <span class="n">Db</span><span class="p">.</span><span class="n">Query</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;()</span>
+             <span class="k">where</span> <span class="n">u</span><span class="p">.</span><span class="n">BirthDate</span> <span class="p">&lt;</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">Date</span><span class="p">.</span><span class="n">AddYears</span><span class="p">(-</span><span class="m">10</span><span class="p">)</span>
+             <span class="k">select</span> <span class="n">u</span><span class="p">;</span>
+</pre></div>
+<p>Je kan dus gemakkelijk de queries gaan declareren in de applicatiecode die het resultaat nodig heeft. Dit maakt de boel leesbaarder, maar roept wel herinneringen op van de tijd toen de sql-statements kwistig in de codebehind werden rondgestrooid. Niets houdt ons echter tegen om onze queries nog steeds te gaan groeperen in Repositories. Enkel het uitvoeren van die queries koppelen we los. Dankzij Extension Methods kunnen we dit op een bijzonder elegante manier doen:</p>
+<div class="highlight"><pre><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">UserRepositroy</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="n">IQueryable</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="n">GetUsersOlderThan</span><span class="p">(</span><span class="k">this</span> <span class="n">IQueryable</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="n">db</span><span class="p">,</span> <span class="kt">int</span> <span class="n">years</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">from</span> <span class="n">u</span> <span class="k">in</span> <span class="n">db</span>
+               <span class="k">where</span> <span class="n">u</span><span class="p">.</span><span class="n">BirthDate</span> <span class="p">&lt;</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">Date</span><span class="p">.</span><span class="n">AddYears</span><span class="p">(-</span><span class="n">years</span><span class="p">)</span>
+               <span class="k">select</span> <span class="n">u</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>In gebruik ziet dit er als volgt uit:</p>
+<div class="highlight"><pre><span class="kt">var</span> <span class="n">users</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">Query</span><span class="p">&gt;</span><span class="n">User</span><span class="p">&gt;().</span><span class="n">GetUsersOlderThan</span><span class="p">(</span><span class="m">10</span><span class="p">);</span>
+</pre></div>
 <p>Unit testen zijn een makkie, want we kunnen de QueryExecutor gemakkelijk wegmocken en een in-memory lijstje opbouwen met de inhoud van de database.</p>
-<p>Er zijn natuurlijk momenten dat je linq-provider tekort schiet. Om die op te vangen hebben we de tweede query methode. Deze onvangt een Query object dat een implementatie hiervan is:</p><pre class="csharpcode"><span class="kwrd">public</span> <span class="kwrd">abstract</span> <span class="kwrd">class</span> Query&lt;T&gt;
-{
-    <span class="kwrd">public</span> <span class="kwrd">abstract</span> IList&lt;T&gt; Execute(ISession session);
-}</pre>
-<p>De query van daarnet zou er bijvoorbeeld als volgt kunnen uitzien:</p><pre class="csharpcode"><span class="kwrd">public</span> <span class="kwrd">class</span> UsersOlderThan : Query&lt;User&gt;
-{
-    <span class="kwrd">private</span> DateTime _birthDate;
-    <span class="kwrd">public</span> UsersOlderThan(<span class="kwrd">int</span> age)
-    {
-        _birthDate = DateTime.Now.Date.AddYears(-age);
-    }
+<p>Er zijn natuurlijk momenten dat je linq-provider tekort schiet. Om die op te vangen hebben we de tweede query methode. Deze onvangt een Query object dat een implementatie hiervan is:</p>
+<div class="highlight"><pre><span class="k">public</span> <span class="k">abstract</span> <span class="k">class</span> <span class="nc">Query</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">abstract</span><span class="p">&lt;</span> <span class="n">IList</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;</span> <span class="n">Execute</span><span class="p">(</span><span class="n">ISession</span> <span class="n">session</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>De query van daarnet zou er bijvoorbeeld als volgt kunnen uitzien:</p>
+<div class="highlight"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">UsersOlderThan</span> <span class="p">:</span> <span class="n">Query</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="n">DateTime</span> <span class="n">_birthDate</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nf">UsersOlderThan</span><span class="p">(</span><span class="kt">int</span> <span class="n">age</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_birthDate</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Now</span><span class="p">.</span><span class="n">Date</span><span class="p">.</span><span class="n">AddYears</span><span class="p">(-</span><span class="n">age</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    <span class="kwrd">public</span> <span class="kwrd">override</span> IList&lt;User&gt; Execute(ISession session)
-    {
-        <span class="kwrd">return</span> session.CreateCriteria&lt;User&gt;().Add(Expression.Lt(<span class="str">"BirthDate"</span>, _birthDate)).List&lt;User&gt;();
-    }
-}</pre>
+    <span class="k">public</span> <span class="k">override</span> <span class="n">IList</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;</span> <span class="n">Execute</span><span class="p">(</span><span class="n">ISession</span> <span class="n">session</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span>  <span class="n">session</span><span class="p">.</span><span class="n">CreateCriteria</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;().</span><span class="n">Add</span><span class="p">(</span><span class="n">Expression</span><span class="p">.</span><span class="n">Lt</span><span class="p">(</span><span class="s">&quot;BirthDate&quot;</span><span class="p">,</span> <span class="n">_birthDate</span><span class="p">)).</span><span class="n">List</span><span class="p">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">User</span><span class="p">&amp;</span><span class="n">gt</span><span class="p">;();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 <p>Dit valt opnieuw perfect te unit testen alhoewel je nu wel naar de database zal moeten gaan.</p>
 <p>Door het uitvoeren van queries los te trekken, is de Repository teruggebracht tot zijn oorspronkelijke functie: het verzamelen van queries. Dit is eigenlijk niets meer dan het toepassen van het <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle" target="_blank">Single responsibility principle</a>. Zo vermijden we dat ons systeem overbelast wordt met eenmalig geïmplementeerde interfaces en nodeloos lange constructors. De boel wordt er simpeler door zonder compromissen te sluiten.</p>
 <p>De proof-of-concept code van dit stuk kan je vinden in een <a href="https://github.com/Lodewijk-S/Sioen.Layerless" target="_blank">Github repository</a>. Commentaar is altijd welkom.</p>
@@ -98,8 +115,6 @@ var userController = <span class="kwrd">new</span> UserController(userController
 	<div class="right">  </div> 
 	<div class="clear">&nbsp;</div>
 </div> 
-
-
 
 			</div>
 		</div>
@@ -114,6 +129,7 @@ var userController = <span class="kwrd">new</span> UserController(userController
 				<li style="text-align: center">
 					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
 					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
+					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>

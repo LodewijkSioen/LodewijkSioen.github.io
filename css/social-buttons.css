@@ -995,3 +995,6 @@ a.sb.custom.comment {
 a.sb.github {
 	background-image: url(../img/social-buttons/github.png);
 }
+a.sb.stackoverflow {
+	background-image: url(../img/social-buttons/stackoverflow.png);
+}
