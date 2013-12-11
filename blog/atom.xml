@@ -3,13 +3,34 @@
   <title>Feed Name</title>
   <link href="http://domain/"/>
   <link type="application/atom+xml" rel="self" href="http://domain/atom.xml"/>
-  <updated>6/11/2013 20:57:03</updated>
+  <updated>11/12/2013 20:28:00</updated>
   <id>http://domain/</id>
   <author>
     <name>Author</name>
     <email>Email</email>
   </author>
 
+  
+  <entry>
+    <id>http://domain//blog/AOP-Caching-With-Castle-Windsor/</id>
+    <link type="text/html" rel="alternate" href="http://domain//blog/AOP-Caching-With-Castle-Windsor/"/>
+    <title>Aspect Oriented Programming style Caching with Castle Windsor</title>
+    <updated>11/12/2013 0:00:00</updated>
+    <author>
+      <name>Author</name>
+      <uri>http://domain/</uri>
+    </author>
+    <content type="html">&lt;p&gt;We were doing some work on caching at work the other day, sprinkling calls to cache values here and there in our methods. I couldn&apos;t shake the feeling that this was creating a spaghetti-mess where what a method should do got dilluted with the caching logic. I then remembered that this was exactly the problem &lt;a href=&quot;http://en.wikipedia.org/wiki/Aspect-oriented_programming&quot;&gt;Aspect Oriented Programming&lt;/a&gt; set out to solve. Wouldn&apos;t it be nice if you could decorate a method with an attribute and all the caching logic would magically be applied to the output of the method. Like this:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;na&quot;&gt;[Cached]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;SomeMethod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someArgument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//some logic&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;someValue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Challenge Accepted!&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <id>http://domain//blog/bluetooth-keyboard-on-the-raspberry-pi/</id>
@@ -71,19 +92,6 @@
       <uri>http://domain/</uri>
     </author>
     <content type="html">&lt;p&gt;In my &lt;a href=&quot;http://www.correlatedcontent.com/blog/layerless-repositories/&quot;&gt;last post&lt;/a&gt; repositories were made simpler and more descriptive. The central piece in this was the &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/system.linq.iqueryable.aspx&quot; target=&quot;_blank&quot;&gt;IQueryable&lt;/a&gt;. This interface is at the core of every &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/bb546158.aspx&quot; target=&quot;_blank&quot;&gt;Linq Provider&lt;/a&gt;. A Linq Provider is the machinery that will convert our linq statements in a format that is readable for the underlying datastore (e.g. sql, xpath,...). Using the IQueryable as the core of your data access strategy enables us to do some nifty things. In this post I will examine two of them: Composite Queries and Projections. In a next post I will show how these can be used to improve databinding in Webforms 4.5&lt;/p&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <id>http://domain//blog/so-ill-be-doing-this-in-english-now/</id>
-    <link type="text/html" rel="alternate" href="http://domain//blog/so-ill-be-doing-this-in-english-now/"/>
-    <title>So I’ll be doing this in English now</title>
-    <updated>13/06/2012 0:00:00</updated>
-    <author>
-      <name>Author</name>
-      <uri>http://domain/</uri>
-    </author>
-    <content type="html">&lt;p&gt;Since English is the &lt;a href=&quot;http://en.wikipedia.org/wiki/Lingua_franca&quot; target=&quot;_blank&quot;&gt;Lingua Franca&lt;/a&gt; among programmers, I’ll be blogging in English now. Probably hairy English, but if something I wrote could accidently help a programmer in Botswana, but he or she cannot understand it because it is written in Dutch, then this blog overshoots it’s purpose. Also, my number one reason to start this blog was to teach myself new stuff. So why not practice my English while I’m at it. I’ll be translating the old posts soon.&lt;/p&gt;
 </content>
   </entry>
   

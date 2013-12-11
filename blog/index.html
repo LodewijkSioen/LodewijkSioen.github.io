@@ -33,14 +33,39 @@
 		<li>
 			<div class="idea">
 				
-					<h2><a href="/blog/bluetooth-keyboard-on-the-raspberry-pi/">Bluetooth Keyboard on the Raspberry Pi</a></h2>
+					<h2><a href="/blog/AOP-Caching-With-Castle-Windsor/">Aspect Oriented Programming style Caching with Castle Windsor</a></h2>
 					
-					<div class="postdate">18 februari, 2013
+					<div class="postdate">11 december, 2013
 						<ul>
 						
 						</ul>
 					</div>
 					
+					<p>We were doing some work on caching at work the other day, sprinkling calls to cache values here and there in our methods. I couldn't shake the feeling that this was creating a spaghetti-mess where what a method should do got dilluted with the caching logic. I then remembered that this was exactly the problem <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect Oriented Programming</a> set out to solve. Wouldn't it be nice if you could decorate a method with an attribute and all the caching logic would magically be applied to the output of the method. Like this:</p>
+<div class="highlight"><pre><span class="na">[Cached]</span>
+<span class="k">public</span> <span class="kt">string</span> <span class="nf">SomeMethod</span><span class="p">(</span><span class="kt">int</span> <span class="n">someArgument</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//some logic</span>
+    <span class="k">return</span> <span class="s">&quot;someValue&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Challenge Accepted!</p>
+
+					<p><a href="/blog/AOP-Caching-With-Castle-Windsor/">Read the rest of "Aspect Oriented Programming style Caching with Castle Windsor"</a></p>
+					
+				
+			</div>
+		</li>
+    
+		<li>
+			<div class="idea">
+				
+					<h2><a class="postlink" href="/blog/bluetooth-keyboard-on-the-raspberry-pi/">Bluetooth Keyboard on the Raspberry Pi</a></h2>
+					<div class="postdate">18 februari, 2013
+						<ul>
+						
+						</ul>
+					</div>
 					<p><a href="/img/blog/raspberry.jpg"><img style="background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Raspberry Pi" src="/img/blog/raspberry_thumb.jpg" alt="Raspberry Pi" align="right" border="0" /></a>So I joined the hype and got myself a <a href="http://www.raspberrypi.org/" target="_blank">Raspberry Pi</a>. I loaded it with <a href="http://www.raspbmc.com/" target="_blank">RaspBMC</a> and now I’ve got a nice little media centre connected to my TV. All my music and pictures already reside on a NAS in the utility closet upstairs. I experimented with using my PS3 as a media center (too noisy and bad codec support) and with a <a href="http://en.wikipedia.org/wiki/Digital_Living_Network_Alliance" target="_blank">DLNA</a> capable blu-ray player (silent, but clumsy UI and also bad codec support), but nothing really worked that great. With the Raspberry, I now have a great front-end for my media collection. It’s silent (passively cooled) and runs every file I throw at it.</p>
 <p>I planned to do some other stuff with this Raspberry, so I picked up this Bluetooth PS3 keyboard from a bargain bin and a <a href="http://www.trust.com/products/productsupport.aspx?artnr=17124" target="_blank">Bluetooth dongle</a>. Thinking that Bluetooth is a pretty well known these days, I thought pairing it with the Raspberry would be a piece of pie.</p>
 <p><a href="/img/blog/ps3keyboard.jpg"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="Playstation 3 Keyboard" src="/img/blog/ps3keyboard_thumb.jpg" alt="Playstation 3 Keyboard" border="0" /></a></p>
@@ -111,26 +136,13 @@
 			</div>
 		</li>
     
-		<li>
-			<div class="idea">
-				
-					<h2><a class="postlink" href="/blog/so-ill-be-doing-this-in-english-now/">So I’ll be doing this in English now</a></h2>
-					<div class="postdate">13 juni, 2012
-						<ul>
-						
-						</ul>
-					</div>
-					<p>Since English is the <a href="http://en.wikipedia.org/wiki/Lingua_franca" target="_blank">Lingua Franca</a> among programmers, I’ll be blogging in English now. Probably hairy English, but if something I wrote could accidently help a programmer in Botswana, but he or she cannot understand it because it is written in Dutch, then this blog overshoots it’s purpose. Also, my number one reason to start this blog was to teach myself new stuff. So why not practice my English while I’m at it. I’ll be translating the old posts soon.</p>
-
-					<p><a href="/blog/so-ill-be-doing-this-in-english-now/">Read the rest of "So I’ll be doing this in English now"</a></p>
-					
-				
-			</div>
-		</li>
-    
 </ul>
 <h3>OLDER</h3>
 <ul class="postArchive">
+
+	<li>
+		<span class="olderpostdate"> 13 jun </span> <a class="postlink" href="/blog/so-ill-be-doing-this-in-english-now/">So I’ll be doing this in English now</a>
+	</li>
 
 	<li>
 		<span class="olderpostdate"> 25 apr </span> <a class="postlink" href="/blog/layerless-repositories/">Layerless: Repositories</a>
