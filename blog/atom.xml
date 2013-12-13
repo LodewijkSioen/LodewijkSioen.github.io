@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Feed Name</title>
-  <link href="http://domain/"/>
-  <link type="application/atom+xml" rel="self" href="http://domain/atom.xml"/>
-  <updated>12/12/2013 21:00:57</updated>
-  <id>http://domain/</id>
+  <title>Correlated Content Blog</title>
+  <link href="http://www.correlatedcontent.com/blog/"/>
+  <link type="application/atom+xml" rel="self" href="http://www.correlatedcontent.com/blog/atom.xml"/>
+  <updated>13/12/2013 9:37:51</updated>
+  <id>http://www.correlatedcontent.com/blog/</id>
   <author>
     <name>Author</name>
     <email>Email</email>
