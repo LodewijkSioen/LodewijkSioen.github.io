@@ -63,6 +63,14 @@ a:hover{
     float: right;
     padding: 5px;
 }
+blockquote{
+    border: gray 1px solid;
+    padding: 5px;
+    margin: 5px;
+}
+p{
+    margin-top: 0px;
+}
 /*COMMENTS*/
 .comment .commentheader {
     float: left;
