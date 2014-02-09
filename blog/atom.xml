@@ -3,13 +3,29 @@
   <title>Correlated Content Blog</title>
   <link href="http://www.correlatedcontent.com/blog/"/>
   <link type="application/atom+xml" rel="self" href="http://www.correlatedcontent.com/blog/atom.xml"/>
-  <updated>18/12/2013 8:27:25</updated>
+  <updated>9/02/2014 15:37:46</updated>
   <id>http://www.correlatedcontent.com/blog/</id>
   <author>
     <name>Author</name>
     <email>Email</email>
   </author>
 
+  
+  <entry>
+    <id>http://domain//blog/4x6/</id>
+    <link type="text/html" rel="alternate" href="http://domain//blog/4x6/"/>
+    <title>4x6=24 (een parodie)</title>
+    <updated>9/02/2014 0:00:00</updated>
+    <author>
+      <name>Author</name>
+      <uri>http://domain/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Kinderen in een steeds sedentaire maatschappij moeten leren omgaan met de basisblokken die in de steentijd centraal staan.&lt;/p&gt;
+&lt;p&gt;Door Peter Grunt, partner in Neader Group en voorzitter van Neader Technology&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/blog/cave_school_cen.jpg&quot; alt=&quot;Wiskunde op school&quot; /&gt;Ik kan enorm genieten van ‘Wouters vs. Waes’. Briljant gemaakt en bijzonder charmant gedragen door de twee ontwapenende persoonlijkheden van Tom Waes en Koen Wauters. Vorige week zetten ze hun epische strijd voort met hun deelname aan ‘De Grote Wiskunde Proef’.&lt;/p&gt;
+&lt;p&gt;Het was bijzondere televisie. Daar zaten de twee binken ‘zonder hoger diploma’ heel onwennig in de pluchen banken van de Eerste Kamer in Den Haag, terwijl ze een wiskundeproef van Piet Agoras doorworstelden. Waes won met 35 fouten. Wouters had er 37. De complexiteit en logica van onze Wiskunde waren voldoende om de twee deelnemers totaal het noorden kwijt te laten raken.&lt;/p&gt;
+</content>
+  </entry>
   
   <entry>
     <id>http://domain//blog/AOP-Caching-With-Castle-Windsor/</id>
@@ -79,19 +95,6 @@
     &lt;span class=&quot;c1&quot;&gt;//Handle meaningfull exception&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-</content>
-  </entry>
-  
-  <entry>
-    <id>http://domain//blog/layerless-how-i-learned-to-stop-worrying-and-love-the-iqueryable/</id>
-    <link type="text/html" rel="alternate" href="http://domain//blog/layerless-how-i-learned-to-stop-worrying-and-love-the-iqueryable/"/>
-    <title>Layerless: How I Learned to Stop Worrying and Love the IQueryable</title>
-    <updated>14/06/2012 0:00:00</updated>
-    <author>
-      <name>Author</name>
-      <uri>http://domain/</uri>
-    </author>
-    <content type="html">&lt;p&gt;In my &lt;a href=&quot;http://www.correlatedcontent.com/blog/layerless-repositories/&quot;&gt;last post&lt;/a&gt; repositories were made simpler and more descriptive. The central piece in this was the &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/system.linq.iqueryable.aspx&quot; target=&quot;_blank&quot;&gt;IQueryable&lt;/a&gt;. This interface is at the core of every &lt;a href=&quot;http://msdn.microsoft.com/en-us/library/bb546158.aspx&quot; target=&quot;_blank&quot;&gt;Linq Provider&lt;/a&gt;. A Linq Provider is the machinery that will convert our linq statements in a format that is readable for the underlying datastore (e.g. sql, xpath,...). Using the IQueryable as the core of your data access strategy enables us to do some nifty things. In this post I will examine two of them: Composite Queries and Projections. In a next post I will show how these can be used to improve databinding in Webforms 4.5&lt;/p&gt;
 </content>
   </entry>
   

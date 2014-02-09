@@ -8,14 +8,6 @@ a, a:visited{
 	color: #13678b;
 	text-decoration: none;
 }
-ul {
-	margin:0; 
-	padding:0;
-}
-li { 
-	margin:0; 
-	padding:0; 
-}
 a:hover{
 	text-decoration: underline;	
 }
@@ -36,10 +28,15 @@ a:hover{
 #navigation a, #navigation a:visited{
 	color: white;	
 }
+#navigation ul{
+    margin: 0;
+    padding: 0;
+}
 #navigation li{
 	list-style-type:none;
 	display: inline-block;	
-	margin-left: 5px;
+	margin: 0 0 0 5px;
+    padding: 0;
 }
 #content-wrap{
     float: left;
@@ -54,10 +51,17 @@ a:hover{
     margin-left: -250px;
 }
 #sidebar ul{
-	margin-left: 50px;
+	margin: 0 0 0 50px;
+    padding: 0;
 }
 #sidebar li{
 	list-style-type:none;
+    margin: 0;
+    padding: 0;
+}
+.entry img{
+    float: right;
+    padding: 5px;
 }
 /*COMMENTS*/
 .comment .commentheader {
@@ -104,7 +108,7 @@ a:hover{
 .comment .commentbody p {
     margin: 0.5em 0;
 }
-.posts li, .postArchive li{
+.postArchive li{
 	list-style-type:none;	
 }
 .clear{
