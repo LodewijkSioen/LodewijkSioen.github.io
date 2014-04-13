@@ -6,9 +6,21 @@
     <atom:link href="http://www.correlatedcontent.com/blog/rss.xml" rel="self" type="application/rss+xml" />
     <description>The Most Merciful Thing in the World</description>
     <language>en</language>
-    <pubDate>zo, 09 feb 2014 19:38:14 %z</pubDate>
-    <lastBuildDate>zo, 09 feb 2014 19:38:14 %z</lastBuildDate>
+    <pubDate>zo, 13 apr 2014 10:00:58 %z</pubDate>
+    <lastBuildDate>zo, 13 apr 2014 10:00:58 %z</lastBuildDate>
 
+    
+    <item>
+      <title>I Love It When The Lego Bricks Come Together</title>
+      <link>http://domain/blog/I-Love-It-When-The-Lego-Bricks-Come-Together/</link>
+      <pubDate>do, 13 mrt 2014 00:00:00 %z</pubDate>
+      <author>Author</author>
+      <guid>http://domain/blog/I-Love-It-When-The-Lego-Bricks-Come-Together/</guid>
+      <description>&lt;p&gt;The promise of modern programming is this: you take a library here, a nuget package there, combine them with a webservice et voila! a working application. This is what I though creating my next hobby project would be. Just put some lego bricks together to create a usefull application.&lt;/p&gt;
+&lt;p&gt;In reality it didn&apos;t go that smooth. The experience was more like taking some Lego bricks and duktaping them so some Mega Blocks. Also string was needed to tie some Playmobil together. Oh, and a 3D-printed piece was needed because the thing I needed didn&apos;t exist yet. But when everything finally was jammed in it&apos;s place, the feeling of accomplishment was amazing. &lt;em&gt;I&lt;/em&gt; made this!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/blog/MutantToys2.jpg&quot; alt=&quot;Mutant Toys&quot; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>4x6=24 (een parodie)</title>
@@ -62,23 +74,6 @@
       <author>Author</author>
       <guid>http://domain/blog/layerless-webforms-4-5-databinding/</guid>
       <description>&lt;p&gt;Data binding in Webforms has never been easy. Either you used the &lt;a title=&quot;Msdn article&quot; href=&quot;http://msdn.microsoft.com/en-us/library/system.web.ui.datasourcecontrol.aspx&quot; target=&quot;_blank&quot;&gt;Datasource Controls&lt;/a&gt; and end up with an overcrowded markup; or you bind your data manually in the codebehind and end up with an overcrowded codebehind page. No matter what you chose, ‘magic strings’ will be used and you can forget about testability. Those hipster MVC folks have so much easier. One method on the controller just supplies the view with data. No lifecycle, no magic strings, just clean code.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Linq All The Exceptions</title>
-      <link>http://domain/blog/linq-all-the-exceptions/</link>
-      <pubDate>di, 04 sep 2012 00:00:00 %z</pubDate>
-      <author>Author</author>
-      <guid>http://domain/blog/linq-all-the-exceptions/</guid>
-      <description>&lt;p&gt;At work we have this ‘Layered’ application where every layer catches Exceptions and re-throws them in an custom Exception type. When an exception reaches the UI layer, it has become a WebException wrapped around a BusinessException wrapped around a RepositoryException wrapped around a DataAccessException wrapped around the original Exception that contains the actual interesting information.&lt;/p&gt;
-&lt;p&gt;This not only renders the log file unreadable, it also makes it hard to throw meaningful exceptions. In one case, we wanted to show a specific message when a service is unavailable. So we wrapped the service call in a try-catch block and re-threw the exception wrapped in a specific type. Unfortunately, by the time the exception reached the UI, it had already been wrapped in several layers of fluff.&lt;/p&gt;
-&lt;p&gt;I cracked my knuckles and prepared myself to write another do-while loop to find the meaningful exception. But then I thought: “Wouldn’t linq be nice to have in this case? Then I could write code like this:” &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exception&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ToEnumerable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Any&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyMeaningFullException&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;//Handle meaningfull exception&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     

@@ -31,6 +31,27 @@
 				<div class="posts">
     
 			<div class="entry">				
+				<h2><a href="/blog/I-Love-It-When-The-Lego-Bricks-Come-Together/">I Love It When The Lego Bricks Come Together</a></h2>
+					
+				<div class="postdate">13 maart, 2014
+					<ul>
+					
+					</ul>
+				</div>
+					
+				<div><p>The promise of modern programming is this: you take a library here, a nuget package there, combine them with a webservice et voila! a working application. This is what I though creating my next hobby project would be. Just put some lego bricks together to create a usefull application.</p>
+<p>In reality it didn't go that smooth. The experience was more like taking some Lego bricks and duktaping them so some Mega Blocks. Also string was needed to tie some Playmobil together. Oh, and a 3D-printed piece was needed because the thing I needed didn't exist yet. But when everything finally was jammed in it's place, the feeling of accomplishment was amazing. <em>I</em> made this!</p>
+<p><img src="/img/blog/MutantToys2.jpg" alt="Mutant Toys" /></p>
+</div>
+				<div><a href="/blog/I-Love-It-When-The-Lego-Bricks-Come-Together/">Read the rest of "I Love It When The Lego Bricks Come Together"</a></div>
+				
+				<div id="commentsFor3">
+					<img src="/img/ajax-loader.gif" /> Loading comments...
+				</div>
+				
+			</div>
+    
+			<div class="entry">				
 				<h2><a href="/blog/4x6/">4x6=24 (een parodie)</a></h2>
 					
 				<div class="postdate"> 9 februari, 2014
@@ -113,31 +134,13 @@
 				
 			</div>
     
-			<div class="entry">				
-				<h2><a href="/blog/linq-all-the-exceptions/">Linq All The Exceptions</a></h2>
-					
-				<div class="postdate"> 4 september, 2012
-					<ul>
-					
-					</ul>
-				</div>
-					
-				<div><p>At work we have this ‘Layered’ application where every layer catches Exceptions and re-throws them in an custom Exception type. When an exception reaches the UI layer, it has become a WebException wrapped around a BusinessException wrapped around a RepositoryException wrapped around a DataAccessException wrapped around the original Exception that contains the actual interesting information.</p>
-<p>This not only renders the log file unreadable, it also makes it hard to throw meaningful exceptions. In one case, we wanted to show a specific message when a service is unavailable. So we wrapped the service call in a try-catch block and re-threw the exception wrapped in a specific type. Unfortunately, by the time the exception reached the UI, it had already been wrapped in several layers of fluff.</p>
-<p>I cracked my knuckles and prepared myself to write another do-while loop to find the meaningful exception. But then I thought: “Wouldn’t linq be nice to have in this case? Then I could write code like this:” </p>
-<div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="n">exception</span><span class="p">.</span><span class="n">ToEnumerable</span><span class="p">().</span><span class="n">Any</span><span class="p">(</span><span class="n">e</span> <span class="p">=&gt;</span> <span class="n">e</span> <span class="k">is</span> <span class="n">MyMeaningFullException</span><span class="p">))</span>
-<span class="p">{</span>
-    <span class="c1">//Handle meaningfull exception</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-				<div><a href="/blog/linq-all-the-exceptions/">Read the rest of "Linq All The Exceptions"</a></div>
-				
-			</div>
-    
 </div>
 <h3>OLDER</h3>
 <ul class="postArchive">
+
+	<li>
+		<span class="olderpostdate"> 04 sep </span> <a class="postlink" href="/blog/linq-all-the-exceptions/">Linq All The Exceptions</a>
+	</li>
 
 	<li>
 		<span class="olderpostdate"> 14 jun </span> <a class="postlink" href="/blog/layerless-how-i-learned-to-stop-worrying-and-love-the-iqueryable/">Layerless: How I Learned to Stop Worrying and Love the IQueryable</a>
@@ -190,11 +193,11 @@ function updateCommentCount(commentId, url){
 	});
 }
 
+updateCommentCount(3, "/blog/I-Love-It-When-The-Lego-Bricks-Come-Together/");
+
 updateCommentCount(2, "/blog/4x6/");
 
 updateCommentCount(1, "/blog/AOP-Caching-With-Castle-Windsor/");
-
-
 
 
 

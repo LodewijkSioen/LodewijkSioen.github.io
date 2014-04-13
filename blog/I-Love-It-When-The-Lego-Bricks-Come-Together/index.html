@@ -1,0 +1,151 @@
+<!DOCTYPE html >
+<html>
+	<head>
+		<meta content="en-gb" http-equiv="Content-Language" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<link href="/blog/rss.xml" type="application/rss+xml" rel="alternate" title="Blog Feed" />
+		<link href="/blog/atom.xml" type="application/atom+xml" rel="alternate" title="Blog Feed" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>I Love It When The Lego Bricks Come Together - Correlated Content</title>
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/css/social-buttons.css" />
+		<link rel="stylesheet" type="text/css" href="/css/syntax.css" />
+		<link rel="shortcut icon" href="/img/favicon.ico" />
+	</head>
+	<body>
+		<div id="header">			
+			<h1><a href="/" title="home" alt="home">Correlated Content</a></h1>			
+			<a href="/" title="home" alt="home" style="display: block; line-height: 0;">
+				<img src="/img/header.jpg" alt="Correlated Content" />
+			</a>
+		</div>
+		<div id="navigation">
+			<ul>
+				<li><a href="/" title="home" alt="home">Home</a></li>
+				<li><a href="/blog/" title="home" alt="home">Blog</a></li>
+			</ul>
+		</div>
+		<div id="content-wrap">
+			<div id="content">
+				<div class="entry-container">
+	<div class='entry'>
+		<h2> I Love It When The Lego Bricks Come Together </h2>
+		<span class="postdate">13 maart, 2014
+			
+		</span>
+		<p>The promise of modern programming is this: you take a library here, a nuget package there, combine them with a webservice et voila! a working application. This is what I though creating my next hobby project would be. Just put some lego bricks together to create a usefull application.</p>
+<p>In reality it didn't go that smooth. The experience was more like taking some Lego bricks and duktaping them so some Mega Blocks. Also string was needed to tie some Playmobil together. Oh, and a 3D-printed piece was needed because the thing I needed didn't exist yet. But when everything finally was jammed in it's place, the feeling of accomplishment was amazing. <em>I</em> made this!</p>
+<p><img src="/img/blog/MutantToys2.jpg" alt="Mutant Toys" /></p>
+<!--excerpt-->
+<h3>Some background</h3>
+<p>I was one of the few owners of a <a href="http://en.wikipedia.org/wiki/Windows_Home_Server">Windows Home Server</a> (WHS) machine. It sat in my utility closet, serving files all over the house and backing up various machines. One of the neat features of Windows Home Server was its plugin ecosystem. The most usefull plugin I had was <a href="http://www.mymovies.dk/products/windows-home-server/my-music-disc-copier.aspx">My Music Disc Copier</a>, which automatcally ripped CDs I put in the machine. It was a great way of converting my CD collection to mp3. After the platform died in 2012, I replaced the OS on my closet server with Windows 8 (which includes some of the backup and sharing capablilities of WHS). But that meant that I could no longer rip my CDs the way I was used to. No problem, I thought, I'm a programmer. I can make that myself!</p>
+<h3>The Vision</h3>
+<p>The vision was clear: To have a windows service that checks if there is a CD in the drive and kicks off the ripping process. Progress of the ripping needed to be monitored from a website. I also had a collection of tools/libraries I wanted to try out. I'm a firm believer in <a href="http://en.wikipedia.org/wiki/Law_of_the_instrument">Golden Hammers</a> for hobby projects. You don't use the best tool for the job, but the tool you're eager to try out. I wanted to learn <a href="https://rx.codeplex.com/">Reactive Extensions</a>, <a href="http://nancyfx.org/">NancyFx</a> and <a href="http://knockoutjs.com/">Knockout</a> and this seemed like the ideal project to use them.</p>
+<p>A few months of stealing moments of free time here and there, this is the result:</p>
+<iframe width="480" height="360" src="//www.youtube.com/embed/L8PDSYcpzf4" frameborder="0" allowfullscreen></iframe>
+<h3>The work</h3>
+<p>This is how it all went down:</p>
+<ul>
+<li>I used <a href="http://topshelf-project.com/">Topshelf</a> for creating a windows service. This is a brilliant library that really takes all friction out dealing with windows services.</li>
+<li>All components are tied together with <a href="http://www.castleproject.org/">Castle Windsor</a>. This was the safe choice as I'm already using it at work.</li>
+<li>With Castle Windsor's Startable Facility a background Task is fired up that will check if there is a CD inserted in the drive. This process is orchestrated by <a href="https://rx.codeplex.com/">Reactive Extensions (Rx)</a>. I love the programming model of Rx, but I had some problems getting up to speed with it. It's really a completely different way typing your code.</li>
+<li>
+Once a CD is found in the drive, the Ripping process is started. Since there is no library available for ripping CD's in .net, I had to create one myself. Luckely I found <a href="http://www.codeproject.com/Articles/501521/How-to-convert-between-most-audio-formats-in-NET">a few articles</a> <a href="http://www.codeproject.com/Articles/5458/C-Sharp-Ripper">with sample code</a> where all the hard work was already done for me. All I had to do was to craft a nice api on top for the p-invoke calls.
+<ul>
+<li>I also needed to fetch the album information in order to write the id3-tags. <a href="http://MusicBrainz.org">MusicBrainz.org</a> has a webservice you can query, but you need a hashed code based on the <a href="http://en.wikipedia.org/wiki/Session_%28CD%29#Sessions">cd-toc</a> in order to do that. Creating that hash meant translating some c code to c#, which was ... interesting.</li>
+<li>Once I could read a physical cd in .net and I had the albuminformation from MusicBrainz, all I needed to do was to pipe that information into a <a href="http://lame.sourceforge.net/">Lame</a> process. That was suprisingly easy.</li>
+</ul>
+</li>
+<li>Now I had a service that could automatically rip a cd on insertion. But I still needed a way to report the progress of the ripping. The idea was to have <a href="http://nancyfx.org/">NancyFx</a> host a website inside the same windows service as the ripping process. Realtime information of the ripping would be relayed to the client using <a href="http://signalr.net/">SignalR</a>.</li>
+<li>In order to run both NancFx and SignalR in the same process on the same port, the hosting aspect of both frameworks is handled by <a href="https://katanaproject.codeplex.com/documentation">microsoft's</a> <a href="http://owin.org/">OWIN</a> implementation. OWIN will abstract away the hosting from both web frameworks, making it possible to run them side by side in the same process.</li>
+<li>At this point I had a service ripping CDs and sending realtime information of it's progress to a website. In order to update the UI of the ripping progress, I used the <a href="http://knockoutjs.com/">Knockout</a> javascript MVVM framework. It's amazing to see how easy it is to databind stuff using one of these modern javascipt frameworks. If I think about the mountains of jQuery code I have written in my career that can by replaced by a few lines of databinding code in knockout...</li>
+</ul>
+<p>You can find the code of this little project <a href="https://github.com/LodewijkSioen/OpenHomeServer" title="OpenHomeServer">here</a>. It's a mess at the moment and most of the stuff is ductaped together. But it works and that's amazing!</p>
+
+	</div>
+</div>
+<div id="page-navigation"> 
+	<div class="left">  </div> 
+	<div class="right">  </div> 
+	<div class="clear">&nbsp;</div>
+</div>
+
+<div id="comments">
+	<b>Comments</b>
+	<p>
+		Want to leave a comment? Visit <a href="https://github.com/LodewijkSioen/LodewijkSioen.github.io/issues/3"> this post's issue page on GitHub</a>.
+	</p>
+	<div id="commentPlaceholder">
+		<img src="/img/ajax-loader.gif" /> Loading comments...
+	</div>
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="http://datejs.googlecode.com/svn/trunk/build/date-en-US.js"></script>
+<script>
+function loadComments(data){
+	if(data.length === 0){
+		$("#commentPlaceholder").replaceWith("<div class='comment'>No comments yet.</div>");
+		return;
+	}
+
+	for (var i=0; i<data.length; i++) {
+       var cuser = data[i].user.login;
+       var cuserlink = "https://www.github.com/" + data[i].user.login;
+       var clink = "https://github.com/LodewijkSioen/LodewijkSioen.github.io/issues/3#issuecomment-" + data[i].url.substring(data[i].url.lastIndexOf("/")+1);
+       var cbody = data[i].body_html;
+       var cavatarlink = data[i].user.avatar_url;
+       var cdate = Date.parse(data[i].created_at).toString("yyyy-MM-dd HH:mm:ss");
+ 
+       $("#comments").append("<div class='comment'><div class='commentheader'><div class='commentgravatar'>" + '<img src="' + cavatarlink + '" alt="" width="20" height="20">' + "</div><a class='commentuser' href=\""+ cuserlink + "\">" + cuser + "</a><a class='commentdate' href=\"" + clink + "\">" + cdate + "</a></div><div class='commentbody'>" + cbody + "</div></div>");
+    }
+    $("#commentPlaceholder").hide();
+}
+
+$.ajax("https://api.github.com/repos/LodewijkSioen/LodewijkSioen.github.io/issues/3/comments", {
+    headers: {Accept: "application/vnd.github.full+json"},
+    success: function(msg){
+       loadComments(msg);
+	},
+	error: function(){
+		$("commentPlaceholder").replaceWith("Error loading comments.");
+	}
+});
+</script>
+
+			</div>
+		</div>
+		<div id="sidebar">
+			<ul>
+				<li>
+					<img src="/img/avatar.jpg" />
+				</li>
+				<li>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="http://www.infohos.be">Infohos Services</a> in Bruges, Belgium.</p>
+				</li>
+				<li style="text-align: center">
+					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
+					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
+					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
+					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
+				</li>
+			</ul>
+		</div>
+		<div id="footer" class="clear">
+			<p>&copy; Lodewijk Sioen</p>
+		</div>
+
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-348460-1']);
+		  _gaq.push(['_setDomainName', 'correlatedcontent.com']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+	</body>
+</html>
