@@ -82,7 +82,7 @@
 					</ul>
 				</div>
 					
-				<div><p>We were doing some work on caching at work the other day, sprinkling calls to cache values here and there in our methods. I couldn't shake the feeling that this was creating a spaghetti-mess where what a method should do got dilluted with the caching logic. I then remembered that this was exactly the problem <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect Oriented Programming</a> set out to solve. Wouldn't it be nice if you could decorate a method with an attribute and all the caching logic would magically be applied to the output of the method. Like this:</p>
+				<div><p>We were doing some work on caching at work the other day, sprinkling calls to cache values here and there in our methods. I couldn't shake the feeling that this was creating a spaghetti-mess where what a method should do got dilluted with the caching logic. I then remembered that this was exactly the problem <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect Oriented Programming</a> set out to solve. Wouldn't it be nice if you could decorate a method with an attribute and all the caching logic would magically be applied to the output of the method. Like this:</p>
 <div class="highlight"><pre><span class="na">[Cached]</span>
 <span class="k">public</span> <span class="kt">string</span> <span class="nf">SomeMethod</span><span class="p">(</span><span class="kt">int</span> <span class="n">someArgument</span><span class="p">)</span>
 <span class="p">{</span>
@@ -109,8 +109,8 @@
 					</ul>
 				</div>
 					
-				<div><p><a href="/img/blog/raspberry.jpg"><img style="background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Raspberry Pi" src="/img/blog/raspberry_thumb.jpg" alt="Raspberry Pi" align="right" border="0" /></a>So I joined the hype and got myself a <a href="http://www.raspberrypi.org/" target="_blank">Raspberry Pi</a>. I loaded it with <a href="http://www.raspbmc.com/" target="_blank">RaspBMC</a> and now I’ve got a nice little media centre connected to my TV. All my music and pictures already reside on a NAS in the utility closet upstairs. I experimented with using my PS3 as a media center (too noisy and bad codec support) and with a <a href="http://en.wikipedia.org/wiki/Digital_Living_Network_Alliance" target="_blank">DLNA</a> capable blu-ray player (silent, but clumsy UI and also bad codec support), but nothing really worked that great. With the Raspberry, I now have a great front-end for my media collection. It’s silent (passively cooled) and runs every file I throw at it.</p>
-<p>I planned to do some other stuff with this Raspberry, so I picked up this Bluetooth PS3 keyboard from a bargain bin and a <a href="http://www.trust.com/products/productsupport.aspx?artnr=17124" target="_blank">Bluetooth dongle</a>. Thinking that Bluetooth is a pretty well known these days, I thought pairing it with the Raspberry would be a piece of pie.</p>
+				<div><p><a href="/img/blog/raspberry.jpg"><img style="background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Raspberry Pi" src="/img/blog/raspberry_thumb.jpg" alt="Raspberry Pi" align="right" border="0" /></a>So I joined the hype and got myself a <a href="https://www.raspberrypi.org/" target="_blank">Raspberry Pi</a>. I loaded it with <a href="https://www.raspbmc.com/" target="_blank">RaspBMC</a> and now I’ve got a nice little media centre connected to my TV. All my music and pictures already reside on a NAS in the utility closet upstairs. I experimented with using my PS3 as a media center (too noisy and bad codec support) and with a <a href="https://en.wikipedia.org/wiki/Digital_Living_Network_Alliance" target="_blank">DLNA</a> capable blu-ray player (silent, but clumsy UI and also bad codec support), but nothing really worked that great. With the Raspberry, I now have a great front-end for my media collection. It’s silent (passively cooled) and runs every file I throw at it.</p>
+<p>I planned to do some other stuff with this Raspberry, so I picked up this Bluetooth PS3 keyboard from a bargain bin and a <a href="https://www.trust.com/products/productsupport.aspx?artnr=17124" target="_blank">Bluetooth dongle</a>. Thinking that Bluetooth is a pretty well known these days, I thought pairing it with the Raspberry would be a piece of pie.</p>
 <p><a href="/img/blog/ps3keyboard.jpg"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="Playstation 3 Keyboard" src="/img/blog/ps3keyboard_thumb.jpg" alt="Playstation 3 Keyboard" border="0" /></a></p>
 <p>Boy, was I wrong. I don’t speak Linux and apparently Linux doesn’t really speak Bluetooth that well. Luckily, I speak Google pretty well and after an evening tinkering with obscure command line tools and strange text editors, I managed to get it to work.</p>
 <p>So if anyone out there is struggling to get a Bluetooth Keyboard to work on the Raspberry Pi, here are the instructions to get it to work.</p>
@@ -128,7 +128,7 @@
 					</ul>
 				</div>
 					
-				<div><p>Data binding in Webforms has never been easy. Either you used the <a title="Msdn article" href="http://msdn.microsoft.com/en-us/library/system.web.ui.datasourcecontrol.aspx" target="_blank">Datasource Controls</a> and end up with an overcrowded markup; or you bind your data manually in the codebehind and end up with an overcrowded codebehind page. No matter what you chose, ‘magic strings’ will be used and you can forget about testability. Those hipster MVC folks have so much easier. One method on the controller just supplies the view with data. No lifecycle, no magic strings, just clean code.</p>
+				<div><p>Data binding in Webforms has never been easy. Either you used the <a title="Msdn article" href="https://msdn.microsoft.com/en-us/library/system.web.ui.datasourcecontrol.aspx" target="_blank">Datasource Controls</a> and end up with an overcrowded markup; or you bind your data manually in the codebehind and end up with an overcrowded codebehind page. No matter what you chose, ‘magic strings’ will be used and you can forget about testability. Those hipster MVC folks have so much easier. One method on the controller just supplies the view with data. No lifecycle, no magic strings, just clean code.</p>
 </div>
 				<div><a href="/blog/layerless-webforms-4-5-databinding/">Read the rest of "Layerless: Webforms 4.5 Databinding"</a></div>
 				
@@ -175,7 +175,7 @@
 	</li>
 
 </ul>
-<p><script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script></p>
+<p><script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script></p>
 <script type="text/javascript">
 function updateCommentCount(commentId, url){
 	$.ajax("https://api.github.com/repos/LodewijkSioen/LodewijkSioen.github.io/issues/"+ commentId +"/comments", {
@@ -212,12 +212,12 @@ updateCommentCount(1, "/blog/AOP-Caching-With-Castle-Windsor/");
 					<img src="/img/avatar.jpg" />
 				</li>
 				<li>
-					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="http://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="https://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
 				</li>
 				<li style="text-align: center">
 					<a href="https://github.com/LodewijkSioen" class="sb white github" target="_blank">Github</a>
 					<a rel="me" href="https://mstdn.party/@LodewijkSioen" class="sb purple mastodon" target="_blank">Mastodon</a>
-					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
+					<a href="https://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>
