@@ -139,5 +139,5 @@ div.highlight{
 /* extra social buttons */
 a.sb.mastodon,
 .sb a.mastodon {
-	background-image: url(../img/mastodon-logo.png);
+	background: center / 70% no-repeat url(../img/mastodon-logo.png);
 }
