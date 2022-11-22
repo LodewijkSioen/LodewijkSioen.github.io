@@ -34,10 +34,10 @@
 		<span class="postdate">14 juni, 2012
 			
 		</span>
-		<p>In my <a href="http://www.correlatedcontent.com/blog/layerless-repositories/">last post</a> repositories were made simpler and more descriptive. The central piece in this was the <a href="http://msdn.microsoft.com/en-us/library/system.linq.iqueryable.aspx" target="_blank">IQueryable</a>. This interface is at the core of every <a href="http://msdn.microsoft.com/en-us/library/bb546158.aspx" target="_blank">Linq Provider</a>. A Linq Provider is the machinery that will convert our linq statements in a format that is readable for the underlying datastore (e.g. sql, xpath,...). Using the IQueryable as the core of your data access strategy enables us to do some nifty things. In this post I will examine two of them: Composite Queries and Projections. In a next post I will show how these can be used to improve databinding in Webforms 4.5</p>
+		<p>In my <a href="https://www.correlatedcontent.com/blog/layerless-repositories/">last post</a> repositories were made simpler and more descriptive. The central piece in this was the <a href="https://msdn.microsoft.com/en-us/library/system.linq.iqueryable.aspx" target="_blank">IQueryable</a>. This interface is at the core of every <a href="https://msdn.microsoft.com/en-us/library/bb546158.aspx" target="_blank">Linq Provider</a>. A Linq Provider is the machinery that will convert our linq statements in a format that is readable for the underlying datastore (e.g. sql, xpath,...). Using the IQueryable as the core of your data access strategy enables us to do some nifty things. In this post I will examine two of them: Composite Queries and Projections. In a next post I will show how these can be used to improve databinding in Webforms 4.5</p>
 <!--excerpt-->
 <p><strong>Composite Queries</strong></p>
-<p>One of the more tricky elements of linq is the idea of deferred execution: a linq statement will only be executed when it is enumerated. This is the source of some <a title="Different outcome after applying ToList()" href="http://stackoverflow.com/questions/10701255/different-outcome-after-applying-tolist" target="_blank">subtle bugs</a>, but also very powerful. This means we can chain several of the extension methods I <a title="Layerless: Repositories" href="http://www.correlatedcontent.com/blog/layerless-repositories/">talked about earlier</a> together to create a composite query:</p>
+<p>One of the more tricky elements of linq is the idea of deferred execution: a linq statement will only be executed when it is enumerated. This is the source of some <a title="Different outcome after applying ToList()" href="https://stackoverflow.com/questions/10701255/different-outcome-after-applying-tolist" target="_blank">subtle bugs</a>, but also very powerful. This means we can chain several of the extension methods I <a title="Layerless: Repositories" href="https://www.correlatedcontent.com/blog/layerless-repositories/">talked about earlier</a> together to create a composite query:</p>
 <div class="highlight"><pre><span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">Db</span><span class="p">.</span><span class="n">Query</span><span class="p">&lt;</span><span class="n">User</span><span class="p">&gt;()</span>
                <span class="p">.</span><span class="n">OlderThan</span><span class="p">(</span><span class="m">9</span><span class="p">)</span>
                <span class="p">.</span><span class="n">UserNameStartingWith</span><span class="p">(</span><span class="s">&quot;E&quot;</span><span class="p">);</span>
@@ -51,7 +51,7 @@
 </pre></div>
 <p>This allows us to define fragmented queries that can be used to compose larger queries. This also allows for something pretty nice in Webforms 4.5.</p>
 <p><strong>Projections</strong></p>
-<p>Another lovely feature you get for free by using a modern ORM with a decent Linq Provider are projections. This basically means you’ll only select the fields from the database what you need. NHibernate has always had <a href="http://nhforge.org/doc/nh/en/index.html#querycriteria-projection" target="_blank">projections</a>, but they were never easy to set up. The linq provider in NHibernate gives us a much nicer developer experience. For example this statement:</p>
+<p>Another lovely feature you get for free by using a modern ORM with a decent Linq Provider are projections. This basically means you’ll only select the fields from the database what you need. NHibernate has always had <a href="https://nhforge.org/doc/nh/en/index.html#querycriteria-projection" target="_blank">projections</a>, but they were never easy to set up. The linq provider in NHibernate gives us a much nicer developer experience. For example this statement:</p>
 <div class="highlight"><pre><span class="kt">var</span> <span class="n">result</span> <span class="p">=</span> <span class="n">Data</span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">u</span> <span class="p">=&gt;</span> <span class="n">u</span><span class="p">.</span><span class="n">UserName</span><span class="p">).</span><span class="n">ToList</span><span class="p">();</span>
 </pre></div>
 <p>Will produce the following query:</p>
@@ -75,31 +75,18 @@
 					<img src="/img/avatar.jpg" />
 				</li>
 				<li>
-					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="http://www.infohos.be">Infohos Services</a> in Bruges, Belgium.</p>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="https://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
 				</li>
 				<li style="text-align: center">
-					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
-					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
-					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
+					<a href="https://github.com/LodewijkSioen" class="sb white github" target="_blank">Github</a>
+					<a rel="me" href="https://mstdn.party/@LodewijkSioen" class="sb purple mastodon" target="_blank">Mastodon</a>
+					<a href="https://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>
 		</div>
 		<div id="footer" class="clear">
 			<p>&copy; Lodewijk Sioen</p>
-		</div>
-
-		<script type="text/javascript">
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-348460-1']);
-		  _gaq.push(['_setDomainName', 'correlatedcontent.com']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-		</script>
+		</div>		
 	</body>
 </html>

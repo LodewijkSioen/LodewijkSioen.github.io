@@ -34,13 +34,13 @@
 		<span class="postdate">25 april, 2012
 			
 		</span>
-		<p>Na wat <a href="http://www.correlatedcontent.com/blog/hoeveel-laagjes-heb-je-nodig-om-een-gloeilamp-te-vervangen/">abstract gezweef</a> is het nu tijd om de borst nat te maken en in het codebad te duiken. Laten we beginnen met het elimineren van een noodzakelijk kwaad: <a href="http://martinfowler.com/eaaCatalog/repository.html" target="_blank">Repositories</a>. Niet dat deze zo slecht zijn, maar als je constructors er als volgt beginnen uitzien:</p>
+		<p>Na wat <a href="https://www.correlatedcontent.com/blog/hoeveel-laagjes-heb-je-nodig-om-een-gloeilamp-te-vervangen/">abstract gezweef</a> is het nu tijd om de borst nat te maken en in het codebad te duiken. Laten we beginnen met het elimineren van een noodzakelijk kwaad: <a href="https://martinfowler.com/eaaCatalog/repository.html" target="_blank">Repositories</a>. Niet dat deze zo slecht zijn, maar als je constructors er als volgt beginnen uitzien:</p>
 <div class="highlight"><pre><span class="k">public</span> <span class="nf">UserController</span><span class="p">(</span><span class="n">IUserRepository</span> <span class="n">userRepository</span><span class="p">,</span>
                       <span class="n">IRoleRepository</span> <span class="n">roleRepository</span><span class="p">,</span> 
                       <span class="n">IAccessRepository</span> <span class="n">accessRepository</span><span class="p">,</span> 
                       <span class="n">IExternalLinkRepository</span> <span class="n">externalLinkRepository</span><span class="p">)</span>
 </pre></div>
-<p>Dan noem ik dat een <a href="http://en.wikipedia.org/wiki/Code_smell" target="_blank">code smell</a>. Gelukkig hebben we <a href="http://en.wikipedia.org/wiki/Dependency_injection" target="_blank">Dependency Injection</a> om ons het leven gemakkelijk te maken, maar elegante code kan je dit bezwaarlijk noemen. Het unit testen ervan is al een hele ramp:</p>
+<p>Dan noem ik dat een <a href="https://en.wikipedia.org/wiki/Code_smell" target="_blank">code smell</a>. Gelukkig hebben we <a href="https://en.wikipedia.org/wiki/Dependency_injection" target="_blank">Dependency Injection</a> om ons het leven gemakkelijk te maken, maar elegante code kan je dit bezwaarlijk noemen. Het unit testen ervan is al een hele ramp:</p>
 <div class="highlight"><pre><span class="c1">//Arrange</span>
 <span class="kt">var</span> <span class="n">userRepository</span> <span class="p">=</span> <span class="n">MockRepository</span><span class="p">.</span><span class="n">GenerateMock</span><span class="p">&lt;</span><span class="n">IUserRepository</span><span class="p">&gt;();</span>
 <span class="kt">var</span> <span class="n">roleRepository</span> <span class="p">=</span> <span class="n">MockRepository</span><span class="p">.</span><span class="n">GenerateMock</span><span class="p">&lt;</span><span class="n">IRoleRepository</span><span class="p">&gt;();</span>
@@ -106,7 +106,7 @@
 <span class="p">}</span>
 </pre></div>
 <p>Dit valt opnieuw perfect te unit testen alhoewel je nu wel naar de database zal moeten gaan.</p>
-<p>Door het uitvoeren van queries los te trekken, is de Repository teruggebracht tot zijn oorspronkelijke functie: het verzamelen van queries. Dit is eigenlijk niets meer dan het toepassen van het <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle" target="_blank">Single responsibility principle</a>. Zo vermijden we dat ons systeem overbelast wordt met eenmalig geïmplementeerde interfaces en nodeloos lange constructors. De boel wordt er simpeler door zonder compromissen te sluiten.</p>
+<p>Door het uitvoeren van queries los te trekken, is de Repository teruggebracht tot zijn oorspronkelijke functie: het verzamelen van queries. Dit is eigenlijk niets meer dan het toepassen van het <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle" target="_blank">Single responsibility principle</a>. Zo vermijden we dat ons systeem overbelast wordt met eenmalig geïmplementeerde interfaces en nodeloos lange constructors. De boel wordt er simpeler door zonder compromissen te sluiten.</p>
 <p>De proof-of-concept code van dit stuk kan je vinden in een <a href="https://github.com/Lodewijk-S/Sioen.Layerless" target="_blank">Github repository</a>. Commentaar is altijd welkom.</p>
 	</div>
 </div>
@@ -124,31 +124,18 @@
 					<img src="/img/avatar.jpg" />
 				</li>
 				<li>
-					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="http://www.infohos.be">Infohos Services</a> in Bruges, Belgium.</p>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="https://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
 				</li>
 				<li style="text-align: center">
-					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
-					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
-					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
+					<a href="https://github.com/LodewijkSioen" class="sb white github" target="_blank">Github</a>
+					<a rel="me" href="https://mstdn.party/@LodewijkSioen" class="sb purple mastodon" target="_blank">Mastodon</a>
+					<a href="https://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>
 		</div>
 		<div id="footer" class="clear">
 			<p>&copy; Lodewijk Sioen</p>
-		</div>
-
-		<script type="text/javascript">
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-348460-1']);
-		  _gaq.push(['_setDomainName', 'correlatedcontent.com']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-		</script>
+		</div>		
 	</body>
 </html>

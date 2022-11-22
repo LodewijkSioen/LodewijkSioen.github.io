@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<feed xmlns="https://www.w3.org/2005/Atom">
   <title>Correlated Content Blog</title>
-  <link href="http://www.correlatedcontent.com/blog/"/>
-  <link type="application/atom+xml" rel="self" href="http://www.correlatedcontent.com/blog/atom.xml"/>
-  <updated>13/04/2014 11:16:54</updated>
-  <id>http://www.correlatedcontent.com/blog/</id>
+  <link href="https://www.correlatedcontent.com/blog/"/>
+  <link type="application/atom+xml" rel="self" href="https://www.correlatedcontent.com/blog/atom.xml"/>
+  <updated>22/11/2022 17:17:57</updated>
+  <id>https://www.correlatedcontent.com/blog/</id>
   <author>
     <name>Author</name>
     <email>Email</email>
@@ -12,12 +12,12 @@
 
   
   <entry>
-    <id>http://ww.correlatedcontent.com/blog/I-Love-It-When-The-Lego-Bricks-Come-Together/</id>
-    <link type="text/html" rel="alternate" href="http://ww.correlatedcontent.com/blog/I-Love-It-When-The-Lego-Bricks-Come-Together/"/>
+    <id>https://ww.correlatedcontent.com/blog/I-Love-It-When-The-Lego-Bricks-Come-Together/</id>
+    <link type="text/html" rel="alternate" href="https://ww.correlatedcontent.com/blog/I-Love-It-When-The-Lego-Bricks-Come-Together/"/>
     <title>I Love It When The Lego Bricks Come Together</title>
     <updated>13/03/2014 0:00:00</updated>
     <author>
-      <name>Author</name>
+      <name>Lodewijk</name>
       <uri>ww.correlatedcontent.com/blog/</uri>
     </author>
     <content type="html">&lt;p&gt;The promise of modern programming is this: you take a library here, a nuget package there, combine them with a webservice et voila! a working application. This is what I though creating my next hobby project would be. Just put some lego bricks together to create a usefull application.&lt;/p&gt;
@@ -27,12 +27,12 @@
   </entry>
   
   <entry>
-    <id>http://ww.correlatedcontent.com/blog/4x6/</id>
-    <link type="text/html" rel="alternate" href="http://ww.correlatedcontent.com/blog/4x6/"/>
+    <id>https://ww.correlatedcontent.com/blog/4x6/</id>
+    <link type="text/html" rel="alternate" href="https://ww.correlatedcontent.com/blog/4x6/"/>
     <title>4x6=24 (een parodie)</title>
     <updated>9/02/2014 0:00:00</updated>
     <author>
-      <name>Author</name>
+      <name>Lodewijk</name>
       <uri>ww.correlatedcontent.com/blog/</uri>
     </author>
     <content type="html">&lt;blockquote&gt;
@@ -43,15 +43,15 @@
   </entry>
   
   <entry>
-    <id>http://ww.correlatedcontent.com/blog/AOP-Caching-With-Castle-Windsor/</id>
-    <link type="text/html" rel="alternate" href="http://ww.correlatedcontent.com/blog/AOP-Caching-With-Castle-Windsor/"/>
+    <id>https://ww.correlatedcontent.com/blog/AOP-Caching-With-Castle-Windsor/</id>
+    <link type="text/html" rel="alternate" href="https://ww.correlatedcontent.com/blog/AOP-Caching-With-Castle-Windsor/"/>
     <title>Aspect Oriented Programming style Caching with Castle Windsor</title>
     <updated>11/12/2013 0:00:00</updated>
     <author>
-      <name>Author</name>
+      <name>Lodewijk</name>
       <uri>ww.correlatedcontent.com/blog/</uri>
     </author>
-    <content type="html">&lt;p&gt;We were doing some work on caching at work the other day, sprinkling calls to cache values here and there in our methods. I couldn&apos;t shake the feeling that this was creating a spaghetti-mess where what a method should do got dilluted with the caching logic. I then remembered that this was exactly the problem &lt;a href=&quot;http://en.wikipedia.org/wiki/Aspect-oriented_programming&quot;&gt;Aspect Oriented Programming&lt;/a&gt; set out to solve. Wouldn&apos;t it be nice if you could decorate a method with an attribute and all the caching logic would magically be applied to the output of the method. Like this:&lt;/p&gt;
+    <content type="html">&lt;p&gt;We were doing some work on caching at work the other day, sprinkling calls to cache values here and there in our methods. I couldn&apos;t shake the feeling that this was creating a spaghetti-mess where what a method should do got dilluted with the caching logic. I then remembered that this was exactly the problem &lt;a href=&quot;https://en.wikipedia.org/wiki/Aspect-oriented_programming&quot;&gt;Aspect Oriented Programming&lt;/a&gt; set out to solve. Wouldn&apos;t it be nice if you could decorate a method with an attribute and all the caching logic would magically be applied to the output of the method. Like this:&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;span class=&quot;na&quot;&gt;[Cached]&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;SomeMethod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;someArgument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -64,16 +64,16 @@
   </entry>
   
   <entry>
-    <id>http://ww.correlatedcontent.com/blog/bluetooth-keyboard-on-the-raspberry-pi/</id>
-    <link type="text/html" rel="alternate" href="http://ww.correlatedcontent.com/blog/bluetooth-keyboard-on-the-raspberry-pi/"/>
+    <id>https://ww.correlatedcontent.com/blog/bluetooth-keyboard-on-the-raspberry-pi/</id>
+    <link type="text/html" rel="alternate" href="https://ww.correlatedcontent.com/blog/bluetooth-keyboard-on-the-raspberry-pi/"/>
     <title>Bluetooth Keyboard on the Raspberry Pi</title>
     <updated>18/02/2013 0:00:00</updated>
     <author>
-      <name>Author</name>
+      <name>Lodewijk</name>
       <uri>ww.correlatedcontent.com/blog/</uri>
     </author>
-    <content type="html">&lt;p&gt;&lt;a href=&quot;/img/blog/raspberry.jpg&quot;&gt;&lt;img style=&quot;background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;&quot; title=&quot;Raspberry Pi&quot; src=&quot;/img/blog/raspberry_thumb.jpg&quot; alt=&quot;Raspberry Pi&quot; align=&quot;right&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;So I joined the hype and got myself a &lt;a href=&quot;http://www.raspberrypi.org/&quot; target=&quot;_blank&quot;&gt;Raspberry Pi&lt;/a&gt;. I loaded it with &lt;a href=&quot;http://www.raspbmc.com/&quot; target=&quot;_blank&quot;&gt;RaspBMC&lt;/a&gt; and now I’ve got a nice little media centre connected to my TV. All my music and pictures already reside on a NAS in the utility closet upstairs. I experimented with using my PS3 as a media center (too noisy and bad codec support) and with a &lt;a href=&quot;http://en.wikipedia.org/wiki/Digital_Living_Network_Alliance&quot; target=&quot;_blank&quot;&gt;DLNA&lt;/a&gt; capable blu-ray player (silent, but clumsy UI and also bad codec support), but nothing really worked that great. With the Raspberry, I now have a great front-end for my media collection. It’s silent (passively cooled) and runs every file I throw at it.&lt;/p&gt;
-&lt;p&gt;I planned to do some other stuff with this Raspberry, so I picked up this Bluetooth PS3 keyboard from a bargain bin and a &lt;a href=&quot;http://www.trust.com/products/productsupport.aspx?artnr=17124&quot; target=&quot;_blank&quot;&gt;Bluetooth dongle&lt;/a&gt;. Thinking that Bluetooth is a pretty well known these days, I thought pairing it with the Raspberry would be a piece of pie.&lt;/p&gt;
+    <content type="html">&lt;p&gt;&lt;a href=&quot;/img/blog/raspberry.jpg&quot;&gt;&lt;img style=&quot;background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;&quot; title=&quot;Raspberry Pi&quot; src=&quot;/img/blog/raspberry_thumb.jpg&quot; alt=&quot;Raspberry Pi&quot; align=&quot;right&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;So I joined the hype and got myself a &lt;a href=&quot;https://www.raspberrypi.org/&quot; target=&quot;_blank&quot;&gt;Raspberry Pi&lt;/a&gt;. I loaded it with &lt;a href=&quot;https://www.raspbmc.com/&quot; target=&quot;_blank&quot;&gt;RaspBMC&lt;/a&gt; and now I’ve got a nice little media centre connected to my TV. All my music and pictures already reside on a NAS in the utility closet upstairs. I experimented with using my PS3 as a media center (too noisy and bad codec support) and with a &lt;a href=&quot;https://en.wikipedia.org/wiki/Digital_Living_Network_Alliance&quot; target=&quot;_blank&quot;&gt;DLNA&lt;/a&gt; capable blu-ray player (silent, but clumsy UI and also bad codec support), but nothing really worked that great. With the Raspberry, I now have a great front-end for my media collection. It’s silent (passively cooled) and runs every file I throw at it.&lt;/p&gt;
+&lt;p&gt;I planned to do some other stuff with this Raspberry, so I picked up this Bluetooth PS3 keyboard from a bargain bin and a &lt;a href=&quot;https://www.trust.com/products/productsupport.aspx?artnr=17124&quot; target=&quot;_blank&quot;&gt;Bluetooth dongle&lt;/a&gt;. Thinking that Bluetooth is a pretty well known these days, I thought pairing it with the Raspberry would be a piece of pie.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;/img/blog/ps3keyboard.jpg&quot;&gt;&lt;img style=&quot;background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;&quot; title=&quot;Playstation 3 Keyboard&quot; src=&quot;/img/blog/ps3keyboard_thumb.jpg&quot; alt=&quot;Playstation 3 Keyboard&quot; border=&quot;0&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Boy, was I wrong. I don’t speak Linux and apparently Linux doesn’t really speak Bluetooth that well. Luckily, I speak Google pretty well and after an evening tinkering with obscure command line tools and strange text editors, I managed to get it to work.&lt;/p&gt;
 &lt;p&gt;So if anyone out there is struggling to get a Bluetooth Keyboard to work on the Raspberry Pi, here are the instructions to get it to work.&lt;/p&gt;
@@ -81,15 +81,15 @@
   </entry>
   
   <entry>
-    <id>http://ww.correlatedcontent.com/blog/layerless-webforms-4-5-databinding/</id>
-    <link type="text/html" rel="alternate" href="http://ww.correlatedcontent.com/blog/layerless-webforms-4-5-databinding/"/>
+    <id>https://ww.correlatedcontent.com/blog/layerless-webforms-4-5-databinding/</id>
+    <link type="text/html" rel="alternate" href="https://ww.correlatedcontent.com/blog/layerless-webforms-4-5-databinding/"/>
     <title>Layerless: Webforms 4.5 Databinding</title>
     <updated>13/12/2012 0:00:00</updated>
     <author>
-      <name>Author</name>
+      <name>Lodewijk</name>
       <uri>ww.correlatedcontent.com/blog/</uri>
     </author>
-    <content type="html">&lt;p&gt;Data binding in Webforms has never been easy. Either you used the &lt;a title=&quot;Msdn article&quot; href=&quot;http://msdn.microsoft.com/en-us/library/system.web.ui.datasourcecontrol.aspx&quot; target=&quot;_blank&quot;&gt;Datasource Controls&lt;/a&gt; and end up with an overcrowded markup; or you bind your data manually in the codebehind and end up with an overcrowded codebehind page. No matter what you chose, ‘magic strings’ will be used and you can forget about testability. Those hipster MVC folks have so much easier. One method on the controller just supplies the view with data. No lifecycle, no magic strings, just clean code.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Data binding in Webforms has never been easy. Either you used the &lt;a title=&quot;Msdn article&quot; href=&quot;https://msdn.microsoft.com/en-us/library/system.web.ui.datasourcecontrol.aspx&quot; target=&quot;_blank&quot;&gt;Datasource Controls&lt;/a&gt; and end up with an overcrowded markup; or you bind your data manually in the codebehind and end up with an overcrowded codebehind page. No matter what you chose, ‘magic strings’ will be used and you can forget about testability. Those hipster MVC folks have so much easier. One method on the controller just supplies the view with data. No lifecycle, no magic strings, just clean code.&lt;/p&gt;
 </content>
   </entry>
   

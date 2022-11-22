@@ -34,11 +34,11 @@
 		<span class="postdate">11 maart, 2012
 			
 		</span>
-		<p>Toen de Goden de <a href="http://en.wikipedia.org/wiki/Multitier_architecture" target="_blank">multi-tier architectuur</a> bedachten, hebben ze de wereld een prachtig model geschapen om software te ontwikkelen.  Programmeurs overal ter lande begonnen hun applicatie in meerdere lagen op te delen. Het opdelen in drie lagen werd algauw het meest populair. Eén laag voor de gegevens, genesteld in een databank. Eén laag voor het bewerken van die data, zoals beschreven in het domein. En één laag voor het tonen van die data, over het web of lokaal.</p>
-<p>Deze scheiding werd expliciet gemaakt: elke laag kreeg zijn eigen project in Visual Studio, zijn eigen unittesten en zijn eigen interfaces. Want de heilige Scheiding der Lagen mocht enkel doorbroken worden door de Interface. De priesters van <a href="http://en.wikipedia.org/wiki/Inversion_of_Control" target="_blank">IoC</a>, <a href="http://en.wikipedia.org/wiki/Dependency_injection" target="_blank">DI</a> en <a href="http://en.wikipedia.org/wiki/Service_locator_pattern" target="_blank">Service Location</a> zorgden ervoor dat we gemakkelijk de weg vonden naar deze bruggen over de Scheiding der Lagen.</p>
+		<p>Toen de Goden de <a href="https://en.wikipedia.org/wiki/Multitier_architecture" target="_blank">multi-tier architectuur</a> bedachten, hebben ze de wereld een prachtig model geschapen om software te ontwikkelen.  Programmeurs overal ter lande begonnen hun applicatie in meerdere lagen op te delen. Het opdelen in drie lagen werd algauw het meest populair. Eén laag voor de gegevens, genesteld in een databank. Eén laag voor het bewerken van die data, zoals beschreven in het domein. En één laag voor het tonen van die data, over het web of lokaal.</p>
+<p>Deze scheiding werd expliciet gemaakt: elke laag kreeg zijn eigen project in Visual Studio, zijn eigen unittesten en zijn eigen interfaces. Want de heilige Scheiding der Lagen mocht enkel doorbroken worden door de Interface. De priesters van <a href="https://en.wikipedia.org/wiki/Inversion_of_Control" target="_blank">IoC</a>, <a href="https://en.wikipedia.org/wiki/Dependency_injection" target="_blank">DI</a> en <a href="https://en.wikipedia.org/wiki/Service_locator_pattern" target="_blank">Service Location</a> zorgden ervoor dat we gemakkelijk de weg vonden naar deze bruggen over de Scheiding der Lagen.</p>
 <p>Alles was goed in software land. Projecten werden op tijd opgeleverd, programmeurs waren gelukkig en vonden tijd om aan sport te doen, helpdesktelefoons waren stil… Maar was alles echt wel zoals het leek? Was er niet hier en daar een gemorrel van een ontevreden programmeur? Zou het kunnen dat de Scheiding Der Lagen dan toch niet het einde betekende van de eeuwenlange zoektocht van de mensheid naar een goed model van softwareontwikkeling? Wat lezen we plots op <a href="https://twitter.com/#!/polkadragon/status/184626934624423937" target="_blank">twitter</a>?</p>
 <blockquote>“Als je 1 veldje al op bijna 7 lagen moeten toevoegen hebt, weet je dat een applicatie "slightly" overengineered is...”</blockquote>
-<p>Heiligschennis! Of niet? Wat schrijft die raaskallende Israëliet daar op zijn <a href="http://ayende.com/blog/153889/limit-your-abstractions-analyzing-a-ddd-application" target="_blank">blog</a>?</p>
+<p>Heiligschennis! Of niet? Wat schrijft die raaskallende Israëliet daar op zijn <a href="https://ayende.com/blog/153889/limit-your-abstractions-analyzing-a-ddd-application" target="_blank">blog</a>?</p>
 <blockquote>…the interfaces that it has reveal a common problem, namely, interface explosion, or over abstraction. (…) The problem is that the way this application is structured, it is highly procedural and had to maintain.</blockquote>
 <p>Zou er misschien een andere manier mogelijk zijn? Zou het werkbaar zijn om een degelijke applicatie te maken zonder onze Drie (of meer) Lagen expliciet te gaan definiëren?</p>
 <p>Alle gekheid op een stokje: Ik was gefascineerd door het alternatief dat Ayende op zijn blog omschreef. Zijn voorbeelden bleven beperkt tot wat pseudo-code, maar ik wilde dit toch eens wat concreter bekijken. Een goed idee voor een reeks blogposts dus. Ik ga mezelf wel een aantal beperkingen opleggen:</p>
@@ -67,31 +67,18 @@
 					<img src="/img/avatar.jpg" />
 				</li>
 				<li>
-					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="http://www.infohos.be">Infohos Services</a> in Bruges, Belgium.</p>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="https://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
 				</li>
 				<li style="text-align: center">
-					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
-					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
-					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
+					<a href="https://github.com/LodewijkSioen" class="sb white github" target="_blank">Github</a>
+					<a rel="me" href="https://mstdn.party/@LodewijkSioen" class="sb purple mastodon" target="_blank">Mastodon</a>
+					<a href="https://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>
 		</div>
 		<div id="footer" class="clear">
 			<p>&copy; Lodewijk Sioen</p>
-		</div>
-
-		<script type="text/javascript">
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-348460-1']);
-		  _gaq.push(['_setDomainName', 'correlatedcontent.com']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-		</script>
+		</div>		
 	</body>
 </html>

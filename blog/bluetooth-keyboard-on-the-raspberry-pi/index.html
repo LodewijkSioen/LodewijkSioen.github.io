@@ -34,23 +34,23 @@
 		<span class="postdate">18 februari, 2013
 			
 		</span>
-		<p><a href="/img/blog/raspberry.jpg"><img style="background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Raspberry Pi" src="/img/blog/raspberry_thumb.jpg" alt="Raspberry Pi" align="right" border="0" /></a>So I joined the hype and got myself a <a href="http://www.raspberrypi.org/" target="_blank">Raspberry Pi</a>. I loaded it with <a href="http://www.raspbmc.com/" target="_blank">RaspBMC</a> and now I’ve got a nice little media centre connected to my TV. All my music and pictures already reside on a NAS in the utility closet upstairs. I experimented with using my PS3 as a media center (too noisy and bad codec support) and with a <a href="http://en.wikipedia.org/wiki/Digital_Living_Network_Alliance" target="_blank">DLNA</a> capable blu-ray player (silent, but clumsy UI and also bad codec support), but nothing really worked that great. With the Raspberry, I now have a great front-end for my media collection. It’s silent (passively cooled) and runs every file I throw at it.</p>
-<p>I planned to do some other stuff with this Raspberry, so I picked up this Bluetooth PS3 keyboard from a bargain bin and a <a href="http://www.trust.com/products/productsupport.aspx?artnr=17124" target="_blank">Bluetooth dongle</a>. Thinking that Bluetooth is a pretty well known these days, I thought pairing it with the Raspberry would be a piece of pie.</p>
+		<p><a href="/img/blog/raspberry.jpg"><img style="background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Raspberry Pi" src="/img/blog/raspberry_thumb.jpg" alt="Raspberry Pi" align="right" border="0" /></a>So I joined the hype and got myself a <a href="https://www.raspberrypi.org/" target="_blank">Raspberry Pi</a>. I loaded it with <a href="https://www.raspbmc.com/" target="_blank">RaspBMC</a> and now I’ve got a nice little media centre connected to my TV. All my music and pictures already reside on a NAS in the utility closet upstairs. I experimented with using my PS3 as a media center (too noisy and bad codec support) and with a <a href="https://en.wikipedia.org/wiki/Digital_Living_Network_Alliance" target="_blank">DLNA</a> capable blu-ray player (silent, but clumsy UI and also bad codec support), but nothing really worked that great. With the Raspberry, I now have a great front-end for my media collection. It’s silent (passively cooled) and runs every file I throw at it.</p>
+<p>I planned to do some other stuff with this Raspberry, so I picked up this Bluetooth PS3 keyboard from a bargain bin and a <a href="https://www.trust.com/products/productsupport.aspx?artnr=17124" target="_blank">Bluetooth dongle</a>. Thinking that Bluetooth is a pretty well known these days, I thought pairing it with the Raspberry would be a piece of pie.</p>
 <p><a href="/img/blog/ps3keyboard.jpg"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="Playstation 3 Keyboard" src="/img/blog/ps3keyboard_thumb.jpg" alt="Playstation 3 Keyboard" border="0" /></a></p>
 <p>Boy, was I wrong. I don’t speak Linux and apparently Linux doesn’t really speak Bluetooth that well. Luckily, I speak Google pretty well and after an evening tinkering with obscure command line tools and strange text editors, I managed to get it to work.</p>
 <p>So if anyone out there is struggling to get a Bluetooth Keyboard to work on the Raspberry Pi, here are the instructions to get it to work.</p>
 <!--excerpt-->
 <h3>Step One: SSH</h3>
-<p>The first step is to connect to the Raspberry. Since I didn’t have a keyboard (duh!), I needed another way. This is where <a href="http://en.wikipedia.org/wiki/Secure_Shell" target="_blank">SSH</a> comes in. SSH is basically Remote Desktop to the Linux console. Remote Console, actually. All you need is an SSH client like <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/" target="_blank">Putty</a>, the IP address of your Raspberry and your login credentials.</p>
+<p>The first step is to connect to the Raspberry. Since I didn’t have a keyboard (duh!), I needed another way. This is where <a href="https://en.wikipedia.org/wiki/Secure_Shell" target="_blank">SSH</a> comes in. SSH is basically Remote Desktop to the Linux console. Remote Console, actually. All you need is an SSH client like <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/" target="_blank">Putty</a>, the IP address of your Raspberry and your login credentials.</p>
 <p>At this point I realised that I didn’t really need a keyboard connected to the Raspberry to tinker with it. With SSH I could do anything I wanted to do that I thought I would need a keyboard for. But such details are not going to stop me from connecting this keyboard!</p>
 <h3>Step Two: Apt</h3>
-<p>Since the Raspberry Pi has no Bluetooth built-in, the Linux version that runs on it has no Bluetooth support baked in. This means you will need to install it yourself. Now Linux has this wonderful tool called <a href="http://en.wikipedia.org/wiki/Advanced_Packaging_Tool" target="_blank">Apt</a>. Basically, Apt is the ‘Add and Remove Programs’ of the Linux world.  In the console, just type:</p>
+<p>Since the Raspberry Pi has no Bluetooth built-in, the Linux version that runs on it has no Bluetooth support baked in. This means you will need to install it yourself. Now Linux has this wonderful tool called <a href="https://en.wikipedia.org/wiki/Advanced_Packaging_Tool" target="_blank">Apt</a>. Basically, Apt is the ‘Add and Remove Programs’ of the Linux world.  In the console, just type:</p>
 <pre><code>sudo apt-get update
 </pre></code><p>This will update a cache of all available programs and their dependencies. To download and install all the components needed to connect a Bluetooth keyboard to the Raspberry Pi, I had to enter:</p>
 <pre><code>sudo apt-get install bluez python-gobject
-</pre></code><p>This will download and install both <a href="http://www.bluez.org/" target="_blank">Bluez</a> (a Linux Bluetooth stack and tools)  and the python bindings for <a href="http://en.wikipedia.org/wiki/GObject" target="_blank">GObject</a> (this is needed for the python scripts that power Bluez). For me, the installation failed with the following error message:</p>
+</pre></code><p>This will download and install both <a href="https://www.bluez.org/" target="_blank">Bluez</a> (a Linux Bluetooth stack and tools)  and the python bindings for <a href="https://en.wikipedia.org/wiki/GObject" target="_blank">GObject</a> (this is needed for the python scripts that power Bluez). For me, the installation failed with the following error message:</p>
 <pre><code>Service dbus has to be enabled to start service bluetooth
-</pre></code><p>Now that is a great error message! <a href="http://en.wikipedia.org/wiki/D-Bus" target="_blank">Dbus</a> is a way for applications to talk to another on Linux. Apparently this is needed, so I enabled this magic dbus this with</p>
+</pre></code><p>Now that is a great error message! <a href="https://en.wikipedia.org/wiki/D-Bus" target="_blank">Dbus</a> is a way for applications to talk to another on Linux. Apparently this is needed, so I enabled this magic dbus this with</p>
 <pre><code>sudo update-rc.d -f dbus defaults
 </pre></code><p>I re-ran the ‘apt-get install bluez python-gobject’ command and now Bluetooth was activated on my Raspberry Pi. You can check this by running the following command:</p>
 <pre><code>hcitool dev
@@ -66,9 +66,9 @@
 </pre></code><p>If everything goes well, you will be prompted to type a passkey with your keyboard:</p>
 <pre><code>DisplayPasskey (/org/bluez/14656/hci0/dev_23_E4_87_4C_B3_A1, 936319)
 </pre></code><p>Your passkey is the number at the end of the line. <strong>Don’t forget to press ‘Enter’ after typing the passcode!</strong> Now your device is paired with the Raspberry Pi.</p>
-<p>However, this command failed for me with a cryptic error message (‘Creating device failed: org.bluez.Error.AuthenticationRejected: Authentication Rejected’). Furiously googling brought me to <a href="http://forums.gentoo.org/viewtopic-p-7207162.html" target="_blank">a forum</a> where they suggested to crack open a python script and change the word ‘KeyboardDisplay’ with ‘DisplayYesNo’. At this point I was ready to try anything, so I opened the script with this:</p>
+<p>However, this command failed for me with a cryptic error message (‘Creating device failed: org.bluez.Error.AuthenticationRejected: Authentication Rejected’). Furiously googling brought me to <a href="https://forums.gentoo.org/viewtopic-p-7207162.html" target="_blank">a forum</a> where they suggested to crack open a python script and change the word ‘KeyboardDisplay’ with ‘DisplayYesNo’. At this point I was ready to try anything, so I opened the script with this:</p>
 <pre><code>sudo nano /usr/bin/bluez-simple-agent
-</pre></code><p>This will open <a href="http://en.wikipedia.org/wiki/Nano_(text_editor)" target="_blank">nano</a>, a command line text editor. I changed the one occurrence of ‘KeyboardDisplay’ with ‘DisplayYesNo’, closed the editor with ctrl-x (saving the file, of course) and tried the ‘bluez-simple-agent hci0 23:E4:87:4C:B3:A1’ command again. My keyboard was now paired to the Raspberry. I’m starting to like this Linux stuff…</p>
+</pre></code><p>This will open <a href="https://en.wikipedia.org/wiki/Nano_(text_editor)" target="_blank">nano</a>, a command line text editor. I changed the one occurrence of ‘KeyboardDisplay’ with ‘DisplayYesNo’, closed the editor with ctrl-x (saving the file, of course) and tried the ‘bluez-simple-agent hci0 23:E4:87:4C:B3:A1’ command again. My keyboard was now paired to the Raspberry. I’m starting to like this Linux stuff…</p>
 <h3>Step 4: Trusting & Connecting</h3>
 <p>The final stage is making sure that the raspberry will automatically connect to the keyboard when it is turned on. This is called ‘trusting’ and is invoked by this command:</p>
 <pre><code>bluez-test-device trusted 23:E4:87:4C:B3:A1 yes
@@ -92,31 +92,18 @@
 					<img src="/img/avatar.jpg" />
 				</li>
 				<li>
-					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="http://www.infohos.be">Infohos Services</a> in Bruges, Belgium.</p>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="https://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
 				</li>
 				<li style="text-align: center">
-					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
-					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
-					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
+					<a href="https://github.com/LodewijkSioen" class="sb white github" target="_blank">Github</a>
+					<a rel="me" href="https://mstdn.party/@LodewijkSioen" class="sb purple mastodon" target="_blank">Mastodon</a>
+					<a href="https://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>
 		</div>
 		<div id="footer" class="clear">
 			<p>&copy; Lodewijk Sioen</p>
-		</div>
-
-		<script type="text/javascript">
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-348460-1']);
-		  _gaq.push(['_setDomainName', 'correlatedcontent.com']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-		</script>
+		</div>		
 	</body>
 </html>

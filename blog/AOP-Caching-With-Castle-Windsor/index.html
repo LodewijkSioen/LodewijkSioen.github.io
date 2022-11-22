@@ -34,7 +34,7 @@
 		<span class="postdate">11 december, 2013
 			
 		</span>
-		<p>We were doing some work on caching at work the other day, sprinkling calls to cache values here and there in our methods. I couldn't shake the feeling that this was creating a spaghetti-mess where what a method should do got dilluted with the caching logic. I then remembered that this was exactly the problem <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect Oriented Programming</a> set out to solve. Wouldn't it be nice if you could decorate a method with an attribute and all the caching logic would magically be applied to the output of the method. Like this:</p>
+		<p>We were doing some work on caching at work the other day, sprinkling calls to cache values here and there in our methods. I couldn't shake the feeling that this was creating a spaghetti-mess where what a method should do got dilluted with the caching logic. I then remembered that this was exactly the problem <a href="https://en.wikipedia.org/wiki/Aspect-oriented_programming">Aspect Oriented Programming</a> set out to solve. Wouldn't it be nice if you could decorate a method with an attribute and all the caching logic would magically be applied to the output of the method. Like this:</p>
 <div class="highlight"><pre><span class="na">[Cached]</span>
 <span class="k">public</span> <span class="kt">string</span> <span class="nf">SomeMethod</span><span class="p">(</span><span class="kt">int</span> <span class="n">someArgument</span><span class="p">)</span>
 <span class="p">{</span>
@@ -44,7 +44,7 @@
 </pre></div>
 <p>Challenge Accepted!</p>
 <!--excerpt-->
-<p>Our IoC-container du-coix, <a href="http://docs.castleproject.org/Windsor.MainPage.ashx">Castle Windsor</a> actually has excellent support for Aspect Oriented Programming. Each time you resolve a service with Castle Windsor, you don't just get the component you registered. You actually get a <a href="http://en.wikipedia.org/wiki/Proxy_object">Proxy Object</a> (provided by <a href="http://www.castleproject.org/projects/dynamicproxy/">Castle Dynamic Proxy</a>) wrapped around your component. This gives you complete control over what happens when a method or propety of a component is called. We can intercept a call to a method and just redirect it to a completely different implementation.</p>
+<p>Our IoC-container du-coix, <a href="https://docs.castleproject.org/Windsor.MainPage.ashx">Castle Windsor</a> actually has excellent support for Aspect Oriented Programming. Each time you resolve a service with Castle Windsor, you don't just get the component you registered. You actually get a <a href="https://en.wikipedia.org/wiki/Proxy_object">Proxy Object</a> (provided by <a href="https://www.castleproject.org/projects/dynamicproxy/">Castle Dynamic Proxy</a>) wrapped around your component. This gives you complete control over what happens when a method or propety of a component is called. We can intercept a call to a method and just redirect it to a completely different implementation.</p>
 <p>The center piece in this is the <code>IInvocation</code> interface. It's signature goes like this:</p>
 <div class="highlight"><pre><span class="k">public</span> <span class="k">interface</span> <span class="n">IInterceptor</span>
 <span class="p">{</span>
@@ -109,7 +109,7 @@ With this cachekey, we check if we have this item in our chache.
 <span class="n">container</span><span class="p">.</span><span class="n">Kernel</span><span class="p">.</span><span class="n">ComponentModelBuilder</span><span class="p">.</span><span class="n">AddContributor</span><span class="p">(</span><span class="k">new</span> <span class="n">RequireCachingContributor</span><span class="p">());</span>
 </pre></div>
 <p>Our <code>RequireCachingContributor</code> will now check every Component that is registered with our container. If the class contains a method with the <code>CacheAttribute</code>, it will add our <code>CacheInterceptor</code>. When we ask our container for a component with cached methods, we will now recieve a proxy with our Interceptor attached. Pretty neat.</p>
-<p>I've read a few blogs by people with <a href="http://en.wikipedia.org/wiki/Asshole" title="Everybody has one">Opinions</a> stating that you don't need an IoC container. Certainly not a fat one like Castle Windsor. While this is true that not every project needs an IoC container, being able to do the things I described here is pretty handy. There is so much you can do with a decent IoC container that most of us only scratch the surface.</p>
+<p>I've read a few blogs by people with <a href="https://en.wikipedia.org/wiki/Asshole" title="Everybody has one">Opinions</a> stating that you don't need an IoC container. Certainly not a fat one like Castle Windsor. While this is true that not every project needs an IoC container, being able to do the things I described here is pretty handy. There is so much you can do with a decent IoC container that most of us only scratch the surface.</p>
 <p>You can find the code for this little experiment on <a href="https://github.com/LodewijkSioen/AspectCache">github</a>. I've added some extra features there like custom CacheKey providers and properties to control the lifetime of the cache.</p>
 
 	</div>
@@ -129,8 +129,8 @@ With this cachekey, we check if we have this item in our chache.
 		<img src="/img/ajax-loader.gif" /> Loading comments...
 	</div>
 </div>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script type="text/javascript" src="http://datejs.googlecode.com/svn/trunk/build/date-en-US.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="https://datejs.googlecode.com/svn/trunk/build/date-en-US.js"></script>
 <script>
 function loadComments(data){
 	if(data.length === 0){
@@ -170,31 +170,18 @@ $.ajax("https://api.github.com/repos/LodewijkSioen/LodewijkSioen.github.io/issue
 					<img src="/img/avatar.jpg" />
 				</li>
 				<li>
-					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="http://www.infohos.be">Infohos Services</a> in Bruges, Belgium.</p>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="https://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
 				</li>
 				<li style="text-align: center">
-					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
-					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
-					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
+					<a href="https://github.com/LodewijkSioen" class="sb white github" target="_blank">Github</a>
+					<a rel="me" href="https://mstdn.party/@LodewijkSioen" class="sb purple mastodon" target="_blank">Mastodon</a>
+					<a href="https://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>
 		</div>
 		<div id="footer" class="clear">
 			<p>&copy; Lodewijk Sioen</p>
-		</div>
-
-		<script type="text/javascript">
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-348460-1']);
-		  _gaq.push(['_setDomainName', 'correlatedcontent.com']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-		</script>
+		</div>		
 	</body>
 </html>

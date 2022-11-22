@@ -34,10 +34,10 @@
 		<span class="postdate">13 december, 2012
 			
 		</span>
-		<p>Data binding in Webforms has never been easy. Either you used the <a title="Msdn article" href="http://msdn.microsoft.com/en-us/library/system.web.ui.datasourcecontrol.aspx" target="_blank">Datasource Controls</a> and end up with an overcrowded markup; or you bind your data manually in the codebehind and end up with an overcrowded codebehind page. No matter what you chose, ‘magic strings’ will be used and you can forget about testability. Those hipster MVC folks have so much easier. One method on the controller just supplies the view with data. No lifecycle, no magic strings, just clean code.</p>
+		<p>Data binding in Webforms has never been easy. Either you used the <a title="Msdn article" href="https://msdn.microsoft.com/en-us/library/system.web.ui.datasourcecontrol.aspx" target="_blank">Datasource Controls</a> and end up with an overcrowded markup; or you bind your data manually in the codebehind and end up with an overcrowded codebehind page. No matter what you chose, ‘magic strings’ will be used and you can forget about testability. Those hipster MVC folks have so much easier. One method on the controller just supplies the view with data. No lifecycle, no magic strings, just clean code.</p>
 <!--excerpt-->
-<p>Luckily for us, Webforms is getting a small piece of the MVC world in the 4.5 release: the old <a title="Msdn Article" href="http://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.databoundcontrol.aspx" target="_blank">Databound Controls</a> (repeater, gridview, listview,…) are augmented with a series of properties that greatly simplify data binding</p> <p>The first one is the <a title="Msdn Article" href="http://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.databoundcontrol.selectmethod.aspx" target="_blank">SelectMethod</a> property. You can give this property the name of a method in the codebehind. This method should return the data that the control needs to be bound to.</p>
-<p>The second property is <a title="Msdn Article" href="http://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.databoundcontrol.itemtype.aspx" target="_blank">ItemType</a>. Here you can enter the TypeName of the class that you are binding to. This will give you Intellisense support while creating your ItemTemplate.</p>
+<p>Luckily for us, Webforms is getting a small piece of the MVC world in the 4.5 release: the old <a title="Msdn Article" href="https://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.databoundcontrol.aspx" target="_blank">Databound Controls</a> (repeater, gridview, listview,…) are augmented with a series of properties that greatly simplify data binding</p> <p>The first one is the <a title="Msdn Article" href="https://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.databoundcontrol.selectmethod.aspx" target="_blank">SelectMethod</a> property. You can give this property the name of a method in the codebehind. This method should return the data that the control needs to be bound to.</p>
+<p>The second property is <a title="Msdn Article" href="https://msdn.microsoft.com/en-us/library/system.web.ui.webcontrols.databoundcontrol.itemtype.aspx" target="_blank">ItemType</a>. Here you can enter the TypeName of the class that you are binding to. This will give you Intellisense support while creating your ItemTemplate.</p>
 <p>Let’s see how this all works together:</p>
 <div class="highlight"><pre><span class="nt">&lt;asp:ListView</span> <span class="na">id=</span><span class="s">&quot;ListOfUsers&quot;</span> <span class="na">runat=</span><span class="s">&quot;server&quot;</span> <span class="na">ItemType=</span><span class="s">&quot;Sioen.Layerless.Web.Pages.Account.UserModel&quot;</span> <span class="na">SelectMethod=</span><span class="s">&quot;ListUsers&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;ItemTemplate&gt;</span>
@@ -73,31 +73,18 @@
 					<img src="/img/avatar.jpg" />
 				</li>
 				<li>
-					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="http://www.infohos.be">Infohos Services</a> in Bruges, Belgium.</p>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I create asp.net webapplications for <a href="https://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
 				</li>
 				<li style="text-align: center">
-					<a href="https://github.com/LodewijkSioen" class="sb white github">Github</a>
-					<a href="https://twitter.com/LodewijkSioen" class="sb blue twitter">Twitter</a>
-					<a href="http://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
+					<a href="https://github.com/LodewijkSioen" class="sb white github" target="_blank">Github</a>
+					<a rel="me" href="https://mstdn.party/@LodewijkSioen" class="sb purple mastodon" target="_blank">Mastodon</a>
+					<a href="https://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
 					<a href="/blog/rss.xml" class="sb orange rss">RSS</a>
 				</li>
 			</ul>
 		</div>
 		<div id="footer" class="clear">
 			<p>&copy; Lodewijk Sioen</p>
-		</div>
-
-		<script type="text/javascript">
-		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-348460-1']);
-		  _gaq.push(['_setDomainName', 'correlatedcontent.com']);
-		  _gaq.push(['_trackPageview']);
-
-		  (function() {
-		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		  })();
-		</script>
+		</div>		
 	</body>
 </html>
