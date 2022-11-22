@@ -135,3 +135,9 @@ div.highlight{
 	#sidebar { float:none; width:100%; margin-left:0px; }
 	h1 { margin-top: -0px;}
 }
+
+/* extra social buttons */
+a.sb.mastodon,
+.sb a.mastodon {
+	background-image: url(../img/mastodon-logo.png);
+}
