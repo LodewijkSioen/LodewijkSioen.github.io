@@ -1,0 +1,63 @@
+<!DOCTYPE html >
+<html>
+	<head>
+		<meta content="en-gb" http-equiv="Content-Language" />
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />		
+		<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Sitewide Atom feed" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<title>{{ page.title }} - {{ site.title }}</title>
+		<link rel="stylesheet" type="text/css" href="/assets/css/social-buttons.css" />
+		<link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
+		<link rel="shortcut icon" href="/assets/img/favicon.ico" />
+	</head>
+	<body>
+		<div id="header">			
+			<h1><a href="/" title="home" alt="home">Correlated Content</a></h1>			
+			<a href="/" title="home" alt="home" style="display: block; line-height: 0;">
+				<img src="/assets/img/header.jpg" alt="Correlated Content" />
+			</a>
+		</div>
+		<div id="navigation">
+			<ul>
+				<li><a href="/" title="home" alt="home">Home</a></li>
+				<li><a href="/blog/" title="home" alt="home">Blog</a></li>
+				<li><a href="/cv.html" title="CV" alt="CV">CV</a></li>
+			</ul>
+		</div>
+		<div id="content-wrap">
+			<div id="content">
+				{{content}}
+			</div>
+		</div>
+		<div id="sidebar">
+			<ul>
+				<li>
+					<div id="avatar">
+						<img src="/assets/img/avatar.jpg" />
+					</div>
+				</li>
+				<li>
+					<p style="text-align: justify">My name is Lodewijk Sioen and I build asp.net core applications for <a href="https://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
+				</li>
+				<li style="text-align: center">
+					<a href="https://github.com/LodewijkSioen" class="sb white github" target="_blank">Github</a>
+					<a rel="me" href="https://hachyderm.io/@lodewijksioen" class="sb purple mastodon" target="_blank">Mastodon</a>
+					<a href="https://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
+					<a href="/feed.xml" class="sb orange rss">RSS</a>
+				</li>
+			</ul>
+		</div>
+		<div id="footer" class="clear">
+			<p>&copy; Lodewijk Sioen</p>
+		</div>		
+		<script type="module">
+			import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+			mermaid.initialize({ startOnLoad: false });
+			mermaid.run({
+				querySelector: ".language-mermaid"
+			});
+		</script>
+	</body>	
+</html>

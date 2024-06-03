@@ -1,0 +1,29 @@
+title: Correlated Content
+domain: "correlatedcontent.com"
+baseurl: "" 
+permalink: /blog/:title.html
+url: "https://www.correlatedcontent.com"
+
+excerpt_separator   : "<!--excerpt-->"
+
+feed:
+  excerpt_only: true
+
+# Build settings
+plugins:
+  - jekyll-feed
+
+# Exclude from processing.
+exclude:
+  - _run.bat
+  - CorrelatedContent.code-workspace
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

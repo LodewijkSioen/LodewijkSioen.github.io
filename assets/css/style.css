@@ -1,0 +1,159 @@
+body{
+	font-family: Segoe UI, sans-serif; 
+	margin-right: auto;
+	margin-left: auto;
+	width: 940px;
+    background-color: #f0f0f0;
+}
+a, a:visited{
+	color: #13678b;
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: underline;	
+}
+#header h1 a, #header h1 a:visited{
+	color: black;
+}
+#header h1 a:hover{
+	color: black;
+	text-decoration: none;
+}
+#header img {
+	border-top: 5px black solid;
+}
+#navigation{
+	background-color: black;	
+	padding: 2px;
+}
+#navigation a, #navigation a:visited{
+	color: white;	
+}
+#navigation ul{
+    margin: 0;
+    padding: 0;
+}
+#navigation li{
+	list-style-type:none;
+	display: inline-block;	
+	margin: 0 0 0 5px;
+    padding: 0;
+}
+#content-wrap{
+    float: left;
+    width: 100%;
+}
+#content{
+    margin-right: 250px;
+}
+#sidebar{
+    float: left;
+    width: 250px;
+    margin-left: -250px;
+}
+#sidebar ul{
+	margin: 0 0 0 50px;
+    padding: 0;
+}
+#sidebar li{
+	list-style-type:none;
+    margin: 20px 0 0;
+    padding: 0;
+}
+#avatar{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid white;
+}
+#avatar img {
+    width: 100%;
+}
+.entry img{
+    float: right;
+    padding: 5px;
+}
+blockquote{
+    border: gray 1px solid;
+    padding: 5px;
+    margin: 5px;
+}
+p{
+    margin-top: 0px;
+}
+
+/*CODE*/
+div.highlight {
+    overflow: auto;
+}
+pre.highlight {
+    margin: 10px;
+}
+
+/*COMMENTS*/
+.comment .commentheader {
+    float: left;
+    height: 33px;
+    line-height: 33px;
+    overflow: hidden;
+    width: 100%;
+}
+.comment .commentheader .commentgravatar {
+    border-color: #C8C8C8;
+    border-style: solid;
+    border-width: 1px;
+    display: inline-block;
+    height: 20px;
+    line-height: 1px;
+    margin-right: 3px;
+    margin-top: -2px;
+    overflow: visible;
+    padding: 1px;
+    vertical-align: middle;
+    width: 20px;
+}
+.comment .commentheader a:link {
+    text-decoration: none;
+}
+.comment .commentheader a:hover {
+    border-bottom: 1px solid;
+}
+.comment .commentheader .commentuser {
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+.comment .commentheader .commentdate {
+    color: #777777;
+    font-size: 11px;
+}
+.comment .commentbody {
+    margin: 40px 0 1em;
+    word-wrap: break-word;
+}
+.comment .commentbody p {
+    margin: 0.5em 0;
+}
+.postArchive li{
+	list-style-type:none;	
+}
+.clear{
+    clear: both;
+}
+
+/* min-device-width: 800px instead? */
+@media screen and (max-width:900px)
+{
+	body { width:auto; margin:10px; }
+	#content { width : 100%; }
+	#sidebar { float:none; width:100%; margin-left:0px; }
+	h1 { margin-top: -0px;}
+}
+
+/* extra social buttons */
+a.sb.mastodon,
+.sb a.mastodon {
+	background: center / 70% no-repeat url(../img/mastodon-logo.png);
+}
