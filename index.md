@@ -4,7 +4,7 @@ title: Blog
 ---
 <div class="posts">
     {% for post in site.posts  limit:5 %}
-			<div class="entry">				
+			<article>
 				<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
 					
 				<div class="postdate">
@@ -18,7 +18,7 @@ title: Blog
 					<img src="/assets/img/ajax-loader.gif" /> Loading comments...
 				</div>
 				{% endif %}
-			</div>
+			</article>
     {% endfor %}
 </div>
 

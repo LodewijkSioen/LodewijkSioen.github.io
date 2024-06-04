@@ -12,50 +12,41 @@ a, a:visited{
 a:hover{
 	text-decoration: underline;	
 }
-#header h1 a, #header h1 a:visited{
+header h1 a, #header h1 a:visited{
 	color: black;
 }
-#header h1 a:hover{
+header h1 a:hover{
 	color: black;
 	text-decoration: none;
 }
-#header img {
+header img {
 	border-top: 5px black solid;
 }
-#navigation{
+nav {
 	background-color: black;	
-	padding: 2px;
+	padding: 5px 10px;
+    display: flex;
+    gap: 10px;
 }
-#navigation a, #navigation a:visited{
-	color: white;	
+nav a, nav a:visited{
+	color: #f0f0f0;
+    font-weight: bold;
 }
-#navigation ul{
-    margin: 0;
-    padding: 0;
+#body {
+    display: flex;
 }
-#navigation li{
-	list-style-type:none;
-	display: inline-block;	
-	margin: 0 0 0 5px;
-    padding: 0;
+#content {
+    width: 690px;
 }
-#content-wrap{
-    float: left;
-    width: 100%;
-}
-#content{
-    margin-right: 250px;
-}
-#sidebar{
+aside {
     float: left;
     width: 250px;
-    margin-left: -250px;
 }
-#sidebar ul{
+aside ul{
 	margin: 0 0 0 50px;
     padding: 0;
 }
-#sidebar li{
+aside li{
 	list-style-type:none;
     margin: 20px 0 0;
     padding: 0;
@@ -70,7 +61,7 @@ a:hover{
 #avatar img {
     width: 100%;
 }
-.entry p:has(img) {
+article p:has(img) {
     padding: 5px;
     width: 100%;
     text-align: center;

@@ -2,13 +2,11 @@
 layout: default
 ---
 
-<div class="entry-container">
-	<div class='entry'>
-		<h2> {{page.title}} </h2>
-		<div class="postdate">{{ page.date | date: "%e %B, %Y"  }}</div>
-		{{ content }}
-	</div>
-</div>
+<article>
+	<h2> {{page.title}} </h2>
+	<div class="postdate">{{ page.date | date: "%e %B, %Y"  }}</div>
+	{{ content }}
+</article>
 <div id="page-navigation"> 
 	<div class="left"> {% if page.next.url %} <a href="{{page.next.url}}" title="next Post: {{page.next.title}}">&larr; {{page.next.title}}</a> {% endif %} </div> 
 	<div class="right"> {% if page.previous.url %} <a href="{{page.previous.url}}" title="Previous Post: {{page.previous.title}}">{{page.previous.title}} &rarr;</a> {% endif %} </div> 
