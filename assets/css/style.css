@@ -70,9 +70,10 @@ a:hover{
 #avatar img {
     width: 100%;
 }
-.entry img{
-    float: right;
+.entry p:has(img) {
     padding: 5px;
+    width: 100%;
+    text-align: center;
 }
 blockquote{
     border: gray 1px solid;
@@ -81,6 +82,10 @@ blockquote{
 }
 p{
     margin-top: 0px;
+}
+.postdate {
+    margin: 10px 0;
+    font-weight: bold;
 }
 
 /*CODE*/
