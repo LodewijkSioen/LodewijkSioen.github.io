@@ -1,0 +1,57 @@
+---
+layout: default
+---
+
+<article>
+	<h2> {{page.title}} </h2>
+	<div class="postdate">{{ page.date | date: "%e %B, %Y"  }}</div>
+	{{ content }}
+</article>
+<div id="page-navigation"> 
+	<div class="left"> {% if page.next.url %} <a href="{{page.next.url}}" title="next Post: {{page.next.title}}">&larr; {{page.next.title}}</a> {% endif %} </div> 
+	<div class="right"> {% if page.previous.url %} <a href="{{page.previous.url}}" title="Previous Post: {{page.previous.title}}">{{page.previous.title}} &rarr;</a> {% endif %} </div> 
+		<div class="clear">&nbsp;</div>
+</div>
+{% if page.commentId %}
+<div id="comments">
+	<b>Comments</b>
+	<p>
+		Want to leave a comment? Visit <a href="https://github.com/LodewijkSioen/LodewijkSioen.github.io/issues/{{page.commentId}}"> this post's issue page on GitHub</a>.
+	</p>
+	<div id="commentPlaceholder">
+		<img src="/assets/img/ajax-loader.gif" /> Loading comments...
+	</div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js"></script>
+<script>
+function loadComments(data){
+	if(data.length === 0){
+		$("#commentPlaceholder").replaceWith("<div class='comment'>No comments yet.</div>");
+		return;
+	}
+console.log(data)
+	for (var i=0; i<data.length; i++) {
+        var cuser = data[i].user.login;
+        var cuserlink = "https://www.github.com/" + data[i].user.login;
+        var clink = "https://github.com/LodewijkSioen/LodewijkSioen.github.io/issues/{{page.commentId}}#issuecomment-" + data[i].url.substring(data[i].url.lastIndexOf("/")+1);
+        var cbody = data[i].body_html;
+        var cavatarlink = data[i].user.avatar_url;
+        var cdate = Date.parse(data[i].created_at).toString("yyyy-MM-dd HH:mm:ss");
+ 
+        $("#comments").append("<div class='comment'><div class='commentheader'><div class='commentgravatar'>" + '<img src="' + cavatarlink + '" alt="" width="20" height="20">' + "</div><a class='commentuser' href=\""+ cuserlink + "\">" + cuser + "</a><a class='commentdate' href=\"" + clink + "\">" + cdate + "</a></div><div class='commentbody'>" + cbody + "</div></div>");
+    }
+    $("#commentPlaceholder").hide();
+}
+
+$.ajax("https://api.github.com/repos/LodewijkSioen/LodewijkSioen.github.io/issues/{{ page.commentId }}/comments", {
+    headers: {Accept: "application/vnd.github.full+json"},
+    success: function(msg){
+       loadComments(msg);
+	},
+	error: function(){
+		$("commentPlaceholder").replaceWith("Error loading comments.");
+	}
+});
+</script>
+{% endif %}
