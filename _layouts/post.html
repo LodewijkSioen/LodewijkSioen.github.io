@@ -3,14 +3,17 @@ layout: default
 ---
 
 <article>
-	<h2> {{page.title}} </h2>
-	<div class="postdate">{{ page.date | date: "%e %B, %Y"  }}</div>
+	<h2>{% include page_title.html target=page %}</h2>
+	
+	<div class="postdate">{{ page.date | date: "%B %e, %Y"  }}</div>
 	{{ content }}
+
+	{% include category_posts.html %}
+
 </article>
 <div id="page-navigation"> 
-	<div class="left"> {% if page.next.url %} <a href="{{page.next.url}}" title="next Post: {{page.next.title}}">&larr; {{page.next.title}}</a> {% endif %} </div> 
-	<div class="right"> {% if page.previous.url %} <a href="{{page.previous.url}}" title="Previous Post: {{page.previous.title}}">{{page.previous.title}} &rarr;</a> {% endif %} </div> 
-		<div class="clear">&nbsp;</div>
+	<div> {% if page.next.url %} <a href="{{page.next.url}}" title="next Post: {{page.next.title}}">&larr; {{page.next.title}}</a> {% endif %} </div> 
+	<div> {% if page.previous.url %} <a href="{{page.previous.url}}" title="Previous Post: {{page.previous.title}}">{{page.previous.title}} &rarr;</a> {% endif %} </div>
 </div>
 {% if page.commentId %}
 <div id="comments">
@@ -30,7 +33,7 @@ function loadComments(data){
 		$("#commentPlaceholder").replaceWith("<div class='comment'>No comments yet.</div>");
 		return;
 	}
-console.log(data)
+
 	for (var i=0; i<data.length; i++) {
         var cuser = data[i].user.login;
         var cuserlink = "https://www.github.com/" + data[i].user.login;

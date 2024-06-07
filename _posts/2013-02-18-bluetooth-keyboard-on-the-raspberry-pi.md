@@ -2,12 +2,10 @@
 title: Bluetooth Keyboard on the Raspberry Pi
 date: 2013-02-18
 layout: post
-categories:
-- Raspberry Pi
-tags: []
 ---
 
 {% include inline.html content="![Blurry Image of a Raspberry Pi](/assets/img/blog/BluetoothKeyboard_raspberry.jpg)" %}
+
 So I joined the hype and got myself a [Raspberry Pi][1]. I loaded it with 
 [RaspBMC][2] and now I’ve got a nice little media center connected to my TV. 
 All my music and pictures already reside on a NAS in the utility closet 

@@ -8,7 +8,7 @@ excerpt_separator   : "<!--excerpt-->"
 
 collections:
   posts:
-    permalink: /blog/:year/:month/:day/:title
+    permalink: /blog/:year/:month/:day/:slugified_categories/:title
 
 kramdown:
   header_offset: 2
