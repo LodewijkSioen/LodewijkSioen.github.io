@@ -1,0 +1,35 @@
+@import "variables";
+
+header {
+    h1 {
+        margin: 5px 0;
+
+        a, a:visited, a:hover {
+            color: black;
+            text-decoration: none;
+        }
+    }
+
+    img {
+        border-top: 5px black solid;
+    }
+
+    #banner {
+        display: block; 
+        line-height: 0;
+
+    }
+}
+
+
+nav {
+	background-color: black;	
+	padding: 5px 10px;
+    display: flex;
+    gap: 10px;
+
+    a, a:visited {
+        color: $background-color;
+        font-weight: bold;
+    }
+}

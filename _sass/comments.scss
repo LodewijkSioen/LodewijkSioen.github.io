@@ -1,0 +1,50 @@
+.comment { 
+    .commentheader {
+        float: left;
+        height: 33px;
+        line-height: 33px;
+        overflow: hidden;
+        width: 100%;
+
+        .commentgravatar {
+            border-color: #C8C8C8;
+            border-style: solid;
+            border-width: 1px;
+            display: inline-block;
+            height: 20px;
+            line-height: 1px;
+            margin-right: 3px;
+            margin-top: -2px;
+            overflow: visible;
+            padding: 1px;
+            vertical-align: middle;
+            width: 20px;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a:hover {
+            border-bottom: 1px solid;
+        }
+        .commentuser {
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 5px;
+            margin-right: 10px;
+        }
+        .commentdate {
+            color: #777777;
+            font-size: 11px;
+        }
+    }
+    .commentbody {
+        margin: 40px 0 1em;
+        word-wrap: break-word;
+
+        p {
+            margin: 0.5em 0;
+        }
+    }
+}

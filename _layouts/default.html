@@ -8,43 +8,47 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 		<title>{{ page.title }} - {{ site.title }}</title>
 		<link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
-		<link rel="stylesheet" type="text/css" href="/assets/css/social-buttons.css" />
-		<link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
 		<link rel="shortcut icon" href="/assets/img/favicon.ico" />
 	</head>
 	<body>
 		<header>
 			<h1><a href="/" title="home" alt="home">Correlated Content</a></h1>			
-			<a href="/" title="home" alt="home" style="display: block; line-height: 0;">
+			<a href="/" title="home" alt="home" id="banner">
 				<img src="/assets/img/header.jpg" alt="Correlated Content" />
 			</a>
 		</header>
 
 		{% include navigation.html %}
 		
-		<div id="body">
-			<div id="content">{{content}}</div>
+		<div id="container">
+			<main>
+				{{content}}
+			</main>
 			<aside>
-				<ul>
-					<li>
-						<div id="avatar">
-							<img src="/assets/img/avatar.jpg" />
-						</div>
-					</li>
-					<li>
-						<p style="text-align: justify">My name is Lodewijk Sioen and I build asp.net core applications for <a href="https://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
-					</li>
-					<li style="text-align: center">
-						<a href="https://github.com/LodewijkSioen" class="sb white github" target="_blank">Github</a>
-						<a rel="me" href="https://hachyderm.io/@lodewijksioen" class="sb purple mastodon" target="_blank">Mastodon</a>
-						<a href="https://stackoverflow.com/users/66842/lodewijk" class="sb white stackoverflow" target="_blank">StackOverflow</a>
-						<a href="/feed.xml" class="sb orange rss">RSS</a>
-					</li>
-				</ul>
+				<div id="avatar">
+					<img src="/assets/img/avatar.jpg" />
+				</div>
+				<div id="blurb">
+					<p>My name is Lodewijk Sioen and I build asp.net core applications for <a href="https://www.zorgi.be">Zorgi</a> in Bruges, Belgium.</p>
+				</div>
+				<div id="socials">
+					<a href="https://github.com/LodewijkSioen" title="github" target="_blank">
+						<img src="/assets/img/github.svg" title="github" />
+					</a>
+					<a rel="me" href="https://hachyderm.io/@lodewijksioen" title="mastodon" target="_blank">
+						<img src="/assets/img/mastodon.svg" title="mastodon"/>
+					</a>
+					<a href="https://stackoverflow.com/users/66842/lodewijk" title="Stack Overflow" target="_blank">
+						<img src="/assets/img/stackoverflow.svg" title="Stack Overflow" id="stackoverflow" />
+					</a>
+					<a href="/feed.xml" title="Atom feed">
+						<img src="/assets/img/rss.svg" title="Atom feed" />
+					</a>
+				</div>
 			</aside>
 		</div>
 		<footer>
-			<p>&copy; Lodewijk Sioen</p>
+			<p>&copy; {{ "now" | date: "%Y" }}, <a rel="author" href="{{ "/" | absolute_url }}">Lodewijk Sioen</a>.</p>
 		</footer>		
 		<script type="module">
 			import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';

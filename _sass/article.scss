@@ -1,0 +1,26 @@
+article {
+    p:has(img) {
+        padding: 5px;
+        width: 100%;
+        text-align: center;
+    }
+    blockquote{
+        border: gray 1px solid;
+        padding: 5px;
+        margin: 5px;
+    }
+    .postdate {
+        margin: 10px 0;
+        font-weight: bold;
+    }
+    .inline {
+        float: right;
+    }    
+}
+
+#page-navigation {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+}

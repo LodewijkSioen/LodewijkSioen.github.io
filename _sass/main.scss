@@ -1,0 +1,94 @@
+@use "variables";
+
+body{
+	font-family: Segoe UI, sans-serif; 
+	margin-right: auto;
+	margin-left: auto;
+	max-width: $max-width;
+    background-color: $background-color;
+}
+
+a, a:visited {
+    color: $link-color;
+	text-decoration: none;
+    
+    &:hover {
+        text-decoration: underline;	
+    }
+}
+
+#container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+main {
+    max-width: $main-width
+}
+
+.postArchive li{
+	list-style-type:none;	
+}
+
+footer {
+    text-align: center;
+}
+
+@media screen and (max-width: $main-width)
+{
+	body { max-width: $main-width; }
+    #banner { display: none;}
+	#container { flex-direction: column;  }
+    main { width: 100%; }
+    aside { align-self: center; }    
+	h1 { margin-top: 0;}
+}
+
+/*CODE*/
+$background-code: #f6f8fa;
+div.highlight {
+    overflow: auto;
+    background-color: $background-code;
+    border-radius: 6px;
+}
+pre.highlight {
+    margin: 10px;
+    padding: 16px;
+    margin: 0;
+    font-size: 85%;
+    line-height: 1.45;
+    
+}
+code.highlighter-rouge {
+    background-color: $background-code;
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 85%;
+    border-radius: 6px;
+}
+
+
+/* TABLE */
+table {
+    border-collapse: collapse;
+    overflow-x: scroll;
+}
+tbody tr:nth-child(even) {
+    background-color: #DDDDDD;
+}
+thead th {
+    border-bottom: 4px black double;
+}
+tbody td:not(:first-child) {
+    border-left: 1px solid black;
+}
+th, td{
+    padding: 5px;
+}
+
+.benchmark {
+    table td {
+        text-wrap: nowrap;
+    }
+    overflow-x: scroll;
+}
