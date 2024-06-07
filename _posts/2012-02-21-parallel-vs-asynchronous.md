@@ -10,6 +10,7 @@ asynchronicity._
 
 [1]: {% link _posts/2011-09-18-playing-with-the-task-parallel-library.md %}
 
+<!--excerpt-->
 
 # A Story
 First a true story. I was once at the Ikea and needed three extra pieces

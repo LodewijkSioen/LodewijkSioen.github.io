@@ -11,6 +11,8 @@ completely different concepts: _asynchronous_ and _parallel_.
 
 Or, how one blogpost became two. First: Asynchronous!
 
+<!--excerpt-->
+
 Imagine a controller that needs to combine data from three different sources.
 The three subsystems are slow and it takes a while before you get your
 answer:

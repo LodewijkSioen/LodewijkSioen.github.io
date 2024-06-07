@@ -5,15 +5,13 @@ title: Blog
 <div class="posts">
     {% for post in site.posts  limit:5 %}
 			<article>
-				<h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
 				<h2><a href="{{ post.url }}">{% include page_title.html target=post %}</a></h2>
 					
 				<div class="postdate">
-					{{ post.date | date: "%e %B, %Y"  }}					
+					{{ post.date | date: "%B %e, %Y"  }}					
 				</div>
 					
-				<div>{{ post.content | split:'<!--excerpt-->' | first }}</div>
-				<div><a href="{{ post.url}}">Read the rest of "{{ post.title }}"</a></div>
+				<div>{{ post.excerpt }}</div>
 				<div><a href="{{ post.url}}">Read the rest of "{% include page_title.html target=post %}"</a></div>
 				{% if post.commentId %}
 				<div id="commentsFor{{ post.commentId }}">
@@ -28,7 +26,6 @@ title: Blog
 <ul class="postArchive">
 {% for post in site.posts offset:5 %}
 	<li>
-		<span class="olderpostdate"> {{ post.date | date: "%d %b"  }} </span> <a class="postlink" href="{{ post.url }}">{{ post.title }}</a>
 		<span> {{ post.date | date: "%d %b %y"  }} </span> <a href="{{ post.url }}">{% include page_title.html target=post %}</a>
 	</li>
 {% endfor %}

@@ -89,4 +89,4 @@ public void TestALotOfExceptions()
 }
 ```
 
-[1]: https://petermorlion.blogspot.be/2012/08/when-do-you-write-your-tests.html
+[1]: https://petermorlion.com/when_do_you_write_your_tests_/

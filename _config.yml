@@ -4,7 +4,10 @@ baseurl: ""
 permalink: /blog/:title.html
 url: "https://www.correlatedcontent.com"
 
-excerpt_separator   : "<!--excerpt-->"
+author:
+  name: Lodewijk Sioen
+
+excerpt_separator: "<!--excerpt-->"
 
 collections:
   posts:
@@ -12,7 +15,6 @@ collections:
 
 kramdown:
   header_offset: 2
-  
 
 feed:
   excerpt_only: true
