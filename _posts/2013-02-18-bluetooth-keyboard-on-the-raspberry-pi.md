@@ -7,6 +7,7 @@ categories:
 tags: []
 ---
 
+{% include inline.html content="![Blurry Image of a Raspberry Pi](/assets/img/blog/BluetoothKeyboard_raspberry.jpg)" %}
 So I joined the hype and got myself a [Raspberry Pi][1]. I loaded it with 
 [RaspBMC][2] and now I’ve got a nice little media center connected to my TV. 
 All my music and pictures already reside on a NAS in the utility closet 
@@ -15,8 +16,6 @@ bad codec support) and with a [DLNA][3] capable blu-ray player (silent, but
 clumsy UI and also bad codec support), but nothing really worked that great. 
 With the Raspberry, I now have a great front-end for my media collection. It’s 
 silent (passively cooled) and runs every file I throw at it.
-
-![Blurry Image of a Raspberry Pi](/assets/img/blog/BluetoothKeyboard_raspberry.jpg)
 
 [1]: https://www.raspberrypi.org/
 [2]: https://www.raspbmc.com/
