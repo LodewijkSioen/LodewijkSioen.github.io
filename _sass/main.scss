@@ -75,7 +75,6 @@ code.highlighter-rouge {
 /* TABLE */
 table {
     border-collapse: collapse;
-    overflow-x: scroll;
 }
 tbody tr:nth-child(even) {
     background-color: #DDDDDD;
@@ -91,6 +90,9 @@ th, td{
 }
 
 .benchmark {
+    table {
+        margin-bottom: 16px;
+    }
     table td {
         text-wrap: nowrap;
     }
