@@ -1,0 +1,15 @@
+@media screen and (max-width: $main-width)
+{
+	body { max-width: $main-width; }
+    header {
+        margin: 0 10px;
+        #banner { display: none }
+    }
+	#container { 
+        flex-direction: column;
+        margin: 0 10px;
+    }
+    main { width: 100%; }
+    aside { align-self: center; }    
+	h1 { margin-top: 0;}
+}
