@@ -2,7 +2,8 @@
     <h3>Other Posts in this series</h3>
     <ol>
         {% assign cat_name = page.categories[0] %}
-        {% for post in site.categories[cat_name]] %}
+        {% assign posts = site.categories[cat_name]] | sort: 'date' %}
+        {% for post in posts  %}
             <li><a href="{{post.url}}">{{ post.title }}</a></li>
         {% endfor %}
     </ol>

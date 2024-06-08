@@ -1,1 +1,1 @@
-jekyll serve --livereload --drafts
+jekyll serve --livereload --drafts --future
