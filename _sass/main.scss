@@ -52,7 +52,7 @@ footer {
 @media screen and (max-width: $main-width)
 {
 	body { max-width: $main-width; }
-    #banner { display: none;}
+    header {#banner { display: none !important;}}
 	#container { flex-direction: column;  }
     main { width: 100%; }
     aside { align-self: center; }    
